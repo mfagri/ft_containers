@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/01 01:25:43 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/01 03:55:34 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,78 +15,57 @@
 #include <vector>
 #include <exception>
 
-int main()
-{
-    ft::vector<int> vec;
- 
-    // 5 elements are inserted
-    // in the vector
-    vec.push_back(1);
-    vec.push_back(2);
-    vec.push_back(3);
-    vec.push_back(4);
-    vec.push_back(5);
- 
-    // std::cout << "Contents of vector before resizing:"
-    //      << std::endl;
-     
-    // // displaying the contents of the
-    // // vector before resizing
-    // for (size_t i = 0; i < vec.size(); i++)
-    //     std::cout << vec[i] << " ";
- 
-    std::cout << std::endl;
- 
-    // vector is resized
-    //  vec.resize(4);
-     vec.resize(8);
-    vec.resize(12, 9);
- 
-    // std::cout << "Contents of vector after resizing:"
-    //      << std::endl;
- 
-    // displaying the contents of
-    // the vector after resizing
-    for (size_t i = 0; i < vec.size(); i++)
-        std::cout << vec[i] << " ";
-  std::cout << "size: " << vec.size() << "\n";
-  std::cout << "capacity: " << vec.capacity() << "\n";
-  std::cout << "max_size: " << vec.max_size() << "\n";
+using namespace std;
 
-  std::vector<int> vecs;
+// void print_vector(ft::vector<int> vec){
+//   for(size_t x: vec.capacity())
+//     cout << x << " ";
+// }
+// int main()
+// {
+//     ft::vector<int> vec;
  
-    // 5 elements are inserted
-    // in the vecstor
-    vecs.push_back(1);
-    vecs.push_back(2);
-    vecs.push_back(3);
-    vecs.push_back(4);
-    vecs.push_back(5);
+//     // 5 elements are inserted
+//     // in the vector
+//     vec.push_back(1);
+//     vec.push_back(2);
+//     vec.push_back(3);
+//     vec.push_back(4);
+//     vec.push_back(5);
  
-    // std::cout << "Contents of vecstor before resizing:"
-    //      << std::endl;
+//     cout << "Contents of vector before resizing:"
+//          << endl;
      
-    // // displaying the contents of the
-    // // vecstor before resizing
-    // for (size_t i = 0; i < vecs.size(); i++)
-    //     std::cout << vecs[i] << " ";
+//     // displaying the contents of the
+//     // vector before resizing
+//     for (size_t i = 0; i < vec.size(); i++)
+//         cout << vec[i] << " ";
  
-    std::cout << std::endl;
+//     cout << endl;
  
-    // vecstor is resized
-    //  vecs.resize(4);
-     vecs.resize(8);
-     vecs.resize(12, 9);
+//     // vector is resized
+//     vec.resize(12, 9);
  
-    // std::cout << "Contents of vecstor after resizing:"
-    //      << std::endl;
- 
-    // displaying the contents of
-    // the vecstor after resizing
-    for (size_t i = 0; i < vecs.size(); i++)
-        std::cout << vecs[i] << " ";
-  std::cout << "ssize: " << vecs.size() << "\n";
-  std::cout << "scapacity: " << vecs.capacity() << "\n";
-  std::cout << "smax_size: " << vecs.max_size() << "\n";
+//     cout << "Contents of vector after resizing:"
+//          << endl;
+     
+//     // displaying the contents of the
+//     // vector after resizing
+//     for (size_t i = 0; i < vec.size(); i++)
+//         cout << vec[i] << " ";
+
+//     std::cout<<vec.capacity()<<std::endl;
+//     return 0;
+// }
+
+int    main () {
+    int a = 1;
+    int& aref = a;
+    int b = 7;
+    std::cout << a << '\n';
+    std::cout << aref << '\n';
+    aref = b;
+    std::cout << a << '\n';
+    std::cout << aref << '\n';
     
 }
