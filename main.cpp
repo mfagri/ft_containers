@@ -6,12 +6,13 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/01 03:55:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/01 05:01:23 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #include <iostream>
+#include <chrono>
 #include <vector>
 #include <exception>
 
@@ -58,14 +59,21 @@ using namespace std;
 //     return 0;
 // }
 
-int    main () {
-    int a = 1;
-    int& aref = a;
-    int b = 7;
-    std::cout << a << '\n';
-    std::cout << aref << '\n';
-    aref = b;
-    std::cout << a << '\n';
-    std::cout << aref << '\n';
-    
+int main ()
+{
+  ft::vector<int> myvector;
+
+  // set some initial content:
+  for (ft::vector<int>::size_type i=1;i<10;i++) myvector.push_back(i);
+
+  myvector.resize(5);
+  myvector.resize(8,100);
+  myvector.resize(12);
+
+  cout << "myvector contains:";
+  for (ft::vector<int>::size_type i=0;i<myvector.size();i++)
+    cout << ' ' << myvector[i];
+  cout << '\n';
+
+  return 0;
 }

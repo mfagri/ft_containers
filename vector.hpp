@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/01 04:23:10 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/01 04:57:28 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,7 @@ class vector
         value_type *new_arr = _alloc.allocate(n);
 
         for (size_t i = 0; i < m_size && i < n; i++) {
-            _alloc.construct(&new_arr[i],  arr[i]);
-            _alloc.destroy(&arr[i]);
+            new_arr[i] = arr[i];
         }
         _alloc.deallocate(arr, m_capacity);
         arr = new_arr;
