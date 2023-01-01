@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2022/12/31 21:46:37 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/01 01:23:46 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,34 @@ class vector
             return (this->_alloc.max_size());
         }
 
-        // void resize (size_type n, value_type val = value_type())
-        // {
-        //     value_type *tmp = _alloc.allocate(n);
-        // }
+        void resize (size_type n, value_type val = value_type())
+        {
+            if(n < m_size)
+            {
+                value_type *tmp = _alloc.allocate(n);
+                for (size_t i = 0; i < n; i++)
+                    tmp[i] = arr[i];
+                _alloc.deallocate(arr,m_capacity);
+                arr = tmp;
+                m_size = n;
+            }
+            else if(n > m_size)
+            {
+                if(n > m_capacity)
+                    m_capacity *=2;
+                value_type *tmp = _alloc.allocate(m_capacity);
+                for (size_t i = 0; i < n; i++)
+                {
+                    if(i < m_size)
+                        tmp[i] = arr[i];
+                    else
+                        tmp[i] = val;
+                }
+                _alloc.deallocate(arr,m_capacity);
+                arr = tmp;
+                m_size = n;
+            }
+        }
     void push_back (const value_type& val)
     {
             if (m_capacity == m_size) {
