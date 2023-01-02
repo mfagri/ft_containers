@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/01 05:01:23 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/02 19:04:15 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,62 +18,102 @@
 
 using namespace std;
 
-// void print_vector(ft::vector<int> vec){
-//   for(size_t x: vec.capacity())
-//     cout << x << " ";
-// }
-// int main()
-// {
-//     ft::vector<int> vec;
- 
-//     // 5 elements are inserted
-//     // in the vector
-//     vec.push_back(1);
-//     vec.push_back(2);
-//     vec.push_back(3);
-//     vec.push_back(4);
-//     vec.push_back(5);
- 
-//     cout << "Contents of vector before resizing:"
-//          << endl;
-     
-//     // displaying the contents of the
-//     // vector before resizing
-//     for (size_t i = 0; i < vec.size(); i++)
-//         cout << vec[i] << " ";
- 
-//     cout << endl;
- 
-//     // vector is resized
-//     vec.resize(12, 9);
- 
-//     cout << "Contents of vector after resizing:"
-//          << endl;
-     
-//     // displaying the contents of the
-//     // vector after resizing
-//     for (size_t i = 0; i < vec.size(); i++)
-//         cout << vec[i] << " ";
+#include <vector>
+#include <cassert>
+#include <iostream>
 
-//     std::cout<<vec.capacity()<<std::endl;
-//     return 0;
+// int main() {
+//   // Create a vector with three elements
+// vector<int> v;
+//  v.push_back(1);
+//  v.push_back(2);
+//   v.push_back(3);
+//   // Check that the vector has the expected size and elements
+//   assert(v.size() == 3);
+//   assert(v[0] == 1);
+//   assert(v[1] == 2);
+//   assert(v[2] == 3);
+
+//   // Remove the last element of the vector
+//   v.pop_back();
+
+//   // Check that the vector has the expected size and elements
+//   assert(v.size() == 2);
+//   assert(v[0] == 1);
+//   assert(v[1] == 2);
+
+//   // Remove the last element of the vector again
+//   v.pop_back();
+
+//   // Check that the vector has the expected size and elements
+//   assert(v.size() == 1);
+//   assert(v[0] == 1);
+
+//   // Remove the last element of the vector again
+//   v.pop_back();
+
+//   // Check that the vector is empty
+//   assert(v.empty());
+
+//   std::cout << "All tests passed" << std::endl;
+
+//  return 0;
+
 // }
+
+
+// int main() {
+//   // Create an empty vector
+//   ft::vector<int> v;
+
+//   // Check that the vector is empty
+//   assert(v.empty());
+
+//   // Add an element to the vector
+//   v.push_back(1);
+
+//   // Check that the vector has the expected size and elements
+//   assert(v.size() == 1);
+//   assert(v[0] == 1);
+
+//   // Add another element to the vector
+//   v.push_back(2);
+
+//   // Check that the vector has the expected size and elements
+//   assert(v.size() == 2);
+//   assert(v[0] == 1);
+//   assert(v[1] == 2);
+
+//   // Add another element to the vector
+//   v.push_back(3);
+
+//   // Check that the vector has the expected size and elements
+//   assert(v.size() == 3);
+//   assert(v[0] == 1);
+//   assert(v[1] == 2);
+//   assert(v[2] == 3);
+
+//   std::cout << "All tests passed" << std::endl;
+
+//   return 0;
+// }
+
 
 int main ()
 {
-  ft::vector<int> myvector;
+  std::vector<int> myvector (5);
 
-  // set some initial content:
-  for (ft::vector<int>::size_type i=1;i<10;i++) myvector.push_back(i);
+  int* p = myvector.data();
 
-  myvector.resize(5);
-  myvector.resize(8,100);
-  myvector.resize(12);
+  *p = 10;
+  ++p;
+  *p = 20;
+  p[2] = 100;
 
-  cout << "myvector contains:";
-  for (ft::vector<int>::size_type i=0;i<myvector.size();i++)
-    cout << ' ' << myvector[i];
-  cout << '\n';
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.size(); ++i)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
 
   return 0;
 }
