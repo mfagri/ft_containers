@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/02 19:04:15 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/02 22:36:09 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,39 @@ using namespace std;
 //   return 0;
 // }
 
+void fun()
+{
+  system("leaks containers");
+}
+
+#include <iostream>
+#include <vector>
 
 int main ()
 {
-  std::vector<int> myvector (5);
+  ft::vector<int>::size_type sz;
 
-  int* p = myvector.data();
+  ft::vector<int> foo;
+  sz = foo.capacity();
+  std::cout << "making foo grow:\n";
+  for (int i=0; i<100; ++i) {
+    foo.push_back(i);
+    if (sz!=foo.capacity()) {
+      sz = foo.capacity();
+      std::cout << "capacity changed: " << sz << '\n';
+    }
+  }
 
-  *p = 10;
-  ++p;
-  *p = 20;
-  p[2] = 100;
-
-  std::cout << "myvector contains:";
-  for (unsigned i=0; i<myvector.size(); ++i)
-    std::cout << ' ' << myvector[i];
-  std::cout << '\n';
-
+  std::vector<int> bar;
+  sz = bar.capacity();
+  bar.reserve(100);   // this is the only difference with foo above
+  std::cout << "making bar grow:\n";
+  for (int i=0; i<100; ++i) {
+    bar.push_back(i);
+    if (sz!=bar.capacity()) {
+      sz = bar.capacity();
+      std::cout << "capacity changed: " << sz << '\n';
+    }
+  }
   return 0;
 }

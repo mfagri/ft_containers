@@ -1,16 +1,8 @@
 vector::assign /1
 vector::begin
-vector::cbegin
 vector::cend
-vector::crbegin
-vector::crend
-vector::data
-vector::emplace
-vector::emplace_back
 vector::end
 vector::erase
-vector::front
 vector::insert
 vector::rbegin
 vector::rend
-vector::swap

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/02 19:05:03 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/02 22:31:49 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,16 @@ class vector
     }
     vector& operator= (const vector& x)
     {
-        this->m_capacity = x.m_capacity;
-        this->m_size = x.m_size;
-        this->arr = _alloc.allocate(x.m_size);
-        /////
-        for(size_t i = 0;i < x.m_size;i++)
+        if(this != &x)
         {
-            this->arr[i] = x.arr[i];
+            this->m_capacity = x.m_capacity;
+            this->m_size = x.m_size;
+            this->arr = _alloc.allocate(x.m_size);
+            /////
+            for(size_t i = 0;i < x.m_size;i++)
+            {
+                this->arr[i] = x.arr[i];
+            }
         }
         return(*this);
     }
@@ -129,18 +132,18 @@ class vector
         return (this->m_size == 0);
     }
 
-    void shrink_to_fit()
-    {
-        if(m_capacity > m_size)
-        {
-            value_type *tmp = _alloc.allocate(m_size);
-            for (size_t i = 0; i < m_size; i++)
-                tmp[i] = arr[i];
-            _alloc.deallocate(arr,m_capacity);
-            arr = tmp;
-            this->m_capacity = this->m_size;
-        }
-    }
+    // void shrink_to_fit()
+    // {
+    //     if(m_capacity > m_size)
+    //     {
+    //         value_type *tmp = _alloc.allocate(m_size);
+    //         for (size_t i = 0; i < m_size; i++)
+    //             tmp[i] = arr[i];
+    //         _alloc.deallocate(arr,m_capacity);
+    //         arr = tmp;
+    //         this->m_capacity = this->m_size;
+    //     }
+    // }
     
     void reserve (size_type n)
     {
@@ -148,9 +151,8 @@ class vector
             return;
         value_type *new_arr = _alloc.allocate(n);
 
-        for (size_t i = 0; i < m_size && i < n; i++) {
-            new_arr[i] = arr[i];
-        }
+        for (size_t i = 0; i < m_size && i < n; i++)
+            new_arr[i] = arr[i];// construct
         _alloc.deallocate(arr, m_capacity);
         arr = new_arr;
         m_capacity = n;
@@ -219,12 +221,24 @@ class vector
     {
        return (arr[m_size - 1]);
     }
+    
+    reference front()
+    {
+        return (arr[0]);
+    }
+    
+    const_reference front() const
+    {
+        return (arr[0]);
+    }
+    
     const_reference at (size_type n) const
     {
         if (n >= size())
             throw throw_out_of_range();
         return this->arr[n];
     }
+    
     reference at (size_type n)
     {
         if (n >= size())
@@ -234,10 +248,8 @@ class vector
     void pop_back()
     {
         --m_size;
-    
     }
-
-
+    
     void clear()
     {
         m_size = 0;
@@ -246,13 +258,9 @@ class vector
     {
         return (_alloc);
     }
-    value_type* data()
+    void swap (vector& x)
     {
-        return(arr);
-    }
-    const value_type* data() const
-    {
-         return(arr);
+        std::swap(*this,x);////ssds
     }
     //   void reserve( int newCapacity )
     // {
