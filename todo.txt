@@ -1,8 +1,7 @@
 vector::assign /1
-vector::begin
-vector::cend
-vector::end
 vector::erase
 vector::insert
 vector::rbegin
 vector::rend
+
+//////////////////////

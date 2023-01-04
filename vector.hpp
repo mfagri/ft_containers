@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/02 22:31:49 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 02:56:24 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <vector>
 #include <memory>
 #include <map>
+#include "vector_iterator.hpp"
 namespace ft
 {
 
@@ -37,7 +38,8 @@ class vector
         typedef Alloc                               allocator_type;
         typedef typename allocator_type::reference       reference;
         typedef typename allocator_type::const_reference const_reference;
-        // typedef implementation-defined                   iterator;
+        typedef ft::iterator<T>						iterator;
+		typedef ft::iterator<const T>					const_iterator;
         // typedef implementation-defined                   const_iterator;
         typedef typename allocator_type::size_type       size_type;
         typedef typename allocator_type::difference_type difference_type;
@@ -303,11 +305,43 @@ class vector
                 _alloc.construct(arr+m_size,val);
                 //arr[m_size] = val;
                 _alloc.deallocate(tmp,m_capacity);
+                _alloc.destroy(tmp);
             }
             else
                 arr[m_size] = val;
             m_size++;
     }
+
+    iterator begin()
+    {
+        return iterator(&arr[0]);
+    }
+    const_iterator begin() const
+    {
+        return iterator(&arr[0]);
+    }
+    iterator end()
+    {
+        return iterator(&arr[m_size]);
+    }
+
+    const_iterator end() const
+    {
+        return iterator(&arr[m_size]);
+    }
+
+    // iterator                                       begin(){return iterator(&m_data[0]);}
+    // iterator                                       end(){return iterator(&m_data[m_size]);}
+
+    // const_iterator                                 cbegin(){return const_iterator(&m_data[0]);}
+    // const_iterator                                 cend(){return const_iterator(&m_data[m_size]);}
+
+    // reverse_iterator                               rbegin(){return reverse_iterator(&m_data[m_size - 1]);}
+    // reverse_iterator                               rend(){return reverse_iterator(&m_data[-1]);}
+
+    // const_reverse_iterator                         crbegin(){return const_reverse_iterator(&m_data[m_size - 1]);}
+    // const_reverse_iterator                         crend(){return const_reverse_iterator(&m_data[-1]);}
+
 };
 }
 #endif

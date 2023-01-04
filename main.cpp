@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/02 22:36:09 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 02:59:45 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,29 +108,11 @@ void fun()
 
 int main ()
 {
-  ft::vector<int>::size_type sz;
-
-  ft::vector<int> foo;
-  sz = foo.capacity();
-  std::cout << "making foo grow:\n";
-  for (int i=0; i<100; ++i) {
-    foo.push_back(i);
-    if (sz!=foo.capacity()) {
-      sz = foo.capacity();
-      std::cout << "capacity changed: " << sz << '\n';
-    }
-  }
-
-  std::vector<int> bar;
-  sz = bar.capacity();
-  bar.reserve(100);   // this is the only difference with foo above
-  std::cout << "making bar grow:\n";
-  for (int i=0; i<100; ++i) {
-    bar.push_back(i);
-    if (sz!=bar.capacity()) {
-      sz = bar.capacity();
-      std::cout << "capacity changed: " << sz << '\n';
-    }
-  }
+  ft::vector<int> v;
+  v.push_back(2);
+  ft::vector<int>::iterator it = v.begin();
+  ft::vector<int>::iterator il = v.end();
+  cout << *it << endl;
+  cout << *il << endl;
   return 0;
 }

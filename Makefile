@@ -6,7 +6,7 @@
 #    By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/31 21:09:13 by mfagri            #+#    #+#              #
-#    Updated: 2022/12/31 21:09:41 by mfagri           ###   ########.fr        #
+#    Updated: 2023/01/04 02:51:16 by mfagri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-%.o: %.cpp vector.hpp
+%.o: %.cpp vector.hpp vector_iterator.hpp
 	$(CXX) $(CFLAGS) $(DFLAGS) -c -o $@ -c $<
 
 $(NAME): $(OBJ)
