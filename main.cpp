@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 06:42:09 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 20:26:53 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,21 @@ void fun()
   system("leaks containers");
 }
 
-#include <iostream>
-#include <vector>
+int main ()
+{
+  ft::vector<int> myvector (5);  // 5 default-constructed ints
 
-int main() {
-  typedef ft::iterator_traits<int*> traits;
-  if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
-    std::cout << "int* is a random-access iterator";
+  int i=0;
+
+  ft::vector<int>::reverse_iterator rit = myvector.rbegin();
+  std::cout << *rit << "___" << std::endl;
+  for (; rit!= myvector.rend(); ++rit)
+    *rit = ++i;
+
+  std::cout << "myvector contains:";
+  for (ft::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
   return 0;
 }
