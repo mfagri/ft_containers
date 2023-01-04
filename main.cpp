@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 20:26:53 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 21:49:56 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,22 +102,24 @@ void fun()
 {
   system("leaks containers");
 }
-
 int main ()
 {
-  ft::vector<int> myvector (5);  // 5 default-constructed ints
+  ft::vector<int> first(7,100);
+  ft::vector<int> second;
+  ft::vector<int> third;
 
-  int i=0;
+  // first.assign (7,100);             // 7 ints with a value of 100
 
-  ft::vector<int>::reverse_iterator rit = myvector.rbegin();
-  std::cout << *rit << "___" << std::endl;
-  for (; rit!= myvector.rend(); ++rit)
-    *rit = ++i;
+  ft::vector<int>::iterator it;
+  it=first.begin()+1;
 
-  std::cout << "myvector contains:";
-  for (ft::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
+  second.assign (it,first.end()-1); // the 5 central values of first
 
+  int myints[] = {1776,7,4};
+  third.assign (myints,myints+3);   // assigning from array.
+
+  std::cout << "Size of first: " << int (first.capacity()) << '\n';
+  std::cout << "Size of second: " << int (second.capacity()) << '\n';
+  std::cout << "Size of third: " << int (third.capacity()) << '\n';
   return 0;
 }

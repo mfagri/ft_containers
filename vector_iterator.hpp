@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:41:06 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 20:17:40 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 21:47:09 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,19 @@ namespace ft
 
                 iterator operator+(const difference_type& m)
                 {
-                    T oldPtr = ptr;
-                    ptr+=m;
-                    iterator temp(*this);
-                    ptr = oldPtr;
-                    return temp;
+                     iterator temp(*this);
+                    temp.ptr += m;
+                    return temp;;
                 }
                 iterator operator-(const difference_type& m) const
                 {
                     iterator temp(*this);
                     temp.ptr -= m;
                     return temp;
+                }
+                difference_type operator-(const iterator& x) const {
+
+                    return (ptr - x.ptr);
                 }
                 bool operator==(const iterator& rhs) const 
                 {

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 20:36:13 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 21:40:01 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,10 +346,47 @@ class vector
     {
         return reverse_iterator(begin());
     }
-    // template <class InputIterator>  void assign (InputIterator first, InputIterator last)
-    // {
-    //     difference_type n = last
-    // }
+
+    //  if(n >= this->m_capacity)
+    //     {
+    //         value_type *tmp = _alloc.allocate(n);
+    //         for (size_t i = 0; i < n; i++)
+    //         {
+    //             tmp[i] = val;
+    //         }
+    //         _alloc.deallocate(arr,m_capacity);
+    //         arr = tmp;
+    //         m_capacity = n;
+    //         m_size = n;
+            
+    //     }
+    //     else{
+    //         value_type *tmp = _alloc.allocate(n);
+    //         for (size_t i = 0; i < n; i++)
+    //         {
+    //             tmp[i] = val;
+    //         }
+    //          _alloc.deallocate(arr,m_capacity);
+    //         arr = tmp;
+    //         m_size = n;
+    //     }
+    template <class InputIterator>  void assign (InputIterator first, InputIterator last)
+    {
+        difference_type n = last - first;
+        _alloc.deallocate(arr,(difference_type)m_capacity);
+        if((size_t)n >= m_capacity)
+        {
+            m_capacity = n;
+        }
+        value_type *tmp = _alloc.allocate(m_capacity);
+        for (size_t i = 0; i < (size_t)n; i++)
+        {
+            tmp[i] = *first;
+            first++;
+        }
+        arr = tmp;
+        m_size = n;
+    }
 };
 }
 #endif
