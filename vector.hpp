@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 02:56:24 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 06:31:14 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ class vector
         typedef typename allocator_type::difference_type difference_type;
         typedef typename allocator_type::pointer         pointer;
         typedef typename allocator_type::const_pointer   const_pointer;
-        // typedef std::reverse_iterator<iterator>          reverse_iterator;
-        // typedef std::reverse_iterator<const_iterator>    const_reverse_iterator;
+        // typedef ft::reverse_iterator<T>          reverse_iterator;
+        // typedef ft::reverse_iterator<const T>    const_reverse_iterator;
         
     
         //default constructor
@@ -336,8 +336,8 @@ class vector
     // const_iterator                                 cbegin(){return const_iterator(&m_data[0]);}
     // const_iterator                                 cend(){return const_iterator(&m_data[m_size]);}
 
-    // reverse_iterator                               rbegin(){return reverse_iterator(&m_data[m_size - 1]);}
-    // reverse_iterator                               rend(){return reverse_iterator(&m_data[-1]);}
+    // reverse_iterator                               rbegin(){return reverse_iterator(&arr[m_size - 1]);}
+    // reverse_iterator                               rend(){return reverse_iterator(&arr[-1]);}
 
     // const_reverse_iterator                         crbegin(){return const_reverse_iterator(&m_data[m_size - 1]);}
     // const_reverse_iterator                         crend(){return const_reverse_iterator(&m_data[-1]);}

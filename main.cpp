@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 02:59:45 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/04 06:42:09 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,9 @@ void fun()
 #include <iostream>
 #include <vector>
 
-int main ()
-{
-  ft::vector<int> v;
-  v.push_back(2);
-  ft::vector<int>::iterator it = v.begin();
-  ft::vector<int>::iterator il = v.end();
-  cout << *it << endl;
-  cout << *il << endl;
+int main() {
+  typedef ft::iterator_traits<int*> traits;
+  if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
+    std::cout << "int* is a random-access iterator";
   return 0;
 }
