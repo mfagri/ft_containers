@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 21:40:01 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/05 23:24:00 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <map>
 #include "vector_iterator.hpp"
 #include "reverse_iterator.hpp"
+    using namespace std;
+
 namespace ft
 {
 
@@ -386,6 +388,31 @@ class vector
         }
         arr = tmp;
         m_size = n;
+    }
+
+    iterator erase (iterator first, iterator last)
+    {
+        size_t position = last - first;
+        size_t l = first - begin();
+        for(size_t i  = l; i < (m_size - position);)
+        {
+            arr[i] = arr[i +  position];
+            i++;
+        }
+        m_size-= position;
+        return (begin() + position);
+        
+    }
+    iterator erase (iterator position)
+    { 
+        size_t t_position = position - begin();
+        for(size_t i = t_position;i < m_size-1;)
+        {
+            arr[i] = arr[i + 1];
+            i++;
+        }
+        m_size--;
+        return (position);
     }
 };
 }

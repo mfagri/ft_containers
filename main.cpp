@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/04 21:49:56 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/05 23:23:31 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,29 @@ void fun()
 {
   system("leaks containers");
 }
+
 int main ()
 {
-  ft::vector<int> first(7,100);
-  ft::vector<int> second;
-  ft::vector<int> third;
+  std::vector<int> myvector;
 
-  // first.assign (7,100);             // 7 ints with a value of 100
+  // set some values (from 1 to 10)
+  for (int i=1; i<=8; i++) myvector.push_back(i);
+  
+  for (unsigned i=0; i<myvector.capacity(); ++i)
+    std::cout << ' ' << myvector[i];
 
-  ft::vector<int>::iterator it;
-  it=first.begin()+1;
+  // // erase the 6th element
+   myvector.erase (myvector.begin()+5);
 
-  second.assign (it,first.end()-1); // the 5 central values of first
+  // erase the first 3 elements:
+   //myvector.erase (myvector.begin()+1,myvector.begin()+3);
 
-  int myints[] = {1776,7,4};
-  third.assign (myints,myints+3);   // assigning from array.
-
-  std::cout << "Size of first: " << int (first.capacity()) << '\n';
-  std::cout << "Size of second: " << int (second.capacity()) << '\n';
-  std::cout << "Size of third: " << int (third.capacity()) << '\n';
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.capacity(); ++i)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
+ std::cout<<myvector.capacity()<<std::endl;
+ std::cout<<myvector.size()<<std::endl;
+//  while(1){}
   return 0;
 }
