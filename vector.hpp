@@ -6,13 +6,13 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/05 23:24:00 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/07 04:33:42 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
-
+#include <type_traits>
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -20,6 +20,8 @@
 #include <map>
 #include "vector_iterator.hpp"
 #include "reverse_iterator.hpp"
+#include "enable_if.hpp"
+#include "is_integral.hpp"
     using namespace std;
 
 namespace ft
@@ -414,6 +416,118 @@ class vector
         m_size--;
         return (position);
     }
+
+
+
+
+    iterator insert (iterator position, const value_type& val)
+    {
+        size_t l = position - begin();
+        iterator it = begin();
+        size_t z = 0;
+        while(it != position)
+        {
+            it++;
+            z++;
+        }
+        m_size++;
+        if(m_size > m_capacity)
+            m_capacity *= 2;
+        if(m_capacity == 0)
+            m_capacity++;
+        value_type *tmp = _alloc.allocate(m_capacity);
+        // std::cout << "|" << l << "|\n";
+        for (size_t i = 0; i < l; i++)
+        {
+            tmp[i] = arr[i];
+        }
+        size_t i = l;
+        tmp[i] = val;
+        i++;
+        for ( ;i < m_size; i++)
+        {
+            tmp[i] = arr[i-1];
+        }
+        _alloc.deallocate(arr,m_size);
+        arr = tmp;
+        return (iterator(&arr[z]));
+    }
+    void insert (iterator position, size_type n, const value_type & val)
+    {
+        iterator it = this->begin();
+        size_t i = 0;
+        for (; it != position; it++)
+        {
+            i++;
+        }
+        value_type *tmp;
+        size_type m_n;
+        
+        if(m_capacity == 0)
+            m_capacity++;
+        else if(m_size + n >= m_capacity)
+        {
+            m_n = m_size + n;
+            // m_n *= ;
+            m_capacity = m_n;
+        }
+        tmp = _alloc.allocate(m_capacity);
+        size_t j = 0;
+        for(;j != i;j++)
+        {
+            tmp[j] = arr[j];
+        }
+        size_type k = n;
+        while(n)
+        {
+            tmp[j] = val;
+            j++;
+            n--;
+        }
+        while(i < m_size+k)
+        {
+            tmp[j++] = arr[i++];
+        }
+        m_size += k;
+        arr =tmp;
+        
+    }
+    // void realloc_(size_type s)
+    // {
+    //     T * block_copy;
+    //     if(!empty())
+    //     {
+    //         block_copy = _alloc.allocate(capacity());//here in past error of munmap_chunk(): invalid pointer
+    //         for (size_type i = 0; i < capacity() && i < size(); i++)
+    //         {
+    //             _alloc.construct(block_copy + i,arr[i]);
+    //             _alloc.destroy(arr + i);
+    //         }
+    //         _alloc.deallocate(arr,capacity());
+    //         arr = _alloc.allocate(s);
+    //         for (size_type i = 0; i < size(); i++)
+    //         {
+    //             _alloc.construct(arr + i,block_copy[i]);
+    //             _alloc.destroy(block_copy + i);
+    //         }
+    //         _alloc.deallocate(block_copy,capacity());
+    //         // vector_capacity = s;
+    //     }
+    // }
+    template <class InputIterator> 
+    void insert (iterator position, InputIterator first, InputIterator last,typename ft::enable_if<ft::is_integral<T>::value>::type = 0)
+    {
+        for(;first != last;first++)
+        {
+            position = insert(position,last - first);
+        }
+    }
+
+
+
+
+
+    
 };
 }
 #endif
