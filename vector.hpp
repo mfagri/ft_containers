@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/07 04:33:42 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/08 01:52:07 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,35 +492,51 @@ class vector
         arr =tmp;
         
     }
-    // void realloc_(size_type s)
-    // {
-    //     T * block_copy;
-    //     if(!empty())
-    //     {
-    //         block_copy = _alloc.allocate(capacity());//here in past error of munmap_chunk(): invalid pointer
-    //         for (size_type i = 0; i < capacity() && i < size(); i++)
-    //         {
-    //             _alloc.construct(block_copy + i,arr[i]);
-    //             _alloc.destroy(arr + i);
-    //         }
-    //         _alloc.deallocate(arr,capacity());
-    //         arr = _alloc.allocate(s);
-    //         for (size_type i = 0; i < size(); i++)
-    //         {
-    //             _alloc.construct(arr + i,block_copy[i]);
-    //             _alloc.destroy(block_copy + i);
-    //         }
-    //         _alloc.deallocate(block_copy,capacity());
-    //         // vector_capacity = s;
-    //     }
-    // }
+
+  
     template <class InputIterator> 
-    void insert (iterator position, InputIterator first, InputIterator last,typename ft::enable_if<ft::is_integral<T>::value>::type = 0)
-    {
-        for(;first != last;first++)
+    void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
+       
+       
+       difference_type n = last - first;
+
+       iterator it = this->begin();
+        size_t i = 0;
+        for (; it != position; it++)
         {
-            position = insert(position,last - first);
+            i++;
         }
+        value_type *tmp;
+        // size_type m_n;
+        
+        if(m_capacity == 0)
+            m_capacity++;
+        else if(m_size + n >= m_capacity)
+        {
+            // m_n = m_size + n;
+            // m_n *= ;
+            m_capacity *= 2;
+        }
+        tmp = _alloc.allocate(m_capacity);
+        size_t j = 0;
+        for(;j != i;j++)
+        {
+            tmp[j] = arr[j];
+        }
+        size_type k = n;
+        while(n)
+        {
+            tmp[j] = *first;
+            j++;
+            n--;
+            first++;
+        }
+        while(i < m_size+k)
+        {
+            tmp[j++] = arr[i++];
+        }
+        m_size += k;
+        arr =tmp;
     }
 
 

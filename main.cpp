@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/07 04:32:12 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/08 01:36:53 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,9 @@ int main ()
 // 	//  ft::vector<int>::iterator it;
 //   	// for (it=test.begin(); it<test.end(); it++)
 //     // 	std::cout << ' ' << *it;
-// 	// std::cout <<"\n"<< test.capacity() << std::endl;
-// 	// std::cout << test.size() << std::endl;
-// 	// std::cout<<"";
+	std::cout <<"\n"<< myvector.capacity() << std::endl;
+	std::cout << myvector.size() << std::endl;
+	std::cout<<"";
 
 	
 //   }

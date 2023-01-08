@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 03:03:00 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/07 03:15:49 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/08 01:51:54 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #define ENABLE_IF_HPP
 
 namespace ft{
-    template<bool c,class T = int>
+template <bool B, typename T = void>
 struct enable_if {};
 
-template<class T>
-struct enable_if<true,T> {
-    typedef T type;
+template <typename T>
+struct enable_if<true, T> {
+  typedef T type;
 };
 }
 
