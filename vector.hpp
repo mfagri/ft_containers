@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/08 03:55:16 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/08 11:50:08 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,29 @@ class vector
     
         //default constructor
         
-    vector (const allocator_type& alloc = allocator_type())
+    explicit vector (const allocator_type& alloc = allocator_type())
     {
         _alloc = alloc;
         this->m_size = 0;
         this->m_capacity = 0;
         this->arr = NULL;
+    }
+    template< class InputIt >
+    vector( InputIt first, InputIt last,const allocator_type& alloc = allocator_type(),typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
+    {
+        _alloc = alloc;
+        this->m_size = last -first;
+        this->m_capacity = last -first;
+       difference_type n =  last -first;
+       size_t i = 0;
+       arr = _alloc.allocate(n);
+        while (n)
+        {
+            _alloc.construct(arr+i,*first);
+            first++;
+            i++;
+            n--;
+        }
     }
     //destructor
     ~vector()
@@ -70,7 +87,7 @@ class vector
         _alloc.deallocate(arr,m_capacity);
     }
     //parametres constructor
-    vector (size_type n, const value_type& val = value_type(),const allocator_type& alloc = allocator_type())
+    explicit vector (size_type n, const value_type& val = value_type(),const allocator_type& alloc = allocator_type())
     {
         this->m_size = n;
         this->m_capacity = n;
@@ -543,8 +560,36 @@ class vector
 
 
 
-
     
 };
+    template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (lhs == rhs);
+    }
+
+    template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (lhs != rhs);
+    }
+
+    template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (lhs < rhs);
+    }
+
+    template <class T, class Alloc>  bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (lhs <= rhs);
+    }
+
+    template <class T, class Alloc>  bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (lhs > rhs);
+    }
+
+    template <class T, class Alloc>  bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (lhs >= rhs);
+    }
 }
 #endif
