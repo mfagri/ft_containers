@@ -63,6 +63,12 @@
         "utility": "cpp",
         "vector": "cpp",
         "__functional_03": "cpp",
-        "memory_resource": "cpp"
+        "memory_resource": "cpp",
+        "*.tcc": "cpp",
+        "clocale": "cpp",
+        "deque": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "fstream": "cpp"
     }
 }

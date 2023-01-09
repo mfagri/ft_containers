@@ -6,13 +6,13 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/08 11:50:08 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/09 21:35:34 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
-#include <type_traits>
+// #include <type_traits>
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -341,7 +341,7 @@ class vector
     }
     const_iterator begin() const
     {
-        return iterator(&arr[0]);
+        return const_iterator(&arr[0]);
     }
     iterator end()
     {
@@ -350,7 +350,7 @@ class vector
 
     const_iterator end() const
     {
-        return iterator(&arr[m_size]);
+        return const_iterator(&arr[m_size]);
     }
     reverse_iterator                rbegin()
     {
@@ -392,7 +392,7 @@ class vector
     //         arr = tmp;
     //         m_size = n;
     //     }
-    template <class InputIterator>  void assign (InputIterator first, InputIterator last)
+    template <class InputIterator>  void assign (InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
     {
         difference_type n = last - first;
         _alloc.deallocate(arr,(difference_type)m_capacity);
@@ -564,32 +564,37 @@ class vector
 };
     template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (lhs == rhs);
+        return lhs.size() == rhs.size() && ft::equal(lhs.begin(),lhs.end(),rhs.begin());
     }
 
     template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (lhs != rhs);
+        return !(lhs == rhs);
     }
 
     template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (lhs < rhs);
+        return ft::lexicographical_compare(lhs.begin(),lhs.end(),rhs.begin(),rhs.end());
     }
 
     template <class T, class Alloc>  bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (lhs <= rhs);
+        return !(lhs > rhs);
     }
 
     template <class T, class Alloc>  bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (lhs > rhs);
+        return (rhs < lhs);
     }
 
     template <class T, class Alloc>  bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (lhs >= rhs);
+        return !(rhs > lhs);
+    }
+
+    template <class T, class Alloc>  void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+    {
+        x.swap(y);
     }
 }
 #endif
