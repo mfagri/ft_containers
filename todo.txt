@@ -6,3 +6,19 @@ starct node ,countent, color, right, left, parent
 https://www.youtube.com/watch?v=WTa3jZKo7ZY
 
  Now, the question arises that why do we require a Red-Black tree if AVL is also a height-balanced tree. The Red-Black tree is used because the AVL tree requires many rotations when the tree is large
+
+	
+	
+
+
+value_compare	Nested function class to compare elements	see value_comp
+
+iterator	a bidirectional iterator to value_type	convertible to const_iterator
+const_iterator	a bidirectional iterator to const value_type	
+reverse_iterator	reverse_iterator<iterator>	
+const_reverse_iterator	reverse_iterator<const_iterator>
+//////////////
+*a = t
+*a++
+
+*a--
