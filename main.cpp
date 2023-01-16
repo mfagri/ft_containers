@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/11 03:49:30 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/16 14:24:18 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 using namespace std;
 
-#include <vector>
+#include <map>
 #include <cassert>
 #include <iostream>
 
@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
 	{
 		//NORMAL ! :P
 	}
-	
+	std::map<int,int> a;
 	// for (int i = 0; i < COUNT; ++i)
 	// {
 	// 	map_int.insert(ft::make_pair(rand(), rand()));

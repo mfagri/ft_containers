@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/15 18:52:26 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/16 11:07:41 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ namespace ft
     template < class Key, class T, class Compare = std::less<Key>,class Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
     {
+        private:
+            typedef red_black_tree <key_type, value_type, _Select1st<value_type>, key_compare, _Alloc> Rep_type;
+            Rep_type m_tree;
         public:
             typedef Key key_type;
             typedef T mapped_type;

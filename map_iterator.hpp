@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 18:53:03 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/15 19:17:03 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/16 12:35:25 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 
                 map_iterator(T *s = NULL)
                 {
-                    ptr =s;
+                    ptr = s;
                 }
                 
                 map_iterator(const iterator &x):ptr(x.ptr)
@@ -84,7 +84,6 @@ namespace ft
                     return temp;
                 }
 
-                value_type operator*++
-    }
+    };
 }
 #endif
