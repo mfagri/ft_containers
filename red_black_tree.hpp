@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/16 14:33:48 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:55:16 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ struct Node
         
 };
 
-template <class T, class Alloc = std::allocator<T> >
+template <class T, class Compare, class Alloc>
 class RedBlackTree {
     public:
         typedef Node<T>* node;
+        typedef Compare value_compare;
     private:
         Alloc _alloc;
         node root;
         node TNULL;
+        value_compare _comp;
+
     public:
+        typedef value_compare (Compare c) : comp(c) {};
         RedBlackTree()
         {
             _alloc = Alloc;
@@ -63,11 +67,12 @@ class RedBlackTree {
             while (x != TNULL)
             {
                 y = x;
-                if (node->data < x->data)////
+                if (!value_comp()(y->data,x->data))////
                 {
                     x = x->left;
                 }
-                else {
+                else
+                {
                     x = x->right;
                 }
             }
@@ -76,7 +81,7 @@ class RedBlackTree {
             {
                 root = newn;
             }
-            else if (newn->data < y->data)///
+            else if (!value_comp()(newn->data,x->data))///
             {
                 y->left = newn;
             }
@@ -177,6 +182,10 @@ class RedBlackTree {
             }
             y->right = x;
             x->parent = y;
+        }
+        void next(node t)
+        {
+            t
         }
 };
 

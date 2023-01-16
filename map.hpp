@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/16 11:07:41 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:00:16 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ namespace ft
     template < class Key, class T, class Compare = std::less<Key>,class Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
     {
-        private:
-            typedef red_black_tree <key_type, value_type, _Select1st<value_type>, key_compare, _Alloc> Rep_type;
-            Rep_type m_tree;
         public:
             typedef Key key_type;
             typedef T mapped_type;
@@ -39,21 +36,24 @@ namespace ft
             typedef typename allocator_type::const_reference const_reference;
             ////////////////////////////////////////////////////////////////////////////////////////
             
-             class value_compare
-               : public binary_function<value_type, value_type, bool>
-               {
-             friend class map<_Key,_Tp,_Compare,_Alloc>;
-               protected:
-                Compare comp;
+            class value_compare
+            {
+                friend class map<Key,T,Compare,Alloc>;
+                protected:
+                    Compare comp;
  
-                value_compare(_Compare __c)
-                : comp(__c) { }
+                value_compare(Compare __c): comp(__c) { }
             
                 public:
-                bool operator()(const value_type& __x, const value_type& __y) const
-                { return comp(__x.first, __y.first); }
-                };
-            
+                    bool operator()(const value_type& __x, const value_type& __y) const
+                    { 
+                        return comp(__x.first, __y.first);
+                    }
+            };
+        private:
+            typedef red_black_tree <value_type, value_compare, Alloc> Rep_type;
+            Rep_type m_tree;
+        public:    
             //////////////////////////////////////////////////////////////////////////
             explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type())
             {
@@ -69,28 +69,33 @@ namespace ft
             {
                 ////////
             }
-            ~map();
-            map& operator= (const map& x);
-            /////////////////////////////////////////////////////////////////////////////////////////
-            iterator begin();
-            const_iterator begin() const;
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            iterator end();
-            const_iterator end() const;
-            ///////////////////////////////////////////////////////////////////////////////////////
-            reverse_iterator rbegin();
-            const_reverse_iterator rbegin() const;
-            ///////////////////////////////////////////////////////////////////////////////////
-            reverse_iterator rend();
-            const_reverse_iterator rend() const;
-            ///////////////////////////////////////////////////////////////////////////////////////
-            bool empty() const;
-            size_type size() const;
-            size_type max_size() const;
-            ///////////////////////////////////////////////////////////////////////////////
-            mapped_type& operator[] (const key_type& k);
-            mapped_type& at (const key_type& k);
-            const mapped_type& at (const key_type& k) const;
+            ~map(){}
+            // pair<iterator,bool> 
+            // insert (const value_type& val)
+            // {
+                
+            // }
+            // map& operator= (const map& x);
+            // /////////////////////////////////////////////////////////////////////////////////////////
+            // iterator begin();
+            // const_iterator begin() const;
+            // ///////////////////////////////////////////////////////////////////////////////////////////
+            // iterator end();
+            // const_iterator end() const;
+            // ///////////////////////////////////////////////////////////////////////////////////////
+            // reverse_iterator rbegin();
+            // const_reverse_iterator rbegin() const;
+            // ///////////////////////////////////////////////////////////////////////////////////
+            // reverse_iterator rend();
+            // const_reverse_iterator rend() const;
+            // ///////////////////////////////////////////////////////////////////////////////////////
+            // bool empty() const;
+            // size_type size() const;
+            // size_type max_size() const;
+            // ///////////////////////////////////////////////////////////////////////////////
+            // mapped_type& operator[] (const key_type& k);
+            // mapped_type& at (const key_type& k);
+            // const mapped_type& at (const key_type& k) const;
             ///////////////////////////////////////////////////////////////////////////////////////////
     };
 }
