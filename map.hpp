@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/16 18:00:16 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/17 12:29:15 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ namespace ft
                     }
             };
         private:
-            typedef red_black_tree <value_type, value_compare, Alloc> Rep_type;
+            typedef red_black_tree <key_type, value_type, value_compare, Alloc> Rep_type;
             Rep_type m_tree;
         public:    
             //////////////////////////////////////////////////////////////////////////
