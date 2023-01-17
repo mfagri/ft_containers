@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/17 12:33:00 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/17 22:02:46 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,181 +17,8 @@
 #include "equal.hpp"
 #include "red_black_iterator.hpp"
 
-// template<typename _Tp>
-//      struct _Rb_tree_iterator
-//      {
-//            typedef _Tp  value_type;
-//        typedef _Tp& reference;
-//        typedef _Tp* pointer;
- 
-//        typedef bidirectional_iterator_tag iterator_category;
-//        typedef ptrdiff_t                  difference_type;
- 
-//        typedef _Rb_tree_iterator<_Tp>        _Self;
-//        typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;
-//        typedef _Rb_tree_node<_Tp>*           _Link_type;
- 
-//        _Rb_tree_iterator() { }
- 
-//        _Rb_tree_iterator(_Link_type __x)
-//        : _M_node(__x) { }
- 
-//        reference
-//        operator*() const
-//        { return static_cast<_Link_type>(_M_node)->_M_value_field; }
- 
-//        pointer
-//        operator->() const
-//        { return &static_cast<_Link_type>(_M_node)->_M_value_field; }
- 
-//        _Self&
-//        operator++()
-//        {
-//          _M_node = _Rb_tree_increment(_M_node);
-//      return *this;
-//        }
- 
-//        _Self
-//        operator++(int)
-//        {
-//          _Self __tmp = *this;
-//      _M_node = _Rb_tree_increment(_M_node);
-//      return __tmp;
-//        }
- 
-//        _Self&
-//        operator--()
-//        {
-//          _M_node = _Rb_tree_decrement(_M_node);
-//      return *this;
-//        }
- 
-//        _Self
-//        operator--(int)
-//        {
-//          _Self __tmp = *this;
-//      _M_node = _Rb_tree_decrement(_M_node);
-//      return __tmp;
-//        }
- 
-//        bool
-//        operator==(const _Self& __x) const
-//        { return _M_node == __x._M_node; }
- 
-//        bool
-//        operator!=(const _Self& __x) const
-//        { return _M_node != __x._M_node; }
- 
-//        _Base_ptr _M_node;
-//    };
- 
-//    template<typename _Tp>
-//      struct _Rb_tree_const_iterator
-//      {
-//            typedef _Tp        value_type;
-//        typedef const _Tp& reference;
-//        typedef const _Tp* pointer;
- 
-//        typedef _Rb_tree_iterator<_Tp> iterator;
- 
-//        typedef bidirectional_iterator_tag iterator_category;
-//        typedef ptrdiff_t                  difference_type;
- 
-//        typedef _Rb_tree_const_iterator<_Tp>        _Self;
-//        typedef _Rb_tree_node_base::_Const_Base_ptr _Base_ptr;
-//        typedef const _Rb_tree_node<_Tp>*           _Link_type;
- 
-//        _Rb_tree_const_iterator() { }
- 
-//        _Rb_tree_const_iterator(_Link_type __x)
-//        : _M_node(__x) { }
- 
-//        _Rb_tree_const_iterator(const iterator& __it)
-//        : _M_node(__it._M_node) { }
- 
-//        reference
-//        operator*() const
-//        { return static_cast<_Link_type>(_M_node)->_M_value_field; }
- 
-//        pointer
-//        operator->() const
-//        { return &static_cast<_Link_type>(_M_node)->_M_value_field; }
- 
-//        _Self&
-//        operator++()
-//        {
-//          _M_node = _Rb_tree_increment(_M_node);
-//      return *this;
-//        }
- 
-//        _Self
-//        operator++(int)
-//        {
-//          _Self __tmp = *this;
-//      _M_node = _Rb_tree_increment(_M_node);
-//      return __tmp;
-//        }
- 
-//        _Self&
-//        operator--()
-//        {
-//          _M_node = _Rb_tree_decrement(_M_node);
-//      return *this;
-//        }
- 
-//        _Self
-//        operator--(int)
-//        {
-//          _Self __tmp = *this;
-//      _M_node = _Rb_tree_decrement(_M_node);
-//      return __tmp;
-//        }
- 
-//        bool
-//        operator==(const _Self& __x) const
-//        { return _M_node == __x._M_node; }
- 
-//        bool
-//        operator!=(const _Self& __x) const
-//        { return _M_node != __x._M_node; }
- 
-//        _Base_ptr _M_node;
-//      };
- 
-//    template<typename _Val>
-//      inline bool
-//      operator==(const _Rb_tree_iterator<_Val>& __x,
-//                 const _Rb_tree_const_iterator<_Val>& __y)
-//      { return __x._M_node == __y._M_node; }
- 
-//    template<typename _Val>
-//      inline bool
-//      operator!=(const _Rb_tree_iterator<_Val>& __x,
-//                 const _Rb_tree_const_iterator<_Val>& __y)
-//      { return __x._M_node != __y._M_node; }
- 
-//    void
-//    _Rb_tree_rotate_left(_Rb_tree_node_base* const __x,
-//                         _Rb_tree_node_base*& __root);
- 
-//    void
-//    _Rb_tree_rotate_right(_Rb_tree_node_base* const __x,
-//                          _Rb_tree_node_base*& __root);
- 
-//    void
-//    _Rb_tree_insert_and_rebalance(const bool __insert_left,
-//                                  _Rb_tree_node_base* __x,
-//                                  _Rb_tree_node_base* __p,
-//                                  _Rb_tree_node_base& __header);
- 
-//    _Rb_tree_node_base*
-//    _Rb_tree_rebalance_for_erase(_Rb_tree_node_base* const __z,
-//                     _Rb_tree_node_base& __header);
-
-
-
-
-
+namespace ft
+{
 template<class T>
 struct Node
 {
@@ -201,7 +28,7 @@ struct Node
     Node *right;
     int color;
     Node() {
-        data = data;
+        // data = data;
         parent = nullptr;
         left = nullptr;
         right = nullptr;
@@ -218,25 +45,48 @@ class RedBlackTree {
         typedef Key key_type;
         typedef T mapped_type;
         typedef ft::pair<const key_type,mapped_type> value_type;
-        typedef red_balck_iterator <value_type,node>       iterator;
+        typedef ft::red_black_iterator <value_type,node>  iterator;
+        
         // typedef _Rb_tree_const_iterator<value_type> const_iterator;
     private:
-        Alloc _alloc;
+        
         node root;
         node TNULL;
         value_compare _comp;
-
+   
     public:
-        typedef value_compare (Compare c) : comp(c) {};
-        RedBlackTree()
+        // typedef value_compare (Compare c) : comp(c) {};
+typedef typename Alloc::template rebind<Node<T> >::other node_allocator;        
+        node_allocator alloc;
+        const value_compare &value_comp() const
         {
-            _alloc = Alloc;
-            root = nullptr;
-            TNULL = nullptr;
+            return (_comp);
         }
+        value_compare &value_comp()
+        {
+            return (_comp);
+        }
+        RedBlackTree(){}
+         
+        // pair<iterator, bool> _insert_unique(const value_type &_val)
+        // {
+        //     node_ptr    _parent_pos = root();
+        //     bool        _is_left = true;
+        //     bool        _inserted;
+            
+        //     _inserted = _find_parent(_parent_pos, _val, _is_left);
+
+        //     node_ptr    _new_n = _parent_pos;
+        //     if (_inserted)
+        //     {
+        //         _new_n = _construct_node(_val);
+        //         _insert_node_at(_parent_pos, _new_n, _is_left);
+        //     }
+        //     return (pair<iterator, bool>(iterator(_new_n), _inserted));
+        // }
         void add(T d)
         {
-            node newn = _alloc.allocate(1);
+            node newn = alloc.allocate(1);
             newn->data = d;
             newn->parent = nullptr;
             newn->left = TNULL;
@@ -249,7 +99,7 @@ class RedBlackTree {
             while (x != TNULL)
             {
                 y = x;
-                if (!value_comp()(y->data,x->data))////
+                if (value_comp()(newn->data,x->data))////
                 {
                     x = x->left;
                 }
@@ -263,7 +113,7 @@ class RedBlackTree {
             {
                 root = newn;
             }
-            else if (!value_comp()(newn->data,x->data))///
+            else if (value_comp()(newn->data,x->data))///
             {
                 y->left = newn;
             }
@@ -283,8 +133,9 @@ class RedBlackTree {
                 return;
             }
             tree_balance_after_insert(newn);
+            std::cout<<"sdsdsdsd\n";
         }
-        tree_balance_after_insert(node Node)
+        void tree_balance_after_insert(node Node)
         {
             node u;
             while (Node->parent->color == 1) {
@@ -368,12 +219,12 @@ class RedBlackTree {
         
         bool tree_is_left_child(node nd)
         {
-            return(nd == nd->parent->left)
+            return(nd == nd->parent->left);
         }
         
         bool tree_is_right_child(node nd)
         {
-            return(nd == nd->parent->right)
+            return(nd == nd->parent->right);
         }
         
         node   min(node nd) throw()
@@ -408,6 +259,17 @@ class RedBlackTree {
                 ndt = ndt->parent;
             return (ndt->parent);
         }
+
+        iterator begin()
+        {
+            return(min(root));
+        }
+
+        iterator end()
+        {
+            return(root->parent);
+        }
 };
 
+}
 #endif

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/17 12:29:15 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/17 22:03:30 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include "equal.hpp"
+#include "red_black_tree.hpp"
 
 namespace ft
 {
@@ -24,7 +25,7 @@ namespace ft
         public:
             typedef Key key_type;
             typedef T mapped_type;
-            typedef ft::pair<const key_type,mapped_type> value_type;
+            typedef ft::pair<const Key,T> value_type;
             typedef Compare key_compare;
             typedef Alloc                               allocator_type;
             // typedef value_compare (Compare c) : comp(c) {}
@@ -42,7 +43,7 @@ namespace ft
                 protected:
                     Compare comp;
  
-                value_compare(Compare __c): comp(__c) { }
+                // value_compare(Compare __c): comp(__c) { }
             
                 public:
                     bool operator()(const value_type& __x, const value_type& __y) const
@@ -51,33 +52,37 @@ namespace ft
                     }
             };
         private:
-            typedef red_black_tree <key_type, value_type, value_compare, Alloc> Rep_type;
+            typedef ft::RedBlackTree <key_type, value_type, value_compare, Alloc> Rep_type;
             Rep_type m_tree;
-        public:    
+        public:
+            typedef typename Rep_type::iterator iterator;
             //////////////////////////////////////////////////////////////////////////
-            explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type())
-            {
-            }
+            // explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type())
+            // {
+            // }
             //*  Create a %map consisting of copies of the elements from [first,last).
             // *  This is linear in N if the range is already sorted, and NlogN
             // *  otherwise (where N is distance(first,last)).
-            template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type())
-            {
-                
-            }
-            map (const map& x)
-            {
-                ////////
-            }
-            ~map(){}
-            // pair<iterator,bool> 
-            // insert (const value_type& val)
+            // template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type())
             // {
                 
             // }
+            // map (const map& x)
+            // {
+            //     ////////
+            // }
+            ~map(){}
+            void insert (const value_type & val)
+            {
+                m_tree.add(val);
+            }
             // map& operator= (const map& x);
             // /////////////////////////////////////////////////////////////////////////////////////////
-            // iterator begin();
+            iterator begin()
+            {
+                return m_tree.begin();
+                puts("ssssssssss");
+            }
             // const_iterator begin() const;
             // ///////////////////////////////////////////////////////////////////////////////////////////
             // iterator end();

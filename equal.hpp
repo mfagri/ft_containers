@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/10 22:48:14 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/17 21:58:41 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,41 @@ namespace ft
     
         return (first1 == last1) && (first2 != last2);
     }
+    /// @brief /////////////////////////////////////
+    /// @tparam T1 
+    /// @tparam T2 
     template <typename T1, typename T2>
-    struct pair 
+        class pair
     {
-    T1 first;
-    T2 second;
-    pair() : first(), second() {}
-    pair(const T1& a, const T2& b) : first(a), second(b) {}
-    pair(const pair<T1, T2>& __p): first(__p.first),second(__p.second) { }
-        pair&
-    operator=(pair<T1, T2>& __p)
-    {
-       first = std::move(__p.first);
-       second = std::move(__p.second);
-       return *this;
-    }
+        typedef T1 first_type;
+        typedef T2 second_type;
 
-    void swap(pair<T1, T2>& p2) {
-        std::swap(first, p2.first);
-        std::swap(second, p2.second);
-    }
+        public:
+            first_type  first;
+            second_type  second;
+
+            pair() : first(), second() { }
+
+            template<class U, class V>
+            pair (const ft::pair<U,V> & pr):first(pr.first),second(pr.second)
+            {
+            }
+            pair( const first_type & a, const second_type & b ):first(a),second(b)
+            {
+            }
+            
+            pair& operator=(pair& __p)
+            { 
+                // this->first = __p.first;
+                // first = std::move(__p.first);
+                second = std::move(__p.second);
+                return *this;
+            }
+
+            ~pair()
+            {
+
+            }
     };
     template <class T1, class T2>
     bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
