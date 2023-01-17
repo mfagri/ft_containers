@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/17 22:02:46 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/17 22:54:01 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         // }
         void add(T d)
         {
+
             node newn = alloc.allocate(1);
             newn->data = d;
             newn->parent = nullptr;
@@ -112,6 +113,9 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             if (y == nullptr)
             {
                 root = newn;
+                // puts("sss");
+                root->left = TNULL;
+                root->right = TNULL;
             }
             else if (value_comp()(newn->data,x->data))///
             {
@@ -269,6 +273,28 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         {
             return(root->parent);
         }
+         void printHelper(node root, std::string indent, bool last) {
+            if (root != TNULL) {
+            std::cout << indent;
+            if (last) {
+                std::cout << "R----";
+                indent += "   ";
+            } else {
+                std::cout << "L----";
+                indent += "|  ";
+            }
+
+            std::string sColor = root->color ? "RED" : "BLACK";
+            std::cout << root->data.first << "(" << sColor << ")" << std::endl;
+            printHelper(root->left, indent, false);
+            printHelper(root->right, indent, true);
+            }
+        }
+         void printTree() {
+            if (root) {
+      printHelper(this->root, "", true);
+    }
+  }
 };
 
 }

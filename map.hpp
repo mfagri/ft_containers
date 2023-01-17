@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/17 22:03:30 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/17 22:54:18 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ namespace ft
                         return comp(__x.first, __y.first);
                     }
             };
-        private:
+        public:
             typedef ft::RedBlackTree <key_type, value_type, value_compare, Alloc> Rep_type;
             Rep_type m_tree;
         public:
@@ -81,7 +81,6 @@ namespace ft
             iterator begin()
             {
                 return m_tree.begin();
-                puts("ssssssssss");
             }
             // const_iterator begin() const;
             // ///////////////////////////////////////////////////////////////////////////////////////////
