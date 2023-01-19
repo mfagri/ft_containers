@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/17 22:54:01 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/19 22:59:12 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include "equal.hpp"
 #include "red_black_iterator.hpp"
 
-namespace ft
-{
+template <class _Tp>
+    struct Node;
 template<class T>
 struct Node
 {
@@ -27,7 +27,7 @@ struct Node
     Node *left;
     Node *right;
     int color;
-    Node() {
+    Node(T d):data(d) {
         // data = data;
         parent = nullptr;
         left = nullptr;
@@ -36,6 +36,8 @@ struct Node
   }
         
 };
+namespace ft
+{
 
 template <class Key, class T, class Compare, class Alloc>
 class RedBlackTree {
@@ -44,17 +46,18 @@ class RedBlackTree {
         typedef Compare value_compare;
         typedef Key key_type;
         typedef T mapped_type;
-        typedef ft::pair<const key_type,mapped_type> value_type;
+        typedef ft::pair<key_type,mapped_type> value_type;
         typedef ft::red_black_iterator <value_type,node>  iterator;
+        // typedef ft::const_red_black_iterator <const value_type,node> const_iterator;
         
         // typedef _Rb_tree_const_iterator<value_type> const_iterator;
-    private:
+    // private:
         
+   
+    public:
         node root;
         node TNULL;
         value_compare _comp;
-   
-    public:
         // typedef value_compare (Compare c) : comp(c) {};
 typedef typename Alloc::template rebind<Node<T> >::other node_allocator;        
         node_allocator alloc;
@@ -100,7 +103,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             while (x != TNULL)
             {
                 y = x;
-                if (value_comp()(newn->data,x->data))////
+                if (newn->data.first < x->data.first)////
                 {
                     x = x->left;
                 }
@@ -113,11 +116,10 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             if (y == nullptr)
             {
                 root = newn;
-                // puts("sss");
                 root->left = TNULL;
                 root->right = TNULL;
             }
-            else if (value_comp()(newn->data,x->data))///
+            else if (newn->data.first < y->data.first)////
             {
                 y->left = newn;
             }
@@ -134,10 +136,12 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
 
             if (newn->parent->parent == nullptr)
             {
+                
                 return;
             }
-            tree_balance_after_insert(newn);
-            std::cout<<"sdsdsdsd\n";
+            
+            // tree_balance_after_insert(newn);
+            fixViolation(newn);
         }
         void tree_balance_after_insert(node Node)
         {
@@ -181,6 +185,63 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
                 break;
             }
             }
+            root->color = 0;
+        }
+        void fixViolation(node z) 
+        {
+            node y = nullptr;
+            while ((z->parent != nullptr) && (z->parent->color == 1)) 
+            {
+            if ( (z->parent->parent->left != nullptr) && (z->parent->data == z->parent->parent->left->data))
+                {          
+                    if(z->parent->parent->right!= nullptr)
+                        y = z->parent->parent->right;
+                    if ((y != nullptr) && (y->color == 1))
+                    {
+                        z->parent->color = 0;
+                        y->color = 0;
+                        z->parent->parent->color = 1;
+                        if(z->parent->parent != nullptr)
+                            z = z->parent->parent;
+                    }
+                    else 
+                    {
+                        if ((z->parent->right != nullptr) && (z->data == z->parent->right->data)) 
+                        {          
+                            z = z->parent;
+                            leftRotate(z);
+                        }
+                        z->parent->color = 0;
+                        z->parent->parent->color = 1;
+                        rightRotate(z->parent->parent);
+                    }
+                }
+                else 
+                {
+                    if(z->parent->parent->left!=nullptr)
+                        y = z->parent->parent->left;
+                    if ((y!=nullptr) && (y->color == 1)) 
+                    {
+                            z->parent->color = 0;
+                        y->color = 0;
+                        z->parent->parent->color = 1;
+                        if(z->parent->parent!=nullptr)
+                        z = z->parent->parent;
+                    }
+                    else 
+                    {
+                        if ((z->parent->left != nullptr) && (z->data == z->parent->left->data)) 
+                        {          
+                            z = z->parent;
+                            rightRotate(z);
+                        }
+                        z->parent->color = 0;
+                        z->parent->parent->color = 1;	
+                        leftRotate(z->parent->parent);
+                    }
+                }
+                
+            }    
             root->color = 0;
         }
         void leftRotate(node x)
@@ -253,7 +314,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
                 nd = nd->parent;
             return (nd->parent);
         }
-        
+       
         node prev(node nd)
         {
             if (nd->left != nullptr)
@@ -266,12 +327,15 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
 
         iterator begin()
         {
-            return(min(root));
+            return(iterator(min(root)));
         }
-
+        // const_iterator begin() const
+        // {
+        //     return(const_iterator(min(root)));
+        // }
         iterator end()
         {
-            return(root->parent);
+            return(iterator(root->parent));
         }
          void printHelper(node root, std::string indent, bool last) {
             if (root != TNULL) {
@@ -285,7 +349,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             }
 
             std::string sColor = root->color ? "RED" : "BLACK";
-            std::cout << root->data.first << "(" << sColor << ")" << std::endl;
+            std::cout << root->data.second<< "(" << sColor << ")" << std::endl;
             printHelper(root->left, indent, false);
             printHelper(root->right, indent, true);
             }
@@ -296,6 +360,27 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
     }
   }
 };
+template<class node>
+ inline bool tree_is_left_child(node nd)
+{
+    return(nd == nd->parent->left);
+}
+template <class node>
+  inline node   min(node nd) throw()
+        {
+            while (nd->left != nullptr)
+                nd = nd->left;
+            return nd;
+        }
+template <class T> 
+    inline T _tree_next(T _n)
+    {
+        if (_n->right != nullptr)
+            return (min(_n->right));
+        while (!tree_is_left_child(_n))
+            _n = _n->parent;
+        return (_n->parent);
+    }
 
 }
 #endif

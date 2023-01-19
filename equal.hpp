@@ -6,12 +6,13 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/17 21:58:41 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:21:15 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EQUAL_HPP
 #define EQUAL_HPP
+
 
 namespace ft
 {
@@ -87,15 +88,16 @@ namespace ft
             pair (const ft::pair<U,V> & pr):first(pr.first),second(pr.second)
             {
             }
-            pair( const first_type & a, const second_type & b ):first(a),second(b)
+            pair(const first_type &a, const second_type &b) 
             {
+                first = a;
+                second = b;
             }
             
-            pair& operator=(pair& __p)
+            pair& operator = (const pair& __p)
             { 
-                // this->first = __p.first;
-                // first = std::move(__p.first);
-                second = std::move(__p.second);
+                first = __p.first;
+                second = __p.second;
                 return *this;
             }
 
