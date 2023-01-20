@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 17:19:56 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 19:12:15 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ namespace ft
 
                 const_red_black_iterator& operator++() 
                 {
-                    ptr = _tree_next(ptr);
+                    ptr = next(ptr);
                     return *this;
                 }
                 const_red_black_iterator operator++(int) ///next
@@ -166,7 +166,7 @@ namespace ft
                 }
                 const_red_black_iterator operator--() //preve
                 {
-                    // ptr = prev(ptr);
+                    ptr = prev(ptr);
                     return (*this);
                 }
                 const_red_black_iterator operator--(int)
