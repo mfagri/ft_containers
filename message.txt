@@ -1,244 +1,108 @@
-// Implementing Red-Black Tree in C++
-
 #include <iostream>
-using namespace std;
-
-template <typename value_type,typename size>
-
-struct Node_struct {
-
-  value_type data;
-  Node_struct<value_type,size> *parent;
-  Node_struct<value_type,size> *left;
-  Node_struct<value_type,size> *right;
-  char color;
-  
-  Node_struct(value_type d):data(d)
-  {
-    left = right = parent = nullptr;
-	  color = 'r';
-  }
-};
- 
+#include <vector>
+#include "vector.hpp"
 
 
-template<typename key_type,class T,typename key_compare,typename size_type,typename Allocator >
-
-class RedBlackTree 
+int main()
 {
-  public:
-        
-    typedef Allocator allocator_type;
-    typedef T value_type;
-    key_compare key_compare_; // key_compare_(); lambda object convet to function will call operator() (const value_type& x, const value_type& y) const
-    typedef Node_struct<T,size_type> Node;
-    typedef typename allocator_type::template rebind<Node >::other node_allocator; 
-    node_allocator alloc;
-    Node * root;
-    Node * tmp;
-    Node * end_node;
-        
-    RedBlackTree() 
-    {
-      tmp = nullptr;
-      
-      root = nullptr;
-      
-      Node tmp1((T()));
-      end_node = alloc.allocate(sizeof(Node));
-      alloc.construct(end_node,tmp1);
-    }
+	std::vector<int> p(3,4);
+	p.push_back(10);
+	p.push_back(11);
+	p.push_back(12);
+	// p.push_back(13);
+	// p.push_back(13);
 
-    void leftRotate(Node * x) 
-    {
-      Node * y;
-      y = x->right;
-      x->right=y->left;
-      if(y->left != NULL)
-        y->parent->left=x;
-      
-      y->parent=x->parent;
-      if(x->parent==NULL)
-        root=y;
-      
-      else if((x->parent->left != NULL) && (x->data==x->parent->left->data))
-        x->parent->left=y;
-      
-      else
-        x->parent->right=y;
-      y->left = x;
-      x->parent = y;
-    }
 
-void rightRotate(Node * y) 
-{
-	Node * x;
+	try{
+	std::vector<int> ab(3, 5);
+	ab.push_back(55);
+	// ab.push_back(56);
+	// ab.push_back(57);
+	// ab.push_back(58);
+	// ab.push_back(59);
+
 	
-	x = y->left;
-	y->left=x->right;
-	if (x->right != NULL)
-	 	x->right->parent = y; 
-	x->parent =y->parent;
-	if (y->parent == NULL)
-		root = x;
-	else if ((y->parent->left != NULL) && (y->data == y->parent->left->data))
-		y->parent->left = x;
 
-	else
-		y->parent->right = x;
+	std::vector<int>::iterator it = ab.begin();
+
+	// ab.insert(it, p.begin(), p.end());
 	
-	x->right = y;
-	y->parent = x;
-	return;
-}
+	it = ab.begin();
+	
+	ab.insert(it + 2, 10, 22);
 
-void fixViolation(Node * z) 
-{
-	Node * y = nullptr;
-	while ((z->parent != nullptr) && (z->parent->color == 'r')) 
-	{
-  	if ( (z->parent->parent->left != nullptr) && (z->parent->data == z->parent->parent->left->data))
-		{          
-			if(z->parent->parent->right!= nullptr)
-				y = z->parent->parent->right;
-			if ((y != nullptr) && (y->color == 'r'))
-			{
-				z->parent->color = 'b';
-				y->color = 'b';
-				z->parent->parent->color = 'r';
-				if(z->parent->parent != nullptr)
-					z = z->parent->parent;
-			}
-			else 
-			{
-				if ((z->parent->right != nullptr) && (z->data == z->parent->right->data)) 
-				{          
-					z = z->parent;
-					leftRotate(z);
-				}
-				z->parent->color = 'b';
-				z->parent->parent->color = 'r';
-				rightRotate(z->parent->parent);
-			}
-		}
-		else 
-		{
-			if(z->parent->parent->left!=nullptr)
-				y = z->parent->parent->left;
-			if ((y!=nullptr) && (y->color == 'r')) 
-			{
-					z->parent->color = 'b';
-				y->color = 'b';
-				z->parent->parent->color = 'r';
-				if(z->parent->parent!=nullptr)
-				z = z->parent->parent;
-			}
-			else 
-			{
-				if ((z->parent->left != nullptr) && (z->data == z->parent->left->data)) 
-				{          
-					z = z->parent;
-					rightRotate(z);
-				}
-				z->parent->color = 'b';
-				z->parent->parent->color = 'r';	
-				leftRotate(z->parent->parent);
-			}
-		}
+	it = ab.insert(it +2, 100);
+	it = ab.insert(it + 1, 200);
+	
+	// it = ab.begin();
+	// it = ab.insert(it+3, 300);
+	// // it = ab.insert(it, 400);
+	// it = ab.insert(it+ 4 , 500);
+	// it = ab.insert(it, 600);
+	// it = ab.insert(it, 700);
+	
+	
+	it = ab.begin();
+	
+	
+	while (it != ab.end()){
+		std::cout << *it << std::endl;
+		it++;
+	}
+	
+	std::cout << "---------------------\n";
+	std::cout << ab.size() << "\t" << ab.capacity() << "\n";
+	}
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;
+	}
+
+	std::cout << "###################################\n";
+/***************************************************************************************************************/
 		
-	}    
-	root->color = 'b';
+	try{
+	ft::vector<int> a(3,5);
+
+	a.push_back(55);
+	// a.push_back(56);
+	// a.push_back(57);
+	// a.push_back(58);
+	// a.push_back(59);
+	
+	
+
+	ft::vector<int>::iterator it = a.begin();
+
+	// a.insert(it, p.begin(), p.end());
+	it = a.begin();
+	
+	a.insert(it, 10, 22);
+	
+	it = a.insert(it + 2, 100);
+	it = a.insert(it + 1, 200);
+	// it = a.begin();
+	// it = a.insert(it + 3, 300);
+	// it = a.insert(it, 400);
+	// it = a.insert(it+ 4 , 500);
+	// it = a.insert(it, 600);
+	// it = a.insert(it, 700);
+	
+	it = a.begin();
+
+	// while (it != a.end()){
+	// 	std::cout << *it << std::endl;
+	// 	it++;
+	// }
+
+	// for (int i = 0; i < a.size(); i++)
+	// 	std::cout << a[i] << std::endl;
+	
+	std::cout << "---------------------\n";
+	
+	std::cout << a.size() << "\t" << a.capacity() << "\n";
+	}
+	catch(std::exception &e){
+		std::cout << e.what() << std::endl;
+	}
+	// system("leaks a.out");
 }
-  Node * insert_(value_type data) 
-  {
-    Node * x;
-    Node * y;
-    Node tmp(data);
-    Node * z = alloc.allocate(sizeof(Node));
-    alloc.construct(z,tmp);
-
-    x=root;
-    
-    if ( root == nullptr ) 
-    {
-      root = z;
-      root->color = 'b';
-    end_node->left = root;
-
-      root->parent = end_node;
-
-      return root;
-    }
-    while ( x != nullptr) 
-    {
-      y = x;
-      if ( z->data < x->data) 
-        x = x->left;
-      else
-      x = x->right;
-    }
-    z->parent = y;
-    if ( y == nullptr) 
-      root=z;
-    else if( z->data < y->data ) 
-      y->left = z;
-    else
-      y->right=z;
-    fixViolation(z);
-    return root;    
-  }
-
-  void insert(value_type val)
-  {
-    root = insert_(val);
-  }
-  Node * minValue(Node * node)
-  {
-      Node * current = node;
-      if(!current)
-        return nullptr;
-      while (current->left != nullptr) 
-        current = current->left;
-      
-      return current;
-  }
-   Node *search(Node* root, const key_type & key) const // search() const because key_type is const
-    {
-        if (root == nullptr || (!key_compare_(root->data.first, key) && !key_compare_(key,root->data.first)))// because key_compare_ return < and convert it to ==
-            return root;
-          
-        if (key_compare_(root->data.first, key))
-            return search(root->right, key);        
-        return search(root->left, key);
-    }
-
-    Node * findNodeByK(Node *root, key_type k) 
-      {
-         Node* x = root;
-         Node* y = end_node;
-      
-          while (x != 0 && x->left != x && x != x->right)
-          {
-              if (key_compare_(x->data.first, k))
-                  x = x->right;
-              else
-                  y = x, x = x->left;
-          }
-          return y;
-      }
-    void printInorder( Node* node)
-    {
-        if (node == nullptr)
-          return;
-    
-        /* first recur on left child */
-        printInorder(node->left);
-    
-        /* then print the data of node */
-        cout << node->data.first << " " << endl;
-    
-        /* now recur on right child */
-        printInorder(node->right);
-    }
-};
-

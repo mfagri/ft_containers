@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 11:16:56 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 15:18:37 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
         public:
             typedef Key key_type;
             typedef T mapped_type;
-            typedef std::pair<Key,T> value_type;
+            typedef ft::pair<Key,T> value_type;
             typedef Compare key_compare;
             typedef Alloc                               allocator_type;
             // typedef value_compare (Compare c) : comp(c) {}
@@ -56,6 +56,7 @@ namespace ft
             Rep_type m_tree;
         public:
             typedef typename Rep_type::iterator iterator;
+            typedef typename Rep_type::const_iterator const_iterator;
             //////////////////////////////////////////////////////////////////////////
             // explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type())
             // {
@@ -72,7 +73,7 @@ namespace ft
             //     ////////
             // }
             ~map(){}
-            void insert (const value_type & val)
+            void insert ( const value_type & val)
             {
                 m_tree.add(val);
             }
@@ -84,8 +85,14 @@ namespace ft
             }
             // const_iterator begin() const;
             // ///////////////////////////////////////////////////////////////////////////////////////////
-            // iterator end();
-            // const_iterator end() const;
+            iterator end()
+            {
+                return m_tree.end();
+            }
+            const_iterator end() const
+            {
+                return m_tree.end();
+            }
             // ///////////////////////////////////////////////////////////////////////////////////////
             // reverse_iterator rbegin();
             // const_reverse_iterator rbegin() const;

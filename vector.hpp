@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/11 02:34:43 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 16:06:24 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,7 +436,7 @@ class vector
         size_t l = position - begin();
         iterator it = begin();
         size_t z = 0;
-        while(it != position)
+        while(it != position)///need to fix hhhhhhh
         {
             it++;
             z++;

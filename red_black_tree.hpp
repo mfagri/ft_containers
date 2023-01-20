@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 11:24:58 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 17:27:57 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,16 @@ template <class node>
                 nd = nd->left;
             return nd;
         }
+template <class node>
+node max(node nd) throw()
+{
+    while (nd->right != nullptr)
+        nd = nd->right;
+    return nd;
+}
+
 template <class T> 
-    inline T _tree_next(T _n)
+    inline T next(T _n)
     {
         if (_n->right != nullptr)
             return (min(_n->right));
@@ -38,6 +46,16 @@ template <class T>
             _n = _n->parent;
         return (_n->parent);
     }
+template <class node>
+node prev(node nd)
+{
+    if (nd->left != nullptr)
+        return (max(nd->left));
+    node ndt = nd;
+    while (tree_is_left_child(ndt))
+        ndt = ndt->parent;
+    return (ndt->parent);
+}
 
 template<class T>
 struct Node
@@ -69,7 +87,7 @@ class RedBlackTree {
         // typedef ft::pair<key_type,mapped_type> value_type;
         typedef mapped_type value_type;
         typedef ft::red_black_iterator <value_type,node>  iterator;
-        // typedef ft::const_red_black_iterator <const value_type,node> const_iterator;
+        typedef ft::const_red_black_iterator <const value_type,node> const_iterator;
         
         // typedef _Rb_tree_const_iterator<value_type> const_iterator;
     // private:
@@ -78,6 +96,7 @@ class RedBlackTree {
     public:
         node root;
         node TNULL;
+        node endn;
         value_compare _comp;
         // typedef value_compare (Compare c) : comp(c) {};
 typedef typename Alloc::template rebind<Node<T> >::other node_allocator;        
@@ -90,7 +109,15 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         {
             return (_comp);
         }
-        RedBlackTree(){}
+        RedBlackTree(){
+            endn = alloc.allocate(1);
+            // endn->data = d;
+            endn->parent = nullptr;
+            endn->left = root;
+            endn->right = nullptr;
+            // endn->right = endn->parent = nullptr;
+            // endn->left = root;
+        }
          
         // pair<iterator, bool> _insert_unique(const value_type &_val)
         // {
@@ -108,7 +135,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         //     }
         //     return (pair<iterator, bool>(iterator(_new_n), _inserted));
         // }
-        void add(T d)
+        void add(value_type d)
         {
 
             node newn = alloc.allocate(1);
@@ -163,6 +190,9 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             
             // tree_balance_after_insert(newn);
             fixViolation(newn);
+            // root->parent = endn;
+            //TNULL->left = root;
+            endn->left = root;
         }
         void tree_balance_after_insert(node Node)
         {
@@ -320,12 +350,12 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             return nd;
         }
 
-        node max(node nd) throw()
-        {
-            while (nd->right != TNULL)
-                nd = nd->right;
-            return nd;
-        }
+        // node max(node nd) throw()
+        // {
+        //     while (nd->right != TNULL)
+        //         nd = nd->right;
+        //     return nd;
+        // }
         
         node next(node nd)
         {
@@ -336,15 +366,15 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             return (nd->parent);
         }
        
-        node prev(node nd)
-        {
-            if (nd->left != nullptr)
-                return (max(nd->left));
-            node ndt = nd;
-            while (tree_is_left_child(ndt))
-                ndt = ndt->parent;
-            return (ndt->parent);
-        }
+        // node prev(node nd)
+        // {
+        //     if (nd->left != nullptr)
+        //         return (max(nd->left));
+        //     node ndt = nd;
+        //     while (tree_is_left_child(ndt))
+        //         ndt = ndt->parent;
+        //     return (ndt->parent);
+        // }
 
         iterator begin()
         {
@@ -356,7 +386,8 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         // }
         iterator end()
         {
-            return(iterator(root->parent));
+            root->parent = endn;
+            return(iterator(max(root->parent)));///////////
         }
          void printHelper(node root, std::string indent, bool last) {
             if (root != TNULL) {
