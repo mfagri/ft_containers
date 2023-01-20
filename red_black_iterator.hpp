@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/19 23:00:27 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 11:29:57 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace ft
                 typedef T&                                 reference;
                 typedef std::bidirectional_iterator_tag     iterator_category;
              private:
-                // explicit red_black_iterator(Node<T> *_rhs) : ptr(_rhs) {}
+                //explicit red_black_iterator( iterator_type _rhs) : ptr(_rhs) {}
             private:
                 // template <class, class, class,class>
                 // friend class RedBlackTree;
@@ -38,11 +38,11 @@ namespace ft
                 // friend class map;
                 iterator_type  ptr;
             public:
-                red_black_iterator()
+                explicit red_black_iterator()
                 {
                 }
              
-                red_black_iterator(iterator_type x):ptr(x)
+                explicit red_black_iterator(iterator_type x):ptr(x)
                 {
                     // std::cout << ptr->data.first << std::endl;
                 }

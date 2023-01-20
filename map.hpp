@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/19 23:00:14 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 11:16:56 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
         public:
             typedef Key key_type;
             typedef T mapped_type;
-            typedef ft::pair<Key,T> value_type;
+            typedef std::pair<Key,T> value_type;
             typedef Compare key_compare;
             typedef Alloc                               allocator_type;
             // typedef value_compare (Compare c) : comp(c) {}

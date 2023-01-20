@@ -6,11 +6,12 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/19 22:28:54 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 11:30:48 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <map>
+#include <utility>
 #include "map.hpp"
 #include <iostream>
 
@@ -31,8 +32,9 @@ int main ()
 
   // second insert function version (with hint position):
   ft::map<char,int>::iterator it = mymap.begin();
+  std::cout << it->second  << std::endl ;
+  it++;
   std::cout << it->first  << std::endl ;
-  //it++;
   (void)it;
 //   mymap.insert (it, ft::pair<char,int>('b',300));  // max efficiency inserting
 //   mymap.insert (it, ft::pair<char,int>('c',400));  // no max efficiency inserting

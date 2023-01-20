@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/19 22:59:12 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/20 11:24:58 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,28 @@
 #include "equal.hpp"
 #include "red_black_iterator.hpp"
 
-template <class _Tp>
-    struct Node;
+template<class node>
+ inline bool tree_is_left_child(node nd)
+{
+    return(nd == nd->parent->left);
+}
+template <class node>
+  inline node   min(node nd) throw()
+        {
+            while (nd->left != nullptr)
+                nd = nd->left;
+            return nd;
+        }
+template <class T> 
+    inline T _tree_next(T _n)
+    {
+        if (_n->right != nullptr)
+            return (min(_n->right));
+        while (!tree_is_left_child(_n))
+            _n = _n->parent;
+        return (_n->parent);
+    }
+
 template<class T>
 struct Node
 {
@@ -46,7 +66,8 @@ class RedBlackTree {
         typedef Compare value_compare;
         typedef Key key_type;
         typedef T mapped_type;
-        typedef ft::pair<key_type,mapped_type> value_type;
+        // typedef ft::pair<key_type,mapped_type> value_type;
+        typedef mapped_type value_type;
         typedef ft::red_black_iterator <value_type,node>  iterator;
         // typedef ft::const_red_black_iterator <const value_type,node> const_iterator;
         
@@ -360,27 +381,5 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
     }
   }
 };
-template<class node>
- inline bool tree_is_left_child(node nd)
-{
-    return(nd == nd->parent->left);
-}
-template <class node>
-  inline node   min(node nd) throw()
-        {
-            while (nd->left != nullptr)
-                nd = nd->left;
-            return nd;
-        }
-template <class T> 
-    inline T _tree_next(T _n)
-    {
-        if (_n->right != nullptr)
-            return (min(_n->right));
-        while (!tree_is_left_child(_n))
-            _n = _n->parent;
-        return (_n->parent);
-    }
-
 }
 #endif

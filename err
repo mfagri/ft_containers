@@ -1,0 +1,21 @@
+main.cpp:35:26: error: member reference type 'ft::pair<char, std::__1::pair<char, int> >::second_type' (aka 'std::__1::pair<char, int>') is not a pointer; did you mean to use '.'?
+  std::cout << it->second->first  << std::endl ;
+               ~~~~~~~~~~^~
+                         .
+In file included from main.cpp:15:
+In file included from ./map.hpp:18:
+In file included from ./red_black_tree.hpp:18:
+./red_black_iterator.hpp:75:27: error: call to function '_tree_next' that is neither visible in the template definition nor found by argument-dependent lookup
+                    ptr = _tree_next(ptr);
+                          ^
+./red_black_iterator.hpp:81:21: note: in instantiation of member function 'ft::red_black_iterator<ft::pair<char, std::__1::pair<char, int> >, Node<std::__1::pair<char, int> > *>::operator++' requested here
+                    ++(*this); 
+                    ^
+main.cpp:36:5: note: in instantiation of member function 'ft::red_black_iterator<ft::pair<char, std::__1::pair<char, int> >, Node<std::__1::pair<char, int> > *>::operator++' requested here
+  it++;
+    ^
+./red_black_tree.hpp:375:14: note: '_tree_next' should be declared prior to the call site or in the global namespace
+    inline T _tree_next(T _n)
+             ^
+2 errors generated.
+make: *** [main.o] Error 1
