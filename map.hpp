@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 15:18:37 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/23 19:16:21 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define MAP_HPP
 
 #include <iostream>
+#include <string>
 #include "equal.hpp"
 #include "red_black_tree.hpp"
 
@@ -26,7 +27,7 @@ namespace ft
             typedef Key key_type;
             typedef T mapped_type;
             typedef ft::pair<Key,T> value_type;
-            typedef Compare key_compare;
+            // typedef Compare key_compare;
             typedef Alloc                               allocator_type;
             // typedef value_compare (Compare c) : comp(c) {}
             typedef typename allocator_type::size_type       size_type;//A type that counts the number of elements in a vector.
@@ -36,31 +37,38 @@ namespace ft
             typedef typename allocator_type::reference       reference;//A type that provides a reference to an element stored in a vector.
             typedef typename allocator_type::const_reference const_reference;
             ////////////////////////////////////////////////////////////////////////////////////////
-            
+            typedef Compare key_compare;
             class value_compare
             {
-                friend class map<Key,T,Compare,Alloc>;
-                protected:
-                    Compare comp;
- 
-                // value_compare(Compare __c): comp(__c) { }
-            
-                public:
-                    bool operator()(const value_type& __x, const value_type& __y) const
-                    { 
-                        return comp(__x.first, __y.first);
-                    }
+                friend class map;
+
+            protected:
+                Compare _comp;
+                value_compare(Compare _c) : _comp(_c) {}
+
+            public:
+                typedef bool result_type;
+                typedef value_type first_type;
+                typedef value_type second_type;
+                result_type operator()(const value_type &_x, const value_type &_y) const
+                {
+                    return (_comp(_x.first, _y.first));
+                }
             };
         public:
-            typedef ft::RedBlackTree <key_type, value_type, value_compare, Alloc> Rep_type;
+            typedef ft::RedBlackTree <key_type, value_type, key_compare, Alloc> Rep_type;
             Rep_type m_tree;
         public:
             typedef typename Rep_type::iterator iterator;
-            typedef typename Rep_type::const_iterator const_iterator;
+            // typedef typename Rep_type::const_iterator const_iterator;
             //////////////////////////////////////////////////////////////////////////
-            // explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type())
+            
+            // explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type()) 
             // {
+               
+            //     // this->allocator_type = allocator_type;
             // }
+            
             //*  Create a %map consisting of copies of the elements from [first,last).
             // *  This is linear in N if the range is already sorted, and NlogN
             // *  otherwise (where N is distance(first,last)).
@@ -89,10 +97,10 @@ namespace ft
             {
                 return m_tree.end();
             }
-            const_iterator end() const
-            {
-                return m_tree.end();
-            }
+            // const_iterator end() const
+            // {
+            //     return m_tree.end();
+            // }
             // ///////////////////////////////////////////////////////////////////////////////////////
             // reverse_iterator rbegin();
             // const_reverse_iterator rbegin() const;
@@ -104,7 +112,10 @@ namespace ft
             // size_type size() const;
             // size_type max_size() const;
             // ///////////////////////////////////////////////////////////////////////////////
-            // mapped_type& operator[] (const key_type& k);
+            mapped_type& operator[] (const key_type& k)
+            {
+                (*((this->insert(make_pair(k,mapped_type()))).first));
+            }
             // mapped_type& at (const key_type& k);
             // const mapped_type& at (const key_type& k) const;
             ///////////////////////////////////////////////////////////////////////////////////////////

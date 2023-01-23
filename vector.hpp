@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 16:06:24 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/23 17:18:47 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ class vector
     vector( InputIt first, InputIt last,const allocator_type& alloc = allocator_type(),typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
     {
         _alloc = alloc;
-        this->m_size = last -first;
+        this->m_size = last - first;
         this->m_capacity = last -first;
        difference_type n =  last -first;
        size_t i = 0;

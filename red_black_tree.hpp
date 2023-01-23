@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 20:53:33 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:16:27 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,47 +16,51 @@
 #include <iostream>
 #include "equal.hpp"
 #include "red_black_iterator.hpp"
+#include "map.hpp"
 
+
+class red_black_iterator;
 template<class node>
  inline bool tree_is_left_child(node nd)
 {
         return(nd == nd->parent->left);
 }
-template <class node>
-  inline node   min(node nd) throw()
-        {
-            while (nd->left != nullptr)
-                nd = nd->left;
-            return nd;
-        }
-template <class node>
-node max(node nd) throw()
-{
-    while (nd->right != nullptr)
-        nd = nd->right;
-    return nd;
-}
 
-template <class T> 
-    inline T next(T nd)
-    {
-        if (nd->right != nullptr)
-            return (min(nd->right));
-        while (!tree_is_left_child(nd))
-            nd = nd->parent;
-        return (nd->parent);
-    }
-template <class node>
-node prev(node nd)
-{
+// template <class node>
+//   inline node   min(node nd) throw()
+//         {
+//             while (nd->left != NULL)
+//                 nd = nd->left;
+//             return nd;
+//         }
+// template <class node>
+// node max(node nd) throw()
+// {
+//     while (nd->right != TNULL)
+//         nd = nd->right;
+//     return nd;
+// }
+
+// template <class T> 
+//     inline T next(T nd)
+//     {
+//         if (nd->right != NULL)
+//             return (min(nd->right));
+//         while (!tree_is_left_child(nd))
+//             nd = nd->parent;
+//         return (nd->parent);
+//     }
+// template <class node>
+// node prev(node nd)
+// {
     
-    if (nd->left != nullptr)
-        return (max(nd->left));
-    node ndt = nd;
-    while (tree_is_left_child(ndt))
-        ndt = ndt->parent;
-    return (ndt->parent);
-}
+//     if (nd->left != NULL)
+//         return (max(nd->left));
+//     node ndt = nd;
+//     while (tree_is_left_child(ndt))
+//         ndt = ndt->parent;
+//     return (ndt->parent);
+// }
 
 template<class T>
 struct Node
@@ -68,12 +72,11 @@ struct Node
     int color;
     Node(T d):data(d) {
         // data = data;
-        parent = nullptr;
-        left = nullptr;
-        right = nullptr;
+        parent = NULL;
+        left = NULL;
+        right = NULL;
         color = 0;
-  }
-        
+  }     
 };
 namespace ft
 {
@@ -85,226 +88,159 @@ class RedBlackTree {
         typedef Compare value_compare;
         typedef Key key_type;
         typedef T mapped_type;
+        typedef RedBlackTree self;
         // typedef ft::pair<key_type,mapped_type> value_type;
         typedef mapped_type value_type;
-        typedef ft::red_black_iterator <value_type,node>  iterator;
-        typedef ft::const_red_black_iterator <const value_type,node> const_iterator;
+        typedef ft::red_black_iterator <self,value_type,node>  iterator;
+        // typedef ft::const_red_black_iterator <self,const value_type,node> const_iterator;
         
         // typedef _Rb_tree_const_iterator<value_type> const_iterator;
     // private:
         
    
     public:
+        Compare comp;
         node root;
         node TNULL;
         node endn;
-        value_compare _comp;
+        // value_compare _comp;
         // typedef value_compare (Compare c) : comp(c) {};
 typedef typename Alloc::template rebind<Node<T> >::other node_allocator;        
         node_allocator alloc;
-        const value_compare &value_comp() const
-        {
-            return (_comp);
-        }
-        value_compare &value_comp()
-        {
-            return (_comp);
-        }
-        RedBlackTree(){
-            // node tmp((T()));
-            endn = alloc.allocate(1);
-            // alloc.construct(endn,tmp);
-            endn->data = (T());
-            std::cout<< "the fuck : " <<endn->data.first<<" " << endn->data.second << "\n";
-            endn->parent = nullptr;
-            endn->left = root;
-            endn->right = nullptr;
-            // TNULL = alloc.allocate(1);
-            // TNULL->data = (T(1,1));
-            // std::cout<< "the fuck : " <<TNULL->data.first<<" " << TNULL->data.second << "\n";
-            // TNULL->parent = nullptr;
-            // TNULL->left = nullptr;
-            // TNULL->right = nullptr;
-            // puts("ll");
-            // endn->right = endn->parent = nullptr;
-            // endn->left = root;
-        }
-         
-        // pair<iterator, bool> _insert_unique(const value_type &_val)
+        // const value_compare &value_comp() const
         // {
-        //     node_ptr    _parent_pos = root();
-        //     bool        _is_left = true;
-        //     bool        _inserted;
-            
-        //     _inserted = _find_parent(_parent_pos, _val, _is_left);
-
-        //     node_ptr    _new_n = _parent_pos;
-        //     if (_inserted)
-        //     {
-        //         _new_n = _construct_node(_val);
-        //         _insert_node_at(_parent_pos, _new_n, _is_left);
-        //     }
-        //     return (pair<iterator, bool>(iterator(_new_n), _inserted));
+        //     return (_comp);
         // }
-        void add(value_type d)
+        // value_compare &value_comp()
+        // {
+        //     return (_comp);
+        // }
+
+         RedBlackTree(){
+             
+            TNULL = alloc.allocate(1);
+            //  alloc.construct(TNULL,T(0,0));
+            TNULL->data = (T(0,0));
+            TNULL->right = nullptr;
+            TNULL->left = nullptr;
+            TNULL->parent = nullptr;
+            TNULL->color = 0;
+            root = TNULL;
+            endn = alloc.allocate(1);
+           //endn->data = (T(1,1));
+            endn->right = nullptr;
+             endn->left = root;   
+            endn->parent = nullptr;
+            endn->color = 0;
+        }
+          void add(T data)
         {
-
-            node newn = alloc.allocate(1);
-            newn->data = d;
-            newn->parent = nullptr;
-            newn->left = TNULL;
-            newn->right = TNULL;
-            newn->color = 1;
-            node y = nullptr;
-            node x = this->root;
-
-            while (x != TNULL)
+            node n = alloc.allocate(1);
+            alloc.construct(n,data);
+            n->data = data;
+            n->left = TNULL;
+            n->right = TNULL;
+            // if(n->left == TNULL)
+            // {
+            //     puts("is good for now");
+            // }
+            n->parent = endn;
+            n->color = 1;
+            if(root == TNULL)//if tree is empty
             {
-                y = x;
-                if (newn->data.first < x->data.first)////
+                n->color = 0;
+                root = n;
+                
+                return;
+            }
+            else//tree not empty
+            {
+                node y = NULL;
+                node x = this->root;
+
+                while (x != TNULL)
                 {
-                    x = x->left;
+                    
+                    y = x;
+                    if (n->data.first < x->data.first)
+                    {
+                        x = x->left;
+                    }
+                    else if (n->data.first > x->data.first)
+                    {
+                        x = x->right;
+                    }
+                    else
+                        return;
+                }
+                n->parent = y;
+                if (n->data.first < y->data.first)
+                {
+                    y->left = n;
+                    n->left = TNULL;
+                    n->right = TNULL;
+                }
+                else if ((n->data.first > y->data.first))
+                {
+                    y->right = n;
+                    n->left = TNULL;
+                    n->right = TNULL;
                 }
                 else
-                {
-                    x = x->right;
-                }
+                    return ;
             }
-            newn->parent = y;
-            if (y == nullptr)
-            {
-                root = newn;
-                // root->left = TNULL;
-                // root->right = TNULL;
-            }
-            else if (newn->data.first < y->data.first)////
-            {
-                y->left = newn;
-            }
-            else
-            {
-                y->right = newn;
-            }
-
-            if (newn->parent == nullptr)
-            {
-                newn->color = 0;
-                return;
-            }
-
-            if (newn->parent->parent == nullptr)
-            {
-                
-                return;
-            }
-            
-            // tree_balance_after_insert(newn);
-            fixViolation(newn);
-            // root->parent = endn;
-            //TNULL->left = root;
-            endn->left = root;
+            tree_balance_after_insert(n);
+             endn->left = root;   
+            // fixViolation(n);
+            // puts("awal mara");
+            // min(root,TNULL);
+            // puts("awal mara2");
         }
-        void tree_balance_after_insert(node Node)
+void tree_balance_after_insert(node N)
         {
             node u;
-            while (Node->parent->color == 1) {
-            if (Node->parent == Node->parent->parent->right) {
-                u = Node->parent->parent->left;
-                if (u->color == 1) {
-                u->color = 0;
-                Node->parent->color = 0;
-                Node->parent->parent->color = 1;
-                Node = Node->parent->parent;
+            while (N->parent->color == 1) {
+                if (N->parent == N->parent->parent->right) {
+                    u = N->parent->parent->left;
+                    if (u->color == 1) {
+                    u->color = 0;
+                    N->parent->color = 0;
+                    N->parent->parent->color = 1;
+                    N = N->parent->parent;
+                    } else {
+                    if (N == N->parent->left) {
+                        N = N->parent;
+                        rightRotate(N);
+                    }
+                    N->parent->color = 0;
+                    N->parent->parent->color = 1;
+                    leftRotate(N->parent->parent);
+                    }
                 } else {
-                if (Node == Node->parent->left) {
-                    Node = Node->parent;
-                    rightRotate(Node);
-                }
-                Node->parent->color = 0;
-                Node->parent->parent->color = 1;
-                leftRotate(Node->parent->parent);
-                }
-            } else {
-                u = Node->parent->parent->right;
+                    u = N->parent->parent->right;
 
-                if (u->color == 1) {
-                u->color = 0;
-                Node->parent->color = 0;
-                Node->parent->parent->color = 1;
-                Node = Node->parent->parent;
-                } else {
-                if (Node == Node->parent->right) {
-                    Node = Node->parent;
-                    leftRotate(Node);
+                    if (u->color == 1) {
+                    u->color = 0;
+                    N->parent->color = 0;
+                    N->parent->parent->color = 1;
+                    N = N->parent->parent;
+                    } else {
+                    if (N == N->parent->right) {
+                        N = N->parent;
+                        leftRotate(N);
+                    }
+                    N->parent->color = 0;
+                    N->parent->parent->color = 1;
+                    rightRotate(N->parent->parent);
+                    }
                 }
-                Node->parent->color = 0;
-                Node->parent->parent->color = 1;
-                rightRotate(Node->parent->parent);
+                if (N == root) {
+                    break;
                 }
-            }
-            if (Node == root) {
-                break;
-            }
             }
             root->color = 0;
         }
-        void fixViolation(node z) 
-        {
-            node y = nullptr;
-            while ((z->parent != nullptr) && (z->parent->color == 1)) 
-            {
-            if ( (z->parent->parent->left != nullptr) && (z->parent->data == z->parent->parent->left->data))
-                {          
-                    if(z->parent->parent->right!= nullptr)
-                        y = z->parent->parent->right;
-                    if ((y != nullptr) && (y->color == 1))
-                    {
-                        z->parent->color = 0;
-                        y->color = 0;
-                        z->parent->parent->color = 1;
-                        if(z->parent->parent != nullptr)
-                            z = z->parent->parent;
-                    }
-                    else 
-                    {
-                        if ((z->parent->right != nullptr) && (z->data == z->parent->right->data)) 
-                        {          
-                            z = z->parent;
-                            leftRotate(z);
-                        }
-                        z->parent->color = 0;
-                        z->parent->parent->color = 1;
-                        rightRotate(z->parent->parent);
-                    }
-                }
-                else 
-                {
-                    if(z->parent->parent->left!=nullptr)
-                        y = z->parent->parent->left;
-                    if ((y!=nullptr) && (y->color == 1)) 
-                    {
-                            z->parent->color = 0;
-                        y->color = 0;
-                        z->parent->parent->color = 1;
-                        if(z->parent->parent!=nullptr)
-                        z = z->parent->parent;
-                    }
-                    else 
-                    {
-                        if ((z->parent->left != nullptr) && (z->data == z->parent->left->data)) 
-                        {          
-                            z = z->parent;
-                            rightRotate(z);
-                        }
-                        z->parent->color = 0;
-                        z->parent->parent->color = 1;	
-                        leftRotate(z->parent->parent);
-                    }
-                }
-                
-            }    
-            root->color = 0;
-        }
+      
         void leftRotate(node x)
         {
             node y = x->right;
@@ -313,7 +249,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             y->left->parent = x;
             }
             y->parent = x->parent;
-            if (x->parent == nullptr) {
+            if (x->parent == endn) {
             this->root = y;
             } else if (x == x->parent->left) {
             x->parent->left = y;
@@ -332,7 +268,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
                 y->right->parent = x;
             }
             y->parent = x->parent;
-            if (x->parent == nullptr) {
+            if (x->parent == endn) {
                 this->root = y;
             } else if (x == x->parent->right) {
                 x->parent->right = y;
@@ -353,32 +289,68 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             return(nd == nd->parent->right);
         }
         
-        node   min(node nd) throw()
+        node    min(node x)
         {
-            while (nd->left != TNULL)
-                nd = nd->left;
-            return nd;
+            while (x && x->left != TNULL)
+            {
+                x = x->left;
+            }
+            return (x);
         }
-
+         node suc(node nd)
+        {
+            if (nd->right != TNULL)
+                return (min(nd->right));
+            
+            while (!tree_is_left_child(nd))
+                nd = nd->parent;
+            return (nd->parent);
+        }
         // node max(node nd) throw()
         // {
         //     while (nd->right != TNULL)
         //         nd = nd->right;
         //     return nd;
         // }
-        
-        node next(node nd)
+        node max(node nd)
         {
-            if (nd->right != nullptr)
-                return (min(nd->right));
-            while (!tree_is_left_child(nd))
-                nd = nd->parent;
-            return (nd->parent);
+            while (nd && nd->right != TNULL)
+                nd = nd->right;
+            return nd;
         }
+        node prev(node n)
+        {
+            if (n->left!= TNULL)
+            {
+                    return max(n->left);
+            }
+            node tmp = n->parent;
+            while (tmp != endn && n == tmp->left )//&& tmp->data.second != 0)
+            {
+                n = tmp;
+                tmp = tmp->parent;
+            }
+            if (tmp == endn)
+            {
+                endn->left = nullptr;
+                endn->right = nullptr;
+                return endn;
+            }
+            return (tmp);
+        }
+        // node next(node nd)
+        // {
+        //     if (nd->right != NULL)
+        //         return (min(nd->right));
+            
+        //     while (!tree_is_left_child(nd))
+        //         nd = nd->parent;
+        //     return (nd->parent);
+        // }
        
         // node prev(node nd)
         // {
-        //     if (nd->left != nullptr)
+        //     if (nd->left != NULL)
         //         return (max(nd->left));
         //     node ndt = nd;
         //     while (tree_is_left_child(ndt))
@@ -388,7 +360,8 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
 
         iterator begin()
         {
-            return(iterator(min(root)));
+            node x = min(root);
+            return(iterator(x,*this));
         }
         // const_iterator begin() const
         // {
@@ -397,7 +370,8 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         iterator end()
         {
             root->parent = endn;
-            return(iterator(max(root->parent)));///////////
+            endn->left = root;          
+            return(iterator(endn,*this));///////////
         }
          void printHelper(node root, std::string indent, bool last) {
             if (root != TNULL) {
@@ -418,9 +392,9 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         }
          void printTree() {
             if (root) {
-      printHelper(this->root, "", true);
+                printHelper(this->root, "", true);
+        }
     }
-  }
 };
 }
 #endif

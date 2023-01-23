@@ -1,35 +1,57 @@
-main.cpp:23:18: error: no viable conversion from 'ft::pair<char, int>' to 'const ft::map<char, int, std::__1::less<char>, std::__1::allocator<ft::pair<const char, int> > >::value_type' (aka 'const pair<char, int>')
-  mymap.insert ( ft::pair<char,int>('a',100) );
-                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:316:29: note: candidate constructor (the implicit copy constructor) not viable: no known conversion from 'ft::pair<char, int>' to 'const std::__1::pair<char, int> &' for 1st argument
-struct _LIBCPP_TEMPLATE_VIS pair
-                            ^
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:343:5: note: candidate template ignored: could not match 'std::__1::pair' against 'ft::pair'
-    pair(const pair<_U1, _U2>& __p) : first(__p.first), second(__p.second) {}
-    ^
-./map.hpp:75:45: note: passing argument to parameter 'val' here
-            void insert (const value_type & val)
-                                            ^
-main.cpp:24:18: error: no viable conversion from 'ft::pair<char, int>' to 'const ft::map<char, int, std::__1::less<char>, std::__1::allocator<ft::pair<const char, int> > >::value_type' (aka 'const pair<char, int>')
-  mymap.insert ( ft::pair<char,int>('z',200) );
-                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:316:29: note: candidate constructor (the implicit copy constructor) not viable: no known conversion from 'ft::pair<char, int>' to 'const std::__1::pair<char, int> &' for 1st argument
-struct _LIBCPP_TEMPLATE_VIS pair
-                            ^
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:343:5: note: candidate template ignored: could not match 'std::__1::pair' against 'ft::pair'
-    pair(const pair<_U1, _U2>& __p) : first(__p.first), second(__p.second) {}
-    ^
-./map.hpp:75:45: note: passing argument to parameter 'val' here
-            void insert (const value_type & val)
-                                            ^
-./map.hpp:77:28: error: binding value of type 'const pair<...>' to reference to type 'pair<...>' drops 'const' qualifier
-                m_tree.add(val);
-                           ^~~
-main.cpp:23:9: note: in instantiation of member function 'ft::map<char, int, std::__1::less<char>, std::__1::allocator<ft::pair<const char, int> > >::insert' requested here
-  mymap.insert ( ft::pair<char,int>('a',100) );
-        ^
-./red_black_tree.hpp:111:30: note: passing argument to parameter 'd' here
-        void add(value_type &d)
-                             ^
-3 errors generated.
-make: *** [main.o] Error 1
+make: Warning: File 'Makefile' has modification time 617308 s in the future
+In file included from map.hpp:19,
+                 from main.cpp:15:
+red_black_tree.hpp: In instantiation of ‘ft::RedBlackTree<Key, T, Compare, Alloc>::RedBlackTree() [with Key = char; T = ft::pair<char, int>; Compare = ft::map<char, int>::value_compare; Alloc = std::allocator<ft::pair<const char, int> >]’:
+map.hpp:24:8:   required from here
+red_black_tree.hpp:116:23: error: no matching function for call to ‘ft::map<char, int>::value_compare::value_compare()’
+  116 |         RedBlackTree(){
+      |                       ^
+In file included from main.cpp:15:
+map.hpp:47:17: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::value_compare(Compare) [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >]’
+   47 |                 value_compare(Compare _c) : _comp(_c) {}
+      |                 ^~~~~~~~~~~~~
+map.hpp:47:17: note:   candidate expects 1 argument, 0 provided
+map.hpp:41:19: note: candidate: ‘ft::map<char, int>::value_compare::value_compare(const ft::map<char, int>::value_compare&)’
+   41 |             class value_compare
+      |                   ^~~~~~~~~~~~~
+map.hpp:41:19: note:   candidate expects 1 argument, 0 provided
+In file included from map.hpp:19,
+                 from main.cpp:15:
+red_black_tree.hpp:126:20: error: no matching function for call to ‘ft::map<char, int>::value_compare::value_compare()’
+  126 |             comp = Compare();
+      |                    ^~~~~~~~~
+In file included from main.cpp:15:
+map.hpp:47:17: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::value_compare(Compare) [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >]’
+   47 |                 value_compare(Compare _c) : _comp(_c) {}
+      |                 ^~~~~~~~~~~~~
+map.hpp:47:17: note:   candidate expects 1 argument, 0 provided
+map.hpp:41:19: note: candidate: ‘ft::map<char, int>::value_compare::value_compare(const ft::map<char, int>::value_compare&)’
+   41 |             class value_compare
+      |                   ^~~~~~~~~~~~~
+map.hpp:41:19: note:   candidate expects 1 argument, 0 provided
+In file included from map.hpp:19,
+                 from main.cpp:15:
+red_black_tree.hpp: In instantiation of ‘void ft::RedBlackTree<Key, T, Compare, Alloc>::add(ft::RedBlackTree<Key, T, Compare, Alloc>::value_type) [with Key = char; T = ft::pair<char, int>; Compare = ft::map<char, int>::value_compare; Alloc = std::allocator<ft::pair<const char, int> >; ft::RedBlackTree<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’:
+map.hpp:82:17:   required from ‘void ft::map<Key, T, Compare, Alloc>::insert(const value_type&) [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >; ft::map<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’
+main.cpp:23:46:   required from here
+red_black_tree.hpp:171:31: error: no match for call to ‘(ft::map<char, int>::value_compare) ()’
+  171 |                     if (comp()(data.first, tmp->data.first))
+      |                         ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from main.cpp:15:
+map.hpp:53:29: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::result_type ft::map<Key, T, Compare, Alloc>::value_compare::operator()(const value_type&, const value_type&) const [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >; ft::map<Key, T, Compare, Alloc>::value_compare::result_type = bool; ft::map<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’
+   53 |                 result_type operator()(const value_type &_x, const value_type &_y) const
+      |                             ^~~~~~~~
+map.hpp:53:29: note:   candidate expects 2 arguments, 0 provided
+In file included from map.hpp:19,
+                 from main.cpp:15:
+red_black_tree.hpp:173:36: error: no match for call to ‘(ft::map<char, int>::value_compare) ()’
+  173 |                     else if (comp()(tmp->data.first, data.first))
+      |                              ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from main.cpp:15:
+map.hpp:53:29: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::result_type ft::map<Key, T, Compare, Alloc>::value_compare::operator()(const value_type&, const value_type&) const [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >; ft::map<Key, T, Compare, Alloc>::value_compare::result_type = bool; ft::map<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’
+   53 |                 result_type operator()(const value_type &_x, const value_type &_y) const
+      |                             ^~~~~~~~
+map.hpp:53:29: note:   candidate expects 2 arguments, 0 provided
+make: *** [Makefile:26: main.o] Error 1
+make: Warning: File 'Makefile' has modification time 617196 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
