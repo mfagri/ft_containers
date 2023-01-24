@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/23 18:56:41 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/24 16:58:05 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ namespace ft
                 {
                     // std::cout << ptr->data.first << std::endl;
                 }
-                // red_black_iterator &operator = (const iterator &x) 
-                // {
-                //     ptr = x.ptr;
+                red_black_iterator &operator = (const red_black_iterator &x) 
+                {
+                    ptr = x.ptr;
                     
-                //     return *this;
-                // }
+                    return *this;
+                }
                 bool operator==(const red_black_iterator& rhs) const 
                 {
                     return ptr==rhs.ptr;
@@ -96,6 +96,16 @@ namespace ft
                     red_black_iterator temp(*this);
                     --(*this);
                     return temp;
+                }
+                // red_black_iterator operator -(red_black_iterator &a)
+                // {
+                //     red_black_iterator temp(*this);
+                //     temp.ptr -= a.ptr;
+                //     return temp;
+                // }
+                difference_type operator-(const red_black_iterator& x){
+
+                    return (this->ptr - x.ptr);
                 }
                 private:
                     template <class, class, class,class>

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/23 19:16:21 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/24 21:05:38 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ namespace ft
 
             protected:
                 Compare _comp;
+                allocator_type _alloc;
+                
                 value_compare(Compare _c) : _comp(_c) {}
 
             public:
@@ -57,34 +59,60 @@ namespace ft
             };
         public:
             typedef ft::RedBlackTree <key_type, value_type, key_compare, Alloc> Rep_type;
+            key_compare _comp;
+            allocator_type _alloc;
             Rep_type m_tree;
         public:
             typedef typename Rep_type::iterator iterator;
             // typedef typename Rep_type::const_iterator const_iterator;
             //////////////////////////////////////////////////////////////////////////
             
-            // explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type()) 
-            // {
+            explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree()
+            {
                
-            //     // this->allocator_type = allocator_type;
-            // }
+                // this->allocator_type = allocator_type;
+            }
             
             //*  Create a %map consisting of copies of the elements from [first,last).
             // *  This is linear in N if the range is already sorted, and NlogN
             // *  otherwise (where N is distance(first,last)).
-            // template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type())
+            template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree(first,last)
+            {
+                // std::cout<<"taniii\n";
+                //this->insert(first,last);
+                // for (; first != last; ++first)
+                // {
+                //     // std::cout<<first.data.first<<std::endl;
+                //     this->m_tree.add(*first);
+                // }
+                
+            }
+            map (const map& x):_alloc(x._alloc),m_tree(x.m_tree),_comp(x._comp)
+            {
+                ////////
+            }
+            ~map(){}
+            // pair<iterator,bool> insert (const value_type& val);
+             pair<iterator,bool> insert ( const value_type & val)
+            {
+                return m_tree.add(val); 
+            }
+            template <class InputIterator>  void 
+            insert (InputIterator first, InputIterator last)
+            {
+               // difference_type n = last-first;
+                // (void)n;
+                // puts("ala");
+                while(first != last)
+                {
+                    // puts("f");
+                    m_tree.add(*first++);
+                }
+            }
+            // iterator insert (iterator position, const value_type& val)
             // {
                 
             // }
-            // map (const map& x)
-            // {
-            //     ////////
-            // }
-            ~map(){}
-            void insert ( const value_type & val)
-            {
-                m_tree.add(val);
-            }
             // map& operator= (const map& x);
             // /////////////////////////////////////////////////////////////////////////////////////////
             iterator begin()

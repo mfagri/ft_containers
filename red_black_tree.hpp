@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/23 20:16:27 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/24 21:02:42 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,19 +127,43 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             TNULL->color = 0;
             root = TNULL;
             endn = alloc.allocate(1);
-           //endn->data = (T(1,1));
+           endn->data = (T(1,1));
             endn->right = nullptr;
              endn->left = root;   
             endn->parent = nullptr;
             endn->color = 0;
         }
-          void add(T data)
+        RedBlackTree(iterator first,iterator last){
+             
+            TNULL = alloc.allocate(1);
+            //  alloc.construct(TNULL,T(0,0));
+            TNULL->data = (T(0,0));
+            TNULL->right = nullptr;
+            TNULL->left = nullptr;
+            TNULL->parent = nullptr;
+            TNULL->color = 0;
+            root = TNULL;
+            endn = alloc.allocate(1);
+           endn->data = (T(1,1));
+            endn->right = nullptr;
+             endn->left = root;   
+            endn->parent = nullptr;
+            endn->color = 0;
+            // std::cout<<first.data.first<<std::endl;
+            while (first != last)
+            {
+                add(*first++);
+            }
+            
+        }
+         pair<iterator,bool> add(T data)
         {
             node n = alloc.allocate(1);
             alloc.construct(n,data);
             n->data = data;
             n->left = TNULL;
             n->right = TNULL;
+            // std::cout<<n->data.first<<std::endl;
             // if(n->left == TNULL)
             // {
             //     puts("is good for now");
@@ -151,7 +175,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
                 n->color = 0;
                 root = n;
                 
-                return;
+                return (ft::make_pair(iterator(n,*this), true));
             }
             else//tree not empty
             {
@@ -171,7 +195,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
                         x = x->right;
                     }
                     else
-                        return;
+                        return (ft::make_pair(iterator(x,*this), false));
                 }
                 n->parent = y;
                 if (n->data.first < y->data.first)
@@ -186,15 +210,16 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
                     n->left = TNULL;
                     n->right = TNULL;
                 }
-                else
-                    return ;
+                // else
+                //     return (ft::make_pair(iterator(y,*this), true));
             }
             tree_balance_after_insert(n);
-             endn->left = root;   
+            endn->left = root;   
             // fixViolation(n);
             // puts("awal mara");
             // min(root,TNULL);
             // puts("awal mara2");
+            return (ft::make_pair(iterator(n,*this), true));
         }
 void tree_balance_after_insert(node N)
         {
@@ -332,8 +357,8 @@ void tree_balance_after_insert(node N)
             }
             if (tmp == endn)
             {
-                endn->left = nullptr;
-                endn->right = nullptr;
+                // endn->left = nullptr;
+                // endn->right = nullptr;
                 return endn;
             }
             return (tmp);
