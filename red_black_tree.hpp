@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/24 21:02:42 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:48:23 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,22 @@ void tree_balance_after_insert(node N)
             }
             root->color = 0;
         }
-      
+       node searchTreeHelper(node n, key_type key) {
+        
+            if (n == TNULL || key == n->data.first)
+            {
+                return n;
+            }
+            if (key < n->data.first)
+            {
+                return searchTreeHelper(n->left, key);
+            }
+            return searchTreeHelper(n->right, key);
+        }
+        node searchTree(key_type k)
+        {
+            return searchTreeHelper(this->root, k);
+        }
         void leftRotate(node x)
         {
             node y = x->right;

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/24 21:05:38 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/25 21:32:54 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,25 @@ namespace ft
             {
                // difference_type n = last-first;
                 // (void)n;
-                // puts("ala");
+                puts("ala");
                 while(first != last)
                 {
                     // puts("f");
                     m_tree.add(*first++);
                 }
             }
-            // iterator insert (iterator position, const value_type& val)
-            // {
-                
-            // }
+            iterator insert (iterator position, const value_type& val)
+            {
+                (void)position;
+                this->insert(val);
+                return (find(val.first));
+            }
+
+            iterator find (const key_type& k)
+            {
+                return(iterator(m_tree.searchTree(k),m_tree));
+            }
+            // const_iterator find (const key_type& k) const;
             // map& operator= (const map& x);
             // /////////////////////////////////////////////////////////////////////////////////////////
             iterator begin()
