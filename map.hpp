@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/25 21:32:54 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/26 20:01:11 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ namespace ft
             Rep_type m_tree;
         public:
             typedef typename Rep_type::iterator iterator;
-            // typedef typename Rep_type::const_iterator const_iterator;
+            typedef typename Rep_type::const_iterator const_iterator;
+            typedef typename Rep_type::reverse_iterator reverse_iterator;
+            typedef typename Rep_type::const_reverse_iterator const_reverse_iterator;
             //////////////////////////////////////////////////////////////////////////
             
             explicit map (const key_compare& comp = key_compare(),              const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree()
@@ -102,17 +104,20 @@ namespace ft
             {
                // difference_type n = last-first;
                 // (void)n;
-                puts("ala");
+                // puts("ala");
+                
                 while(first != last)
                 {
                     // puts("f");
+                    // std::cout<<(*first).first<<std::endl;
                     m_tree.add(*first++);
                 }
             }
             iterator insert (iterator position, const value_type& val)
             {
-                (void)position;
-                this->insert(val);
+                
+
+                
                 return (find(val.first));
             }
 
@@ -120,37 +125,63 @@ namespace ft
             {
                 return(iterator(m_tree.searchTree(k),m_tree));
             }
-            // const_iterator find (const key_type& k) const;
+            const_iterator find (const key_type& k) const
+            {
+                return(const_iterator(m_tree.searchTree(k),m_tree));
+            }
             // map& operator= (const map& x);
             // /////////////////////////////////////////////////////////////////////////////////////////
             iterator begin()
             {
                 return m_tree.begin();
             }
-            // const_iterator begin() const;
+            const_iterator begin() const
+            {
+                return m_tree.begin();
+            }
             // ///////////////////////////////////////////////////////////////////////////////////////////
             iterator end()
             {
                 return m_tree.end();
             }
-            // const_iterator end() const
-            // {
-            //     return m_tree.end();
-            // }
+            const_iterator end() const
+            {
+                return m_tree.end();
+            }
             // ///////////////////////////////////////////////////////////////////////////////////////
-            // reverse_iterator rbegin();
-            // const_reverse_iterator rbegin() const;
+            reverse_iterator rbegin()
+            {
+                //puts("rebegin map");
+                return m_tree.rbegin();
+            }
+            const_reverse_iterator rbegin() const
+            {
+                return m_tree.rbegin();
+            }
             // ///////////////////////////////////////////////////////////////////////////////////
-            // reverse_iterator rend();
-            // const_reverse_iterator rend() const;
+            reverse_iterator rend()
+            {
+                return reverse_iterator(begin());
+            }
+            const_reverse_iterator rend() const
+            {
+                return const_reverse_iterator(begin());
+            }
             // ///////////////////////////////////////////////////////////////////////////////////////
             // bool empty() const;
             // size_type size() const;
             // size_type max_size() const;
+            // size_type count (const key_type& k) const
+            // {
+            //     if(find(k)!= m_tree.TNULL)
+            //         return (1);
+            //     else
+            //         return (0);
+            // }
             // ///////////////////////////////////////////////////////////////////////////////
             mapped_type& operator[] (const key_type& k)
             {
-                (*((this->insert(make_pair(k,mapped_type()))).first));
+                return (this->insert(value_type(k, mapped_type())).first->second);
             }
             // mapped_type& at (const key_type& k);
             // const mapped_type& at (const key_type& k) const;

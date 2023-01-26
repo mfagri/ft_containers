@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:03:13 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/15 19:29:56 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/26 15:35:59 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ template< class Iterator >
             }
             reference operator*() const
             {
-                return *(m_it - 1);
+                //puts("revers iterator");
+                Iterator tmp = m_it;
+                return *(--tmp);
             }
             reverse_iterator operator+ (difference_type n) const
             {

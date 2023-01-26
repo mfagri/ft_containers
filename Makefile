@@ -6,7 +6,7 @@
 #    By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/31 21:09:13 by mfagri            #+#    #+#              #
-#    Updated: 2023/01/23 14:43:30 by mfagri           ###   ########.fr        #
+#    Updated: 2023/01/22 13:56:54 by mfagri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,15 @@ SRC	= main.cpp
 
 CXX = c++
 
-CFLAGS = -Wall -Wextra -Werror
-DFLAGS = -std=c++98
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 %.o: %.cpp vector.hpp vector_iterator.hpp stack.hpp enable_if.hpp equal.hpp reverse_iterator.hpp is_integral.hpp map.hpp red_black_tree.hpp red_black_iterator.hpp
-	$(CXX) $(CFLAGS) $(DFLAGS) -c -o $@ -c $<
+	$(CXX)  -c -o $@ -c $<
 
 $(NAME): $(OBJ)
-	$(CXX) $(CFLAGS) $(DFLAGS) $(SRC) -o $(NAME)
+	$(CXX)  $(SRC) -o $(NAME)
 
 
 clean:

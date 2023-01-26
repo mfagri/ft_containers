@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/25 19:48:23 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/01/26 19:53:00 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "equal.hpp"
 #include "red_black_iterator.hpp"
 #include "map.hpp"
+#include "reverse_iterator.hpp"
 
 
 class red_black_iterator;
@@ -92,7 +93,9 @@ class RedBlackTree {
         // typedef ft::pair<key_type,mapped_type> value_type;
         typedef mapped_type value_type;
         typedef ft::red_black_iterator <self,value_type,node>  iterator;
-        // typedef ft::const_red_black_iterator <self,const value_type,node> const_iterator;
+        typedef ft::const_red_black_iterator <self,const value_type,node> const_iterator;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
         
         // typedef _Rb_tree_const_iterator<value_type> const_iterator;
     // private:
@@ -136,7 +139,7 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
         RedBlackTree(iterator first,iterator last){
              
             TNULL = alloc.allocate(1);
-            //  alloc.construct(TNULL,T(0,0));
+             alloc.construct(TNULL,T(0,0));
             TNULL->data = (T(0,0));
             TNULL->right = nullptr;
             TNULL->left = nullptr;
@@ -174,7 +177,8 @@ typedef typename Alloc::template rebind<Node<T> >::other node_allocator;
             {
                 n->color = 0;
                 root = n;
-                
+                root->right = TNULL;
+                root->left = TNULL;
                 return (ft::make_pair(iterator(n,*this), true));
             }
             else//tree not empty
@@ -331,7 +335,7 @@ void tree_balance_after_insert(node N)
         
         node    min(node x)
         {
-            while (x && x->left != TNULL)
+            while (x && x->left!= TNULL)
             {
                 x = x->left;
             }
@@ -354,16 +358,21 @@ void tree_balance_after_insert(node N)
         // }
         node max(node nd)
         {
-            while (nd && nd->right != TNULL)
+             while (nd->right->right != NULL)
                 nd = nd->right;
             return nd;
         }
         node prev(node n)
         {
-            if (n->left!= TNULL)
+            // puts("prev tree");
+            if (n->left->right != NULL && n->left != TNULL)
             {
-                    return max(n->left);
+                //if(n == endn)
+                  //  puts("endn");
+            //    std::cout<<n->left->right->data.first<<std::endl;
+                return max(n->left);
             }
+             //   puts("here2");
             node tmp = n->parent;
             while (tmp != endn && n == tmp->left )//&& tmp->data.second != 0)
             {
@@ -376,8 +385,12 @@ void tree_balance_after_insert(node N)
                 // endn->right = nullptr;
                 return endn;
             }
+                // puts("sssssss");
             return (tmp);
+           
         }
+
+        
         // node next(node nd)
         // {
         //     if (nd->right != NULL)
@@ -410,8 +423,18 @@ void tree_balance_after_insert(node N)
         iterator end()
         {
             root->parent = endn;
-            endn->left = root;          
+            endn->left = root;
+            // puts("end map");      
             return(iterator(endn,*this));///////////
+        }
+        reverse_iterator rbegin()
+        {
+            // puts("rbegin tree");
+            return reverse_iterator((this->end()));
+        }
+        const_reverse_iterator rbegin() const
+        {
+            return const_reverse_iterator(this->end());
         }
          void printHelper(node root, std::string indent, bool last) {
             if (root != TNULL) {
