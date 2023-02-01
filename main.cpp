@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/26 20:01:18 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/01 19:21:25 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,34 @@
 
 #include <iostream>
 #include <map>
+// map::value_comp
+#include <iostream>
+#include <map>
 
-
-  int main ()
+int main ()
 {
-  std::map<char,int> mymap;
+  ft::map<char,int> mymap;
+  ft::map<char,int>::iterator it;
 
-  mymap['x'] = 100;
-  // mymap['y'] = 200;
-  // mymap['z'] = 300;
+  // insert some values:
+  mymap['a']=10;
+  mymap['b']=20;
+  mymap['c']=30;
+  mymap['d']=40;
+  mymap['e']=50;
+  mymap['f']=60;
 
-  // show content:
-  std::map<char,int>::reverse_iterator rit;
-  // std::cout<<mymap.rend()->first<<std::endl;
-  for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
-    std::cout << rit->first << " => " << rit->second << '\n';
-  puts("######################################################");
-   ft::map<char,int> mymapn;
+  it=mymap.find('b');
+  mymap.erase (it);                   // erasing by iterator
 
-  mymapn['x'] = 100;
-  // mymapn['y'] = 200;
-  // mymapn['z'] = 300;
-  mymapn.m_tree.printTree();
-  // show content:
-  ft::map<char,int>::reverse_iterator ritn= mymapn.rbegin();
-  puts("//////////////");
-  for (;ritn!=(ft::map<char,int>::reverse_iterator)mymapn.begin(); ++ritn)
-  {
-    // puts("fff");
-    std::cout << ritn->first << " => " << ritn->second << '\n';
-  }
-  puts("///////////////");
-  // std::map<char,int> mymap;
+  mymap.erase ('c');                  // erasing by key
 
-  // mymap['b'] = 100;
-  // mymap['a'] = 200;
-  // mymap['c'] = 300;
+  it=mymap.find ('e');
+  mymap.erase ( it, mymap.end() );    // erasing by range
 
   // show content:
-  for (ft::map<char,int>::iterator itrr=mymapn.begin(); itrr !=mymapn.end(); ++itrr)
-    std::cout << itrr->first << " => " << itrr->second << '\n';
-  //   char c;
-  //  for (c='a'; c<'h'; c++)
-  // {
-  //   std::cout << c;
-  //   if (mymapn.count(c)>0)
-  //     std::cout << " is an element of mymap.\n";
-  //   else 
-  //     std::cout << " is not an element of mymap.\n";
-  // }
+  for (it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
   return 0;
-;
 }

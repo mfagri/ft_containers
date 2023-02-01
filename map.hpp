@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/26 20:01:11 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/01 19:27:23 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,21 +168,104 @@ namespace ft
                 return const_reverse_iterator(begin());
             }
             // ///////////////////////////////////////////////////////////////////////////////////////
-            // bool empty() const;
-            // size_type size() const;
+            bool empty() const
+            {
+                return m_tree.empty();
+            }
+            /////////////////////////////////////////////////////////////////////
+            size_type size() const
+            {
+                return m_tree.size();
+            }
+            //////////////////////////////////////////////////
+            size_type count (const key_type& k) const
+            {
+                return m_tree.count(k);
+            }
+            //////////////////////////////////////////////
+            void clear()
+            {
+                m_tree.clear();
+            }
+            void delet(const key_type &k)
+            {
+                    m_tree.deleteNode(k);
+                    
+            }
+            ////////////////////////////////////////
+            allocator_type get_allocator() const
+            {
+                return _alloc;
+            }
+            /////////////////////////////////////////
+            // void swap (map& x);
+            /////////////////////////////////////////
             // size_type max_size() const;
-            // size_type count (const key_type& k) const
-            // {
-            //     if(find(k)!= m_tree.TNULL)
-            //         return (1);
-            //     else
-            //         return (0);
-            // }
+            ////////////////////////////////////////
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            iterator upper_bound(const key_type& k)
+            {
+                return m_tree.upper_bound(k);
+            }
+            const_iterator upper_bound(const key_type& k) const
+            {
+                return m_tree.upper_bound(k);
+            }
+            ///////////////////////////////////////////////////////////////////
+            iterator lower_bound(const key_type& k)
+            {
+                return m_tree.lower_bound(k);
+            }
+            const_iterator lower_bound (const key_type& k) const
+            {
+                return m_tree.lower_bound(k);
+            }
+            ///////////////////////////////////////////////////////
+            pair<iterator,iterator>             equal_range (const key_type& k)
+            {
+                return m_tree.equal_range(k);
+            }
+            pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+            {
+                return m_tree.equal_range(k);
+            }
+            //////////////////////////////////////////////////
+            value_compare value_comp() const
+            {
+                return _comp;
+            }
+            /////////////////////////////////////////////////////
+            key_compare key_comp() const
+            {
+                return _comp;
+            }
             // ///////////////////////////////////////////////////////////////////////////////
             mapped_type& operator[] (const key_type& k)
             {
                 return (this->insert(value_type(k, mapped_type())).first->second);
             }
+            ///////////////////////////////////////////////////////////////////
+            void erase (iterator position)
+            {
+                m_tree.deleteNode(position->first);
+            }
+            ///////////////////////////////////////////////////////////////////
+            size_type erase (const key_type& k)
+            {
+                m_tree.deleteNode(k);
+                return (1);
+            }
+            ///////////////////////////////////////////////////////////////////
+            void erase (iterator first, iterator last)
+            {
+                while(first != last)
+                {
+                    erase(first);
+                    first++;
+                }
+            }
+            ///////////////////////////////////////////////////////////////////
             // mapped_type& at (const key_type& k);
             // const mapped_type& at (const key_type& k) const;
             ///////////////////////////////////////////////////////////////////////////////////////////
