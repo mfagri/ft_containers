@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/02 17:41:47 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:25:27 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@
 
 int main ()
 {
-  ft::map<char,int> mymap;
+  ft::map<char,int> first;
+  ft::map<char,int> second;
 
-  mymap['a']=10;
-  mymap['b']=20;
-  mymap['c']=30;
+  first['x']=8;
+  first['y']=16;
+  first['z']=32;
 
-  while (!mymap.empty())
-  {
-    std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-    mymap.erase(mymap.begin());
-  }
+  second=first;                // second now contains 3 ints
+  first=ft::map<char,int>();  // and first is now empty
 
+  std::cout << "Size of first: " << first.size() << '\n';
+  std::cout << "Size of second: " << second.size() << '\n';
   return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/02 17:40:03 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/02 20:00:49 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,15 @@ namespace ft
             {
                 ////////
             }
-            ~map(){}
+            ~map(){
+                this->clear();
+            }
+            // map& operator= (const map& x)
+            // {
+            //     // const iterator   i = x.begin();
+            //     // const iterator  j = x.end();
+            //     // this->insert(i,j);
+            // }
             // pair<iterator,bool> insert (const value_type& val);
              pair<iterator,bool> insert ( const value_type & val)
             {
@@ -129,7 +137,6 @@ namespace ft
             {
                 return(const_iterator(m_tree.searchTree(k),m_tree));
             }
-            // map& operator= (const map& x);
             // /////////////////////////////////////////////////////////////////////////////////////////
             iterator begin()
             {
@@ -283,7 +290,19 @@ namespace ft
             // mapped_type& at (const key_type& k);
             // const mapped_type& at (const key_type& k) const;
             ///////////////////////////////////////////////////////////////////////////////////////////
+             ///////////////////////////no member functions ///////////////////////
+        
     };
+            // template <class Key, class T, class Compare, class Alloc>  void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y)
+            // {
+            //     std::swap(x,y);
+            // }
+            // template <class Key, class T, class Compare, class Alloc>  bool operator== ( const map<Key,T,Compare,Alloc>& lhs,                    const map<Key,T,Compare,Alloc>& rhs );	
+            // template <class Key, class T, class Compare, class Alloc>  bool operator!= ( const map<Key,T,Compare,Alloc>& lhs,                    const map<Key,T,Compare,Alloc>& rhs );
+            // template <class Key, class T, class Compare, class Alloc>  bool operator<  ( const map<Key,T,Compare,Alloc>& lhs,                    const map<Key,T,Compare,Alloc>& rhs );
+            // template <class Key, class T, class Compare, class Alloc>  bool operator<= ( const map<Key,T,Compare,Alloc>& lhs,                    const map<Key,T,Compare,Alloc>& rhs );
+            // template <class Key, class T, class Compare, class Alloc>  bool operator>  ( const map<Key,T,Compare,Alloc>& lhs,                    const map<Key,T,Compare,Alloc>& rhs );
+            // template <class Key, class T, class Compare, class Alloc>  bool operator>= ( const map<Key,T,Compare,Alloc>& lhs,                    const map<Key,T,Compare,Alloc>& rhs );
 }
 
 #endif
