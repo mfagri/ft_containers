@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/01 19:27:23 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:40:03 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,9 +198,15 @@ namespace ft
                 return _alloc;
             }
             /////////////////////////////////////////
-            // void swap (map& x);
+            void swap (map& x)
+            {
+                m_tree.swap(x.m_tree);
+            }
             /////////////////////////////////////////
-            // size_type max_size() const;
+            size_type max_size() const
+            {
+                return m_tree.max_size();
+            }
             ////////////////////////////////////////
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -259,10 +265,18 @@ namespace ft
             ///////////////////////////////////////////////////////////////////
             void erase (iterator first, iterator last)
             {
+                iterator tmp = first;
                 while(first != last)
                 {
+                    tmp++;
+                    // m_tree.deleteNode(first->first);
                     erase(first);
-                    first++;
+                    // std::cout<<tmp->first<<std::endl;
+                    first = tmp;
+                    
+                    // if(first == end());
+                    // std::cout << "hey 2\n";
+                    // first = tmp;
                 }
             }
             ///////////////////////////////////////////////////////////////////

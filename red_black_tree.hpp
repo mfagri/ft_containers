@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/01 17:40:00 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:42:58 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ class RedBlackTree {
         typedef ft::reverse_iterator<iterator> reverse_iterator;
         typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
         typedef typename Alloc::size_type       size_type;
+        typedef typename Alloc::difference_type difference_type;
         
         // typedef _Rb_tree_const_iterator<value_type> const_iterator;
     // private:
@@ -495,7 +496,8 @@ void tree_balance_after_insert(node N)
         // }
         iterator end()
         {
-            root->parent = endn;
+            if (root)
+                root->parent = endn;
             endn->left = root;
             // puts("end map");      
             return(iterator(endn,*this));///////////
@@ -562,151 +564,18 @@ void tree_balance_after_insert(node N)
         {
             return m_size;
         }
-        ///////////////////////////////////////////////////////////////////
-    //     void transplant(node u,node v)
-    //     {
-    //         //u is the node i want to delele
-    //         //v remplace
-    //         if(u->parent == endn) // if u is the root
-    //         {
-    //             root = v;
-    //             // v->parent = endn;
-    //         }
-    //         if (u == u->parent->left)
-    //         {
-    //             u->parent->left = v;
-    //         }
-    //         else
-    //         {
-    //             puts("trsn");
-    //             std::cout<<v->data.first<<std::endl;
-    //             u->parent->right = v;
-    //         }
-    //         v->parent = u->parent;
-    //         printTree();
-    //     }
-    //     // void delet()
-    //     // {
-    //     //     //1 left child is NIL
-    //     //     //2 right child is NIL
-    //     //     //3 neither child is NIL
-
-    //     //     //case 1;
-    //     //         if()
-    //     // }
-    //     void deletfixed(node x)
-    //    {
-    //        while(x != root && x->color == 0)
-    //        {
-    //            node w;
-    //            if(x == x->parent->left)
-    //            {
-    //                w = x->parent->right;
-              
-    //                //case 1
-    //                if(w->color == 1)
-    //                {
-    //                    w->color = 0;
-    //                    w->parent->color = 1;
-    //                    leftRotate(x->parent);
-    //                    w = x->parent->right;
-    //                }
-    //                //case 2
-    //                if(w->left->color == 0 && w->right->color == 0)
-    //                {  w->color = 1;
-    //                    x =x->parent;
-    //                }
-    //                else
-    //                {
-    //                    //case 3
-    //                    if(w->right->color == 0)
-    //                    {
-    //                        w->left->color = 0;
-    //                        w->color = 0;
-    //                        rightRotate(w);
-    //                        w= x->parent->right;
-    //                    }
-    //                    //case 4
-    //                    w->color = x->parent->color;
-    //                    x->parent->color = 0;
-    //                    w->right->color  = 0;
-    //                    leftRotate(x);
-    //                    x = root;
-    //                }
-    //            }
-    //            else{
-    //                w = x->parent->left;
-    //                if(w->color == 1)
-    //                {
-    //                    w->color = 0;
-    //                    x->parent->color = 1;
-    //                    rightRotate(x->parent);
-    //                    w = x->parent->left;
-    //                }
-    //                if(w->right->color == 0 && w->left->color == 0)
-    //                {
-    //                    w->color = 1;
-    //                    x = x->parent;
-    //                }
-    //                else
-    //                {
-    //                    if(w->left->color == 0)
-    //                    {
-    //                        w->right->color = 0;
-    //                        w->color = 1;
-    //                        leftRotate(w);
-    //                        w = x->parent;
-    //                    }
-                      
-    //                    w->color = x->parent->color;
-    //                    x->parent->color = 0;
-    //                    w->color = 0;
-    //                    rightRotate(x->parent);
-    //                    x = root;
-    //                }
-    //            }
-    //            x->color = 0;
-    //        }
-    //    }
-    //     void delet(node n)
-    //    {
-    //        // if(n == TNULL)
-    //             std::cout<<"root is :"<<n->data.first<<std::endl;
-    //        node x;
-    //        int origin_color = n->color;
-    //        if(n->left != TNULL)
-    //        {
-    //             puts("here2");
-    //             x = n->left;
-    //             transplant(n,n->left);
-    //        }
-    //        else if(n->right != TNULL)
-    //        {
-    //             puts("here");
-    //            x = n->right;
-    //            transplant(n,n->right);
-    //        }
-    //        else
-    //        {
-    //            puts("fff");
-    //            node min_right = min(n->right);
-    //            transplant(min_right,TNULL);
-    //            transplant(n,min_right);
-    //        }
-    //        if(origin_color == 0)
-    //        {
-    //             puts("fix");
-    //             deletfixed(x);
-    //        }
-    //    }
-    //     void delet_from_tree(const key_type &k)
-    //     {
-    //         node n = searchTree(k);
-    //         // if(n->parent == endn)
-    //         //     puts("is root");
-    //         delet(n);
-                
-    //     }
+        ////////////////////////////
+        size_type max_size() const
+        {
+            return (std::min<size_type>(alloc.max_size(),
+                            std::numeric_limits<difference_type>::max()));
+        }
+        ////////////////////////////////////////
+        void swap (RedBlackTree& x)
+        {
+            std::swap(*this,x);
+        }
+    ///////////////////////////////////////////////////////////////////
     //////////////////////////////
     void delete_fix(node x) {
     node s;
@@ -787,7 +656,7 @@ void rbTransplant(node u, node v)
           std::cout << "Key not found in the tree" << std::endl;
           return;
         }
-    
+        m_size--;
         y = z;
         int y_original_color = y->color;
         if (z->left == TNULL) {
@@ -813,14 +682,14 @@ void rbTransplant(node u, node v)
           y->right->parent = y;
           y->color = z->color;
     }
-    // delete z;
     if (y_original_color == 0) {
-        // std::cout<<x->data.first<<std::endl;
       delete_fix(x);
     }
   }
    void deleteNode(const key_type &data) {
     deleteNodeHelper(this->root, data);
+    root->parent = endn;
+    endn->left = root;
   }
         ///////////////////////////////////////////////////////////////////
         const_iterator upper_bound(const key_type &k) const
