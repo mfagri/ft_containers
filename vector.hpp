@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/02 15:56:25 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/03 19:53:34 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,6 +318,7 @@ class vector
     //push_back: Adds an element to the end of the vector.
     void push_back (const value_type& val)
     {
+        // puts("here");
             if (m_capacity == m_size) {
                 value_type *tmp = _alloc.allocate(m_capacity);
                 for (size_t i = 0; i < m_capacity; i++)
@@ -325,7 +326,8 @@ class vector
                     _alloc.construct(tmp+i,arr[i]);
                 }
                 _alloc.deallocate(arr,m_capacity);
-                _alloc.destroy(arr);
+               // _alloc.destroy(arr);
+                // puts("hna");
                 m_capacity *= 2;
                 if(m_capacity == 0)
                     m_capacity++;
@@ -338,7 +340,7 @@ class vector
                 _alloc.construct(arr+m_size,val);
                 //arr[m_size] = val;
                 _alloc.deallocate(tmp,m_capacity);
-                _alloc.destroy(tmp);
+                // _alloc.destroy(tmp);
             }
             else
                 arr[m_size] = val;
@@ -366,20 +368,20 @@ class vector
     //rbegin: Returns an iterator to the first element in a reversed vector.
     reverse_iterator                rbegin()
     {
-        return reverse_iterator(end());
+        return reverse_iterator(end() - 1);
     }
     const_reverse_iterator rbegin() const
     {
-        return reverse_iterator(end());
+        return reverse_iterator(end() - 1);
     }
     //rend: Returns a past-the-end reverse iterator that points to the element following the last element of the reversed vector.
     reverse_iterator                  rend()
     {
-        return reverse_iterator(begin());
+        return reverse_iterator(begin() - 1);
     }
     const_reverse_iterator rend() const
     {
-        return reverse_iterator(begin());
+        return reverse_iterator(begin() - 1);
     }
 
     //assing: Erases a vector and copies the specified elements to the empty vector.
@@ -413,8 +415,7 @@ class vector
             i++;
         }
         m_size-= position;
-        return (begin() + position);
-        
+        return (begin() + position);        
     }
     iterator erase (iterator position)
     { 

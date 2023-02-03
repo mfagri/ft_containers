@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/02 18:49:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/03 15:24:54 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "red_black_iterator.hpp"
 #include "map.hpp"
 #include "reverse_iterator.hpp"
-
 
 class red_black_iterator;
 template<class node>
@@ -101,10 +100,10 @@ namespace ft
 template <class Key, class T, class Compare, class Alloc>
 class RedBlackTree {
     public:
-        typedef Node<T>* node;
+        typedef T mapped_type;
+        typedef Node<mapped_type>* node;
         typedef Compare value_compare;
         typedef Key key_type;
-        typedef T mapped_type;
         typedef RedBlackTree self;
         // typedef ft::pair<key_type,mapped_type> value_type;
         typedef mapped_type value_type;
@@ -127,7 +126,7 @@ class RedBlackTree {
         size_type m_size;
         // value_compare _comp;
         // typedef value_compare (Compare c) : comp(c) {};
-typedef typename Alloc::template rebind<Node<T> >::other node_allocator;        
+        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;   ////machi ana     
         node_allocator alloc;
         // const value_compare &value_comp() const
         // {
@@ -394,7 +393,7 @@ void tree_balance_after_insert(node N)
             return(nd == nd->parent->right);
         }
         
-        node    min(node x)
+        node    min(node x) const
         {
             // puts("ff");
             while (x && x->left != NULL && x->left->left!= NULL)
@@ -406,7 +405,7 @@ void tree_balance_after_insert(node N)
                 return endn;
             return (x);
         }
-         node suc(node nd)
+        node suc(node nd)
         {
             if (nd->right->left!= NULL)
                 return (min(nd->right));
@@ -490,6 +489,19 @@ void tree_balance_after_insert(node N)
             // puts("ff");
             return(iterator(x,*this));
         }
+
+        const_iterator begin() const
+        {
+            node x = min(root);
+            // puts("ff");
+            return(const_iterator(x,*this));
+        }
+        // const_iterator begin()
+        // {
+        //     node x = min(root);
+        //     // puts("ff");
+        //     return( const_iterator(x,*this));
+        // }
         // const_iterator begin() const
         // {
         //     return(const_iterator(min(root)));
@@ -501,6 +513,14 @@ void tree_balance_after_insert(node N)
             endn->left = root;
             // puts("end map");      
             return(iterator(endn,*this));///////////
+        }
+        const_iterator end() const
+        {
+            if (root)
+                root->parent = endn;
+            endn->left = root;
+            // puts("end map");      
+            return(const_iterator(endn,*this));///////////
         }
         reverse_iterator rbegin()
         {

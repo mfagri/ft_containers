@@ -6,7 +6,7 @@
 #    By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/31 21:09:13 by mfagri            #+#    #+#              #
-#    Updated: 2023/01/22 13:56:54 by mfagri           ###   ########.fr        #
+#    Updated: 2023/02/02 21:38:17 by mfagri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = containers
 
 SRC	= main.cpp
 
-CXX = c++
+CXX = c++ #-fsanitize=address -fsanitize=undefined 
 
 OBJ = $(SRC:.cpp=.o)
 

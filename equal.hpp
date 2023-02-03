@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/20 11:44:39 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/03 20:54:12 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ namespace ft
             pair (const ft::pair<U,V> & pr):first(pr.first),second(pr.second)
             {
             }
-            pair(const first_type &a, const second_type &b) 
+            pair(first_type const &a, second_type const &b)
             {
                 first = a;
                 second = b;
