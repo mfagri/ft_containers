@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:51:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/03 20:37:54 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/04 17:34:27 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,61 @@
 #include "map.hpp"
 #include "stack.hpp"
 #include "vector.hpp"
+#include <map>
 
+void fillMap(ft::map<int,int>&mp) {
+	mp.insert(ft::make_pair(1, 3));
+	mp.insert(ft::make_pair(2, 3));
+	mp.insert(ft::make_pair(3, 3));
+	// mp.insert(ft::make_pair(7, 3));
+	// mp.insert(ft::make_pair(19, 3));
+	// mp.insert(ft::make_pair(29, 3));
+	// mp.insert(ft::make_pair(41, 3));
+	// mp.insert(ft::make_pair(4, 3));
+	// mp.insert(ft::make_pair(11, 3));
+}
 
 int main()
 {
-  ft::map<string, string> mp5, mp6;
-  mp5.insert(ft::make_pair("123", "123"));
-  mp6.insert(ft::make_pair("123", "124"));
+    std::vector<int> v;
+    ft::map<int, int> mpp;
+    ft::map<int, int> mp;
+     fillMap(mpp);
+    for (typename ft::map<int, int>::iterator it = mpp.begin(); it != mpp.end(); it++) { v.push_back(it->first); }
+    for (typename ft::map<int, int>::iterator it = --mpp.end(); it != mpp.begin(); it--) 
+    { 
+      v.push_back(it->first); 
+    }
+    ft::map<int, int> mp0;
+    puts("segfo///////////////////////////////");
+    ft::map<int, int>::iterator ii = mp0.insert(ft::make_pair(3, 3)).first;
+    std::cout<<ii->first<<std::endl;
+      puts("gggggg");
+    ii++;
+    std::cout<<"here=> : "<<ii->first<<std::endl;
+    puts("not here");
+    v.push_back((--ii)->first);
+    for (int i = 0, j = 10; i < 5; ++i, ++j)
+        mp.insert(ft::make_pair(i, j));
+    typename ft::map<int, int>::iterator it = mp.begin();
+    typename ft::map<int, int>::iterator it2 = mp.end();
+    // g_start2 = timer();
+    v.push_back(it->first);
+    it++;
+    it++;
+    it++;
+    it++;
+    v.push_back(it->first);
+    it++;
+    it--;
+    v.push_back(it->first);
+    it2--;
+    v.push_back(it2->first);
+    v.push_back(it2 == it);
+    v.push_back((--it2)->first);
+    v.push_back((it2--)->first);
+    v.push_back((it2++)->first);
+    v.push_back((++it2)->first);
 }
 // #if 1 //CREATE A REAL STL EXAMPLE
 // 	#include <map>

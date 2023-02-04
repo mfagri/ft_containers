@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/03 20:54:12 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/04 16:47:20 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ namespace ft
             {
             }
             pair(first_type const &a, second_type const &b)
+            // :first(a),second(b)
             {
-                first = a;
+                first  = a;
                 second = b;
             }
             
@@ -130,7 +131,7 @@ namespace ft
      { __x.swap(__y); }
     
     template <typename T1, typename T2>
-    pair<T1, T2> make_pair(const T1& a, const T2& b)
+    pair<T1, T2> make_pair(T1  a,T2  b)
     {
         return pair<T1, T2>(a, b);
     }
