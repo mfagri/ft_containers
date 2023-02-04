@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/04 21:28:09 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/04 21:57:34 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,23 +409,23 @@ void tree_balance_after_insert(node N)
         {
             if (nd->right->left!= NULL&& nd->right != TNULL)
             {
-                puts("lol2");
+                // puts("lol2");
                 return (min(nd->right));
             }
                 //   puts("sssssss");  
             while (nd != endn && nd && !tree_is_left_child(nd))
             {
-                puts("here");
+                // puts("here");
                 nd = nd->parent;
-                puts("ssss");
-                std::cout<<"wast : "<<nd->data.first<<std::endl;
+                // puts("ssss");
+                // std::cout<<"wast : "<<nd->data.first<<std::endl;
                 if(nd->parent == endn)
                 {
-                    puts("hhh");
+                    // puts("hhh");
                     break;
                 }
             }
-            puts("lol");
+            // puts("lol");
              if (nd == NULL)
             {
                 // puts("szzz");
