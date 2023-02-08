@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/04 17:05:36 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/08 22:24:34 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace ft
         public:
             typedef Key key_type;
             typedef T mapped_type;
-            typedef ft::pair<Key,T> value_type;
+            typedef ft::pair<const Key,mapped_type> value_type;
             // typedef Compare key_compare;
             typedef Alloc                               allocator_type;
             // typedef value_compare (Compare c) : comp(c) {}
@@ -71,6 +71,9 @@ namespace ft
             
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree()
             {
+                // puts("what");
+                // while (1);
+                
                 // this->allocator_type = allocator_type;
             }
             
@@ -83,9 +86,10 @@ namespace ft
                 //this->insert(first,last);
                 // for (; first != last; ++first)
                 // {
-                //     // std::cout<<first.data.first<<std::endl;
+                //     // std::cout<<first->first<<std::endl;
                 //     this->m_tree.add(*first);
                 // }
+                // puts("dd");
                 
             }
             map (const map& x):_alloc(x._alloc),m_tree(x.m_tree),_comp(x._comp)
@@ -93,7 +97,19 @@ namespace ft
                 ////////
             }
             ~map(){
-                this->clear();
+                // // std::cout<<"here\n";
+                // this->erase(this->begin(),this->end());
+                // clear();
+                // m_tree.dea();
+                // // while (1);
+                // // // {
+                // // //     /* code */
+                // // // }
+                
+                // // erase()
+                // // this->m_tree.~RedBlackTree();
+                // //this->clear();
+                // // _alloc.deallocate()
             }
             map& operator= (const map& x)
             {
@@ -112,11 +128,11 @@ namespace ft
                // difference_type n = last-first;
                 // (void)n;
                 
-                
+                // std::cout<<first->first<<std::endl;
                 while(first != last)
                 {
                     // puts("f");
-                    // std::cout<<(*first).first<<std::endl;
+                    // std::cout<<(first)->first<<std::endl;
                     m_tree.add(*first++);
                 }
             }

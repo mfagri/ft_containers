@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/04 21:57:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/08 22:27:30 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,15 @@ struct Node
     Node *left;
     Node *right;
     int color;
-    Node(T d):data(d) {
+    Node(const T &d):data(d) {
         // data = data;
+        // puts("ddd");
         parent = NULL;
         left = NULL;
         right = NULL;
         color = 0;
-  }     
+  }    
+//   ~Node(){}
 };
 namespace ft
 {
@@ -126,7 +128,7 @@ class RedBlackTree {
         size_type m_size;
         // value_compare _comp;
         // typedef value_compare (Compare c) : comp(c) {};
-        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;   ////machi ana     
+        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;   ////rebin node   
         node_allocator alloc;
         // const value_compare &value_comp() const
         // {
@@ -136,23 +138,45 @@ class RedBlackTree {
         // {
         //     return (_comp);
         // }
-
+        // void dea()
+        // {
+        //     // clear();
+            
+        //     //  puts("eee");
+        //     //  while (1);
+        //     //  {
+        //     //     /* code */
+        //     //  }
+             
+        //     //  alloc.deallocate(root,1);
+        //     // if(!root)
+        //     // {
+        //     //     // puts("dd");
+        //     //     // alloc.deallocate(endn,1);
+        //     //     // alloc.deallocate(TNULL,1);
+        //     // }
+        //     //  puts("ff");
+        //     //  endn = NULL;
+        //     //  TNULL = NULL;
+        // }
          RedBlackTree(){
+            // puts("ddd");
              m_size = 0;
             TNULL = alloc.allocate(1);
             //  alloc.construct(TNULL,T(0,0));
             // TNULL->data = (T(0,0));
-            TNULL->right = nullptr;
-            TNULL->left = nullptr;
-            TNULL->parent = nullptr;
+            TNULL->right = NULL;
+            TNULL->left = NULL;
+            TNULL->parent = NULL;
             TNULL->color = 0;
             root = TNULL;
             endn = alloc.allocate(1);
         //    endn->data = (T(1,1));
-            endn->right = nullptr;
+            endn->right = NULL;
              endn->left = root;   
-            endn->parent = nullptr;
+            endn->parent = NULL;
             endn->color = 0;
+            // while(1);
         }
         RedBlackTree(iterator first,iterator last){
              m_size = 0;
@@ -180,13 +204,13 @@ class RedBlackTree {
         ////////////////////////////////
         void clear_alltree(node n)
         {
-            if (n &&  n  != TNULL)
+            if (n &&  n  != NULL)
             {
                 if (n->left != NULL || n->right != NULL)
                 {
                     clear_alltree(n->left);
                     clear_alltree(n->right);
-                    alloc.destroy(n);
+                    // alloc.destroy(n);
                     alloc.deallocate(n, 1);
                 }
                 n->left = NULL;
@@ -212,80 +236,139 @@ class RedBlackTree {
             // if(root->right == NULL)
             //     puts("yes");
             //     std::cout<<root->data.first<<std::endl;
-            root = TNULL;
+            root = NULL;
             // puts("sala");
             m_size = 0;
         }
         ///////////////////
-         pair<iterator,bool> add(T data)
+        pair<iterator, bool> add(const T& data)
         {
             node n = alloc.allocate(1);
-            alloc.construct(n,data);
-            n->data = data;
+            alloc.construct(n, data);
             n->left = TNULL;
             n->right = TNULL;
-            // std::cout<<n->data.first<<std::endl;
-            // if(n->left == TNULL)
-            // {
-            //     puts("is good for now");
-            // }
             n->parent = endn;
             n->color = 1;
-            if(root == TNULL)//if tree is empty
+
+            if (root == TNULL)
             {
                 n->color = 0;
                 root = n;
                 root->right = TNULL;
                 root->left = TNULL;
                 m_size = 1;
-                return (ft::make_pair(iterator(n,*this), true));
+                return ft::make_pair(iterator(n, *this), true);
             }
-            else//tree not empty
+            else
             {
-                node y = NULL;
-                node x = this->root;
+                node y = nullptr;
+                node x = root;
 
                 while (x != TNULL)
                 {
-                    
                     y = x;
-                    if (n->data.first < x->data.first)
+                    if (n->data < x->data)
                     {
                         x = x->left;
                     }
-                    else if (n->data.first > x->data.first)
+                    else if (n->data > x->data)
                     {
                         x = x->right;
                     }
                     else
-                        return (ft::make_pair(iterator(x,*this), false));
+                    {
+                        alloc.deallocate(n,1);
+                        // puts("22");
+                        return ft::make_pair(iterator(x, *this), false);
+                    }
                 }
+
                 n->parent = y;
                 if (n->data.first < y->data.first)
                 {
                     y->left = n;
-                    n->left = TNULL;
-                    n->right = TNULL;
                 }
-                else if ((n->data.first > y->data.first))
+                else
                 {
                     y->right = n;
-                    n->left = TNULL;
-                    n->right = TNULL;
                 }
-                // else
-                //     return (ft::make_pair(iterator(y,*this), true));
             }
+
             m_size++;
             tree_balance_after_insert(n);
-            endn->left = root;   
-            // fixViolation(n);
-            // puts("awal mara");
-            // min(root,TNULL);
-            // puts("awal mara2");
-            return (ft::make_pair(iterator(n,*this), true));
+            endn->left = root;
+            return ft::make_pair(iterator(n, *this), true);
         }
-void tree_balance_after_insert(node N)
+        //  pair<iterator,bool> add(const T& data)
+        // {
+        //     node n = alloc.allocate(1);
+        //     // puts("ff");
+        //     alloc.construct(n,data);
+        //     // n->data = data;
+        //     n->left = TNULL;
+        //     n->right = TNULL;
+        //     // std::cout<<n->data.first<<std::endl;
+        //     // if(n->left == TNULL)
+        //     // {
+        //     //     puts("is good for now");
+        //     // }
+        //     n->parent = endn;
+        //     n->color = 1;
+        //     if(root == TNULL)//if tree is empty
+        //     {
+        //         n->color = 0;
+        //         root = n;
+        //         root->right = TNULL;
+        //         root->left = TNULL;
+        //         m_size = 1;
+        //         return (ft::make_pair(iterator(n,*this), true));
+        //     }
+        //     else//tree not empty
+        //     {
+        //         node y = NULL;
+        //         node x = this->root;
+
+        //         while (x != TNULL)
+        //         {
+                    
+        //             y = x;
+        //             if (n->data.first < x->data.first)
+        //             {
+        //                 x = x->left;
+        //             }
+        //             else if (n->data.first > x->data.first)
+        //             {
+        //                 x = x->right;
+        //             }
+        //             else
+        //                 return (ft::make_pair(iterator(x,*this), false));
+        //         }
+        //         n->parent = y;
+        //         if (n->data.first < y->data.first)
+        //         {
+        //             y->left = n;
+        //             n->left = TNULL;
+        //             n->right = TNULL;
+        //         }
+        //         else if ((n->data.first > y->data.first))
+        //         {
+        //             y->right = n;
+        //             n->left = TNULL;
+        //             n->right = TNULL;
+        //         }
+        //         // else
+        //         //     return (ft::make_pair(iterator(y,*this), true));
+        //     }
+        //     m_size++;
+        //     tree_balance_after_insert(n);
+        //     endn->left = root;   
+        //     // fixViolation(n);
+        //     // puts("awal mara");
+        //     // min(root,TNULL);
+        //     // puts("awal mara2");
+        //     return (ft::make_pair(iterator(n,*this), true));
+        // }
+void tree_balance_after_insert(node& N)
         {
             node u;
             while (N->parent->color == 1) {
@@ -407,23 +490,28 @@ void tree_balance_after_insert(node N)
         }
         node suc(node nd)
         {
+            // return(next(nd));
+            // puts("ff");
             if (nd->right->left!= NULL&& nd->right != TNULL)
             {
                 // puts("lol2");
                 return (min(nd->right));
             }
                 //   puts("sssssss");  
-            while (nd != endn && nd && !tree_is_left_child(nd))
+            while (nd && nd != endn && nd != TNULL && !tree_is_left_child(nd))
             {
-                // puts("here");
+                //  puts("here");
+                //  if(nd != endn && nd != TNULL && nd->right != NULL)
+                //     puts("hhhhhhhhh");
                 nd = nd->parent;
-                // puts("ssss");
-                // std::cout<<"wast : "<<nd->data.first<<std::endl;
-                if(nd->parent == endn)
-                {
-                    // puts("hhh");
-                    break;
-                }
+                if(nd->right == NULL)
+                    return (nd);
+                // std::cout<<"wast : "<<nd->parent->data.first<<std::endl;
+                // if(nd->parent == endn)
+                // {
+                //      puts("hhh");
+                //     break;
+                // }
             }
             // puts("lol");
              if (nd == NULL)
@@ -433,6 +521,7 @@ void tree_balance_after_insert(node N)
                 // endn->right = nullptr;
                 return endn;
             }
+            // puts("kh");
             return (nd->parent);
         }
         bool empty()const
@@ -459,20 +548,25 @@ void tree_balance_after_insert(node N)
             //    std::cout<<n->left->right->data.first<<std::endl;
                 return max(n->left);
             }
-             //   puts("here2");
             node tmp = n->parent;
-            while (tmp != endn && n == tmp->left )//&& tmp->data.second != 0)
+            
+            if(!tmp)
+               return n;
+            // std::cout<<tmp->data.first<<std::endl;
+                
+            while (tmp && tmp != endn &&tmp->left && n == tmp->left )//&& tmp->data.second != 0)
             {
                 n = tmp;
                 tmp = tmp->parent;
             }
+                // puts("sssssss");
             if (tmp == endn)
             {
+                // puts("ssss");
                 // endn->left = nullptr;
                 // endn->right = nullptr;
                 return endn;
             }
-                // puts("sssssss");
             return (tmp);
            
         }
@@ -484,15 +578,15 @@ void tree_balance_after_insert(node N)
         {
             return ft::make_pair(lower_bound(k),upper_bound(k));
         }
-        // node next(node nd)
-        // {
-        //     if (nd->right != NULL)
-        //         return (min(nd->right));
+        node next(node nd)
+        {
+            if (nd->right != NULL)
+                return (min(nd->right));
             
-        //     while (!tree_is_left_child(nd))
-        //         nd = nd->parent;
-        //     return (nd->parent);
-        // }
+            while (!tree_is_left_child(nd))
+                nd = nd->parent;
+            return (nd->parent);
+        }
        
         // node prev(node nd)
         // {
@@ -540,7 +634,7 @@ void tree_balance_after_insert(node N)
             if (root)
                 root->parent = endn;
             endn->left = root;
-            // puts("end map");      
+            // puts("end map");
             return(const_iterator(endn,*this));///////////
         }
         reverse_iterator rbegin()
@@ -688,13 +782,13 @@ void rbTransplant(node u, node v)
     }
     v->parent = u->parent;
 }
-    void deleteNodeHelper(node n, const key_type &k)
+    void deleteNodeHelper(const key_type &k)
     {
         node z = TNULL;
         node x, y;
         z = searchTree(k);
         if (z == TNULL) {
-          std::cout << "Key not found in the tree" << std::endl;
+        //   std::cout << "Key not found in the tree" << std::endl;
           return;
         }
         m_size--;
@@ -728,7 +822,7 @@ void rbTransplant(node u, node v)
     }
   }
    void deleteNode(const key_type &data) {
-    deleteNodeHelper(this->root, data);
+    deleteNodeHelper(data);
     root->parent = endn;
     endn->left = root;
   }

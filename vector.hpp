@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/03 19:53:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/08 17:27:13 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ class vector
         this->m_size = 0;
         this->m_capacity = 0;
         this->arr = NULL;
+        // puts("1");
+        //   exit(0);
     }
     template< class InputIt >
     vector( InputIt first, InputIt last,const allocator_type& alloc = allocator_type(),typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
@@ -78,7 +80,10 @@ class vector
             first++;
             i++;
             n--;
+            
         }
+        // puts("2");
+    //     // exit(0);
     }
     //destructor
     ~vector()
@@ -97,6 +102,8 @@ class vector
             // this->arr[i] = val;
             _alloc.construct(arr+i,val);
         }
+        // puts("3");
+        //   exit(0);
     }
     
     class throw_out_of_range : public std::exception

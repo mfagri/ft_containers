@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/26 18:43:24 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/06 17:26:53 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ namespace ft
                 {
                     // std::cout << ptr->data.first << std::endl;
                 }
-                red_black_iterator &operator = (const red_black_iterator &x) 
+                red_black_iterator &operator= (const red_black_iterator &x) 
                 {
-                    ptr = x.ptr;
+                    this->ptr = x.ptr;
                     
                     return *this;
                 }

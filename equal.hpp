@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/04 16:47:20 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:22:28 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ namespace ft
         typedef T2 second_type;
 
         public:
-            first_type  first;
+            first_type   first;
             second_type  second;
 
             pair() : first(), second() { }
@@ -89,10 +89,10 @@ namespace ft
             {
             }
             pair(first_type const &a, second_type const &b)
-            // :first(a),second(b)
+            :first(a),second(b)
             {
-                first  = a;
-                second = b;
+                // first  = a;
+                // second = b;
             }
             
             pair& operator = (const pair& __p)
@@ -102,10 +102,10 @@ namespace ft
                 return *this;
             }
 
-            ~pair()
-            {
+            // ~pair()
+            // {
 
-            }
+            // }
     };
     template <class T1, class T2>
     bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)

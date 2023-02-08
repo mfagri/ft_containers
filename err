@@ -1,57 +1,92 @@
-make: Warning: File 'Makefile' has modification time 617308 s in the future
-In file included from map.hpp:19,
-                 from main.cpp:15:
-red_black_tree.hpp: In instantiation of ‘ft::RedBlackTree<Key, T, Compare, Alloc>::RedBlackTree() [with Key = char; T = ft::pair<char, int>; Compare = ft::map<char, int>::value_compare; Alloc = std::allocator<ft::pair<const char, int> >]’:
-map.hpp:24:8:   required from here
-red_black_tree.hpp:116:23: error: no matching function for call to ‘ft::map<char, int>::value_compare::value_compare()’
-  116 |         RedBlackTree(){
-      |                       ^
-In file included from main.cpp:15:
-map.hpp:47:17: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::value_compare(Compare) [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >]’
-   47 |                 value_compare(Compare _c) : _comp(_c) {}
-      |                 ^~~~~~~~~~~~~
-map.hpp:47:17: note:   candidate expects 1 argument, 0 provided
-map.hpp:41:19: note: candidate: ‘ft::map<char, int>::value_compare::value_compare(const ft::map<char, int>::value_compare&)’
-   41 |             class value_compare
-      |                   ^~~~~~~~~~~~~
-map.hpp:41:19: note:   candidate expects 1 argument, 0 provided
-In file included from map.hpp:19,
-                 from main.cpp:15:
-red_black_tree.hpp:126:20: error: no matching function for call to ‘ft::map<char, int>::value_compare::value_compare()’
-  126 |             comp = Compare();
-      |                    ^~~~~~~~~
-In file included from main.cpp:15:
-map.hpp:47:17: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::value_compare(Compare) [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >]’
-   47 |                 value_compare(Compare _c) : _comp(_c) {}
-      |                 ^~~~~~~~~~~~~
-map.hpp:47:17: note:   candidate expects 1 argument, 0 provided
-map.hpp:41:19: note: candidate: ‘ft::map<char, int>::value_compare::value_compare(const ft::map<char, int>::value_compare&)’
-   41 |             class value_compare
-      |                   ^~~~~~~~~~~~~
-map.hpp:41:19: note:   candidate expects 1 argument, 0 provided
-In file included from map.hpp:19,
-                 from main.cpp:15:
-red_black_tree.hpp: In instantiation of ‘void ft::RedBlackTree<Key, T, Compare, Alloc>::add(ft::RedBlackTree<Key, T, Compare, Alloc>::value_type) [with Key = char; T = ft::pair<char, int>; Compare = ft::map<char, int>::value_compare; Alloc = std::allocator<ft::pair<const char, int> >; ft::RedBlackTree<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’:
-map.hpp:82:17:   required from ‘void ft::map<Key, T, Compare, Alloc>::insert(const value_type&) [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >; ft::map<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’
-main.cpp:23:46:   required from here
-red_black_tree.hpp:171:31: error: no match for call to ‘(ft::map<char, int>::value_compare) ()’
-  171 |                     if (comp()(data.first, tmp->data.first))
-      |                         ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from main.cpp:15:
-map.hpp:53:29: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::result_type ft::map<Key, T, Compare, Alloc>::value_compare::operator()(const value_type&, const value_type&) const [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >; ft::map<Key, T, Compare, Alloc>::value_compare::result_type = bool; ft::map<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’
-   53 |                 result_type operator()(const value_type &_x, const value_type &_y) const
-      |                             ^~~~~~~~
-map.hpp:53:29: note:   candidate expects 2 arguments, 0 provided
-In file included from map.hpp:19,
-                 from main.cpp:15:
-red_black_tree.hpp:173:36: error: no match for call to ‘(ft::map<char, int>::value_compare) ()’
-  173 |                     else if (comp()(tmp->data.first, data.first))
-      |                              ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-In file included from main.cpp:15:
-map.hpp:53:29: note: candidate: ‘ft::map<Key, T, Compare, Alloc>::value_compare::result_type ft::map<Key, T, Compare, Alloc>::value_compare::operator()(const value_type&, const value_type&) const [with Key = char; T = int; Compare = std::less<char>; Alloc = std::allocator<ft::pair<const char, int> >; ft::map<Key, T, Compare, Alloc>::value_compare::result_type = bool; ft::map<Key, T, Compare, Alloc>::value_type = ft::pair<char, int>]’
-   53 |                 result_type operator()(const value_type &_x, const value_type &_y) const
-      |                             ^~~~~~~~
-map.hpp:53:29: note:   candidate expects 2 arguments, 0 provided
-make: *** [Makefile:26: main.o] Error 1
-make: Warning: File 'Makefile' has modification time 617196 s in the future
-make: warning:  Clock skew detected.  Your build may be incomplete.
+'https://drive.google.com/file/d/1bFz_cXrO3TuXyHjWmOfcc0F43NczntnL/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1BNxiGt6MOeGlfU4BRVdwaU9K7HXQrPwT/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1tMU7zvTukuXmbIB_69FA_SyNXIKRXOWS/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1i6NVxRIsSByGG18mi9IGQVRK0sJ3cS0E/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1f_yVN3ipgusCucbqL2tzJRCFDSlf2Kae/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1bAfWU8PBO2mkBFGxTkBDS5_RQUZ6UleJ/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1S1HaBbJ-hpDvVhC2SXKFw9z8TTDE8saK/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1dpYxkXBJTGsYk9N9ed5R2La5HlTveTKu/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1ecVU7ERk4SZUaYXQdgoMwWdhRsoWPcsE/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1XP_4Xj_Oe5ZWdK-AVWtho2dWko8BVbTT/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1aFZi0uWumDtuRtdLETUSD4W727VuwGt3/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1hIVWBXT4Sti8jRmplIDuxMdCvhaxe6Wr/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1PUrv_MtmMJ3tDqTK9rG6n0eoccY3LvYq/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1k8zhvUzs5i8RTXmymSq72Fl0jAhfjts5/view?usp=drivesdk',
+  'https://drive.google.com/file/d/12nP8eaQE_6_d0jseF8p7jdWjJYyV7tx3/view?usp=drivesdk',
+  'https://drive.google.com/file/d/11nnzfMF_M0WYoVI08ndGHKyjjjIKI-GL/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1wPVzJG16dkb3hKXX0lHVdVSgoFkrj-0L/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1g9l_WlAdREY_Y-5tQmkEkhQQh1FemYEz/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Z8M7A4sGqgMxSmwPoKCelLj9zGTaITbM/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1DouyJHldL29zYUzHq0Hz1MUfDYaX2ENQ/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1VbrBhnOBfMCrgRdDEaY0qPYCX2dooVxd/view?usp=drivesdk',
+  'https://drive.google.com/file/d/171r8ctFNyClKA4AZwAZZ57TQ3y27bRGG/view?usp=drivesdk',
+  'https://drive.google.com/file/d/11uy9AiI8sqFZX1RLDMX_N3zvErL3mJGc/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1L0BMDg4DB7SNtv_GEHZ05A18Oj5P2JfU/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1KhbqXJGQswbkZhQ0YwW_SIn1LeOUD2Ra/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Qf31AHN6wG8dwGFgJwTIgyeTafTS_6uB/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1tJ6MWWqZyO86LFLlb3BtTxf2awcyE2GD/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1AabcEdBlqrknBwy7hVVZB6lViHGZmJzc/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1denCSCBQ7GKnN3ReldmT8iz91-WO6s_J/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1QMSyt2fWff4X9sW_gYd07H_nP-Yxnk4x/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1v-v-YxTeC2q_Js3cEMC193iN3dfm40pC/view?usp=drivesdk',
+  'https://drive.google.com/file/d/12H6fZIoaWyooo0sy96pJIycyRQ8wobhf/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1zlW8y15A59WH8nK7yoGq2FnMGryuPH68/view?usp=drivesdk',
+  'https://drive.google.com/file/d/13c8HNKraHLvvcVPg3YoU0iplFWw9YE9d/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1ACwxAS4UqsfyCFmbqq5qpBHC93wwHEmK/view?usp=drivesdk',
+  'https://drive.google.com/file/d/182BfUW2iK8JUajqVaU_QS1a0aY4vL6sU/view?usp=drivesdk',
+  'https://drive.google.com/file/d/19KI91UWMynPmZTG-pZxHqEBhZPehqGJA/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1ISC1qk6Q07lSkht_QaQ7nU9qZ99D7h0J/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1KG1paRkF-MQV4YVMiVKb4oUYIr_YYC3-/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1d7GwLWcHUpb0fFDYe_5YkC3sRFplCKUQ/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1OC8tVW7EqACBNgbdlKBjcRaNrKquwvHw/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1EhLSs4oaI767L2qWng1vt6eF25sorVNt/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Zk4UaJ9oTUvGEM2t7qqWefMXEDVDkhWH/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1hMFa_nhpsdCDZo2Ny8y03PUbc5CGUZub/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1q4SID3-gIEYm_ilElLQbSf5llcMx5fNy/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1-B04WlxggPfiEgKQDeQITyENu0AcijLW/view?usp=drivesdk',
+  'https://drive.google.com/file/d/11oiLFPCVmuntkc1BwcXDOL__O5VsAZk1/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1PPoceD1hhaOVbSpzg03iY4GYETllB6if/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1bEbD6AceghCnKGtXNX6LuQIeXDKHCNbB/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Z-l-Gv1a3wRSMpevZr5c0GHgBbE1lZxB/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Dci46wU4-bNOskvTqR3bo3uHm4aJXqKv/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1SxjRYHHhRXX3_eRzoOYeQSGYRC-qTzoU/view?usp=drivesdk',
+  'https://drive.google.com/file/d/16xekF2zmI9o_Ni44dxP9robvigd7oNA6/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1MKKKslEhQRx9o-eIpxanKxTwGY4uzMxa/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1JFpfrVxm14XTVO3S_TCa909Pl9YYUR2W/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1ADRerpY6YD_GCGZzSeK5R7Ih65aRczs2/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Lu9tMoyea5wDKhmBWOibXR3vCcpiZay0/view?usp=drivesdk',
+  'https://drive.google.com/file/d/17lntKQFhaYNj3q17Ei7_8iigNBuNoZ9_/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1GQ71mi00Fv30gldkI2Nyg-Kr1FWH_X1Y/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1WcR3zJmlvrui0jIgRJwj0Y4VpcBQpqdV/view?usp=drivesdk',
+  'https://drive.google.com/file/d/13whPvtuvHQRLCuxYO1s-WwqxGborwOpN/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1pngDBD27JgAcybJwYMwo6Jo_uzRi4jrN/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1qNsgR2Xf5yz1YY9VDeFNQrP7whe-vgP0/view?usp=drivesdk',
+  'https://drive.google.com/file/d/143Psnq8V9M_b740Jer5JdsVuIrgakIUx/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1ewozn2MuOl8QVYdhFWYe3YBRAQ-zRFlb/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Z9OLPBqgVGtJQOzzTmPbSDpjD1_ojWXL/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1fEA7UJilfL6iWzk1V2O3ehX3L2uG9zb6/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1j378lEtdz7WpstA0ZGP3okTfAcWlYg9w/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1T13alhhSZa1d0yJ_EIRtCzc-YI6tTmHG/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1W5deG0_E2B90H7QoenXa3ha-ze2tTPJw/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1aVvUoVqYMwNKel0XYba_b6nR4-xTXl6k/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1kRPhFq3YvCP9gXLOCe09gLPyYay8Uan5/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1TuErYKKlzcuWJ2TzjmesXxYcCSwlk5VE/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1ZjBA63XzA0xefcf61OMmyOCYa7okQErp/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1hxhxpzrslQvmvb6Z9oqUGbTSWlWKXVEE/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1V60UpsDaOaMI_FLjRLl2Q8qLtDd_g7Dq/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1DR4zAsrekdG3sSd8GcFB0Yll88hKsdHB/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1r76mP-zdffXcaqhQ0Nb0lQF9oDHq2H7U/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1Rfn5oVroCqNh2i9QRdaVqxM1yNKujP0u/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1AkrRF-TXXNYwPDMtQV0d9jSGMaNY_01i/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1THZuOOE6ZDBnOmqNvqbQDyEan2PtGBDG/view?usp=drivesdk',
+  'https://drive.google.com/file/d/14vhP84YPkancvsckyScnvWeL9hzpmvBK/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1mZo_mpXVeBhF7RDbv6fJkgPSUszMX163/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1wJz5zW_6C2G3Fs5nJvugsOa5Jif_HgDt/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1w1fKTSki4hq-QwAOqlPdgSrrAZutBgNj/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1t6qYCIPpNqskRd77QCDBSjj71JazK3HK/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1jTp3VF1_oxfmx8dbbM3XFaoBjmAne2Zc/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1FKb9itMwuqGrzdvcWPu4csGDX8Uo6lfS/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1u0xbIPSpdAs-zDyq6Y6PBf54L3X3QRhC/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1gbyGXIp4SGnb_wSrgjnzofP2_smXNZP8/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1JlP0kkKKHio9SuxXVzG2WPjjl812nBfc/view?usp=drivesdk',
+  'https://drive.google.com/file/d/1TV2sQXrxEftn
