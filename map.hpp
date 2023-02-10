@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/08 22:24:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/10 16:00:46 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ namespace ft
             }
             ~map(){
                 // // std::cout<<"here\n";
-                // this->erase(this->begin(),this->end());
+                 //this->erase(this->begin(),this->end());
                 // clear();
-                // m_tree.dea();
+                //  m_tree.dea();
                 // // while (1);
                 // // // {
                 // // //     /* code */
@@ -113,9 +113,21 @@ namespace ft
             }
             map& operator= (const map& x)
             {
-                this->clear();
-                insert(x.begin(),x.end());
-                return *this;
+                if (*this != x)
+			    {
+                    this->clear();
+                    m_tree.dea();
+                    m_tree = x.m_tree;
+			    	// this->m_size = x.m_size;
+                    // insert(x.begin(),x.end());
+                    //return *this;
+			    	// this->_tree.clear();
+			    	// this->_tree.~RBT();	
+			    	// _alloc.deallocate(this->_tree.get_node_end(), 1);
+			    	// // _alloc.deal
+			    	// this->_tree = _m._tree;
+			    }
+			    return *this;
             }
             // pair<iterator,bool> insert (const value_type& val);
              pair<iterator,bool> insert ( const value_type & val)

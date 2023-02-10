@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/08 17:27:13 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:38:27 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,14 @@
 
 namespace ft
 {
-
+template<typename T>
+void swap(T &a,T&b)
+{
+    T c;
+    c = a;
+    a = b;
+    b = c;
+}
 template < class T, class Alloc = std::allocator<T> >
 class vector
 {
@@ -88,7 +95,9 @@ class vector
     //destructor
     ~vector()
     {
+        // if(m_capacity != 0)
         _alloc.deallocate(arr,m_capacity);
+        // clear();
     }
     //parametres constructor
     explicit vector (size_type n, const value_type& val = value_type(),const allocator_type& alloc = allocator_type())
@@ -128,6 +137,9 @@ class vector
     {
         if(this != &x)
         {
+            // puts("fff");
+            clear();
+            _alloc.deallocate(arr,m_capacity);
             this->m_capacity = x.m_capacity;
             this->m_size = x.m_size;
             this->arr = _alloc.allocate(x.m_size);
@@ -288,6 +300,13 @@ class vector
     //clear :Erases the elements of the vector.
     void clear()
     {
+        // for (size_t i = 0; i < m_capacity; i++)
+        // {
+        //     _alloc.destroy(arr+i);
+        // }
+        // if(m_capacity > 0)
+            // _alloc.deallocate(arr,m_capacity);
+        //m_capacity = 0;
         m_size = 0;
     }
     //get_allocator: Returns a copy of the allocator object used to construct the vector.
@@ -297,9 +316,21 @@ class vector
     }
 
     //swap: Exchanges the elements of two vectors.
+    
     void swap (vector& x)
     {
-        std::swap(*this,x);////ssds
+        // vector *tmp(x);
+        // x = *this;
+        // *this = tmp;
+        // std::swap(*this,x);////ssds
+        if(x != *this)
+        {
+            std::swap(arr,x.arr);
+            std::swap(m_size,x.m_size);
+            std::swap(m_capacity,x.m_capacity);
+        }
+
+        
     }
     //   void reserve( int newCapacity )
     // {
@@ -326,6 +357,7 @@ class vector
     void push_back (const value_type& val)
     {
         // puts("here");
+            size_t firstc = m_capacity;
             if (m_capacity == m_size) {
                 value_type *tmp = _alloc.allocate(m_capacity);
                 for (size_t i = 0; i < m_capacity; i++)
@@ -356,6 +388,7 @@ class vector
     //begin : Returns a random-access iterator to the first element in the vector.
     iterator begin()
     {
+        // puts("begin");
         return iterator(&arr[0]);
     }
     const_iterator begin() const
@@ -365,6 +398,7 @@ class vector
     //end: Returns a past-the-end iterator that points to the element following the last element of the vector.
     iterator end()
     {
+        // puts("end");
         return iterator(&arr[m_size]);
     }
 
@@ -375,20 +409,20 @@ class vector
     //rbegin: Returns an iterator to the first element in a reversed vector.
     reverse_iterator                rbegin()
     {
-        return reverse_iterator(end() - 1);
+        return reverse_iterator(end());
     }
     const_reverse_iterator rbegin() const
     {
-        return reverse_iterator(end() - 1);
+        return reverse_iterator(end());
     }
     //rend: Returns a past-the-end reverse iterator that points to the element following the last element of the reversed vector.
     reverse_iterator                  rend()
     {
-        return reverse_iterator(begin() - 1);
+        return reverse_iterator(begin() +1);
     }
     const_reverse_iterator rend() const
     {
-        return reverse_iterator(begin() - 1);
+        return reverse_iterator(begin() +1);
     }
 
     //assing: Erases a vector and copies the specified elements to the empty vector.
@@ -422,7 +456,7 @@ class vector
             i++;
         }
         m_size-= position;
-        return (begin() + position);        
+        return (this->arr + (l));        
     }
     iterator erase (iterator position)
     { 
@@ -441,6 +475,7 @@ class vector
     //insert: Inserts an element, or many elements, or a range of elements into the vector at a specified position.
     iterator insert (iterator position, const value_type& val)
     {
+
         size_t l = position - begin();
         iterator it = begin();
         size_t z = 0;
@@ -472,6 +507,7 @@ class vector
     }
     void insert (iterator position, size_type n, const value_type & val)
     {
+        // puts("ddd");
         iterator it = this->begin();
         size_t i = 0;
         for (; it != position; it++)
@@ -480,7 +516,6 @@ class vector
         }
         value_type *tmp;
         size_type m_n;
-        
         if(m_capacity == 0)
             m_capacity++;
         else if(m_size + n >= m_capacity)
@@ -488,6 +523,7 @@ class vector
             m_n = m_size + n;
             m_capacity = m_n;
         }
+        // printf("m : %d\n",m_capacity);
         tmp = _alloc.allocate(m_capacity);
         size_t j = 0;
         for(;j != i;j++)
@@ -501,13 +537,17 @@ class vector
             j++;
             n--;
         }
-        while(i < m_size+k)
+        // std::cout << "hey\n";
+        // printf("i : %d\tk : %d\tj : %d\tm_size : %d\n", i, k, j, m_size);
+        while(i + k < m_size+k)
         {
             _alloc.construct(tmp+j,arr[i]);
             j++;
             i++;
         }
         m_size += k;
+        // _alloc.destroy(arr);
+        _alloc.deallocate(arr, m_size);
         arr =tmp;
         
     }
@@ -516,6 +556,7 @@ class vector
     template <class InputIterator> 
     void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
        
+        // puts("hello you");
        
         difference_type n = last - first;
 
@@ -526,20 +567,24 @@ class vector
             i++;
         }
         value_type *tmp;
-       
+        // puts("i see you");
         if(m_capacity == 0)
             m_capacity++;
         else if(m_size + n >= m_capacity)
         {
             m_capacity *= 2;
         }
+        // puts("not interested");
         tmp = _alloc.allocate(m_capacity);
         size_t j = 0;
         for(;j != i;j++)
         {
             _alloc.construct(tmp+j,arr[j]);
         }
+        // puts("noo i am not");
         size_type k = n;
+        // printf("\t n = %d ",n);
+        // exit (0);
         while(n)
         {
             _alloc.construct(tmp+j,*first);
@@ -547,13 +592,18 @@ class vector
             n--;
             first++;
         }
-        while(i < m_size+k)
+        // puts("not my circus not my momkeys");
+        while(i+k < m_size+k)
         {
             _alloc.construct(tmp+j,arr[i]);
             j++;
             i++;
         }
+        // puts("i found you and i will kill you");
         m_size += k;
+        // _alloc.destroy(arr);
+        _alloc.deallocate(arr, m_size);
+
         arr =tmp;
     }
 

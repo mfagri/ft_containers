@@ -74,6 +74,7 @@
         "csignal": "cpp",
         "iomanip": "cpp",
         "set": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "*.ipp": "cpp"
     }
 }

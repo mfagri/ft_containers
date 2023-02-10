@@ -6,7 +6,7 @@
 #    By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/31 21:09:13 by mfagri            #+#    #+#              #
-#    Updated: 2023/02/08 21:11:55 by mfagri           ###   ########.fr        #
+#    Updated: 2023/02/10 18:25:24 by mfagri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = containers
 SRC	= main.cpp
 
 # CFLAGS = -Wall -Wextra -Werror -std=c++98
-CXX = c++ #-fsanitize=address -fsanitize=undefined -g 
+CXX = c++ #===-fsanitize=address -fsanitize=undefined -g 
 
 OBJ = $(SRC:.cpp=.o)
 

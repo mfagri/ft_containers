@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/08 22:27:30 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/10 15:59:59 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,27 +138,31 @@ class RedBlackTree {
         // {
         //     return (_comp);
         // }
-        // void dea()
-        // {
-        //     // clear();
-            
-        //     //  puts("eee");
-        //     //  while (1);
-        //     //  {
-        //     //     /* code */
-        //     //  }
-             
-        //     //  alloc.deallocate(root,1);
-        //     // if(!root)
-        //     // {
-        //     //     // puts("dd");
-        //     //     // alloc.deallocate(endn,1);
-        //     //     // alloc.deallocate(TNULL,1);
-        //     // }
-        //     //  puts("ff");
-        //     //  endn = NULL;
-        //     //  TNULL = NULL;
-        // }
+        void dea()
+        {
+            int i = -1;
+            if (endn->right == endn )
+                return;
+            if (TNULL->right != endn)
+            {
+                if (size() > 0 && i == -1)
+                {
+                    clear_alltree(this->root);
+                    i = 1;
+                }
+                alloc.destroy(TNULL);
+                alloc.deallocate(TNULL, 1);
+                TNULL->right = endn;
+            }
+            if (endn->right != endn)
+            {
+                if ( size() > 0 && i == -1)
+                    clear_alltree(this->root);
+                alloc.destroy(endn);
+                alloc.deallocate(endn, 1);
+                endn->right = endn;
+            }
+        }
          RedBlackTree(){
             // puts("ddd");
              m_size = 0;
@@ -204,13 +208,13 @@ class RedBlackTree {
         ////////////////////////////////
         void clear_alltree(node n)
         {
-            if (n &&  n  != NULL)
+            if (n != endn &&  n  != TNULL)
             {
-                if (n->left != NULL || n->right != NULL)
+                if (n->left != endn || n->right != endn)
                 {
                     clear_alltree(n->left);
                     clear_alltree(n->right);
-                    // alloc.destroy(n);
+                    alloc.destroy(n);
                     alloc.deallocate(n, 1);
                 }
                 n->left = NULL;
