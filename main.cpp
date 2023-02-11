@@ -8,34 +8,34 @@
 #include <map>
 
 
-// class B {
-// public:
-//     char *l;
-//     int i;
-//     B():l(nullptr), i(1) {};
-//     B(const int &ex) {
-//         this->i = ex;
-//         this->l = new char('a');
-//     };
-//     virtual ~B() {
-//         delete this->l;
-//         this->l = nullptr;
-//     };
-// };
+class B {
+public:
+    char *l;
+    int i;
+    B():l(nullptr), i(1) {};
+    B(const int &ex) {
+        this->i = ex;
+        this->l = new char('a');
+    };
+    virtual ~B() {
+        delete this->l;
+        this->l = nullptr;
+    };
+};
 
-// class A : public B {
-// public:
-//     A():B(){};
-//     A(const B* ex){
-//         this->l = new char(*(ex->l));
-//         this->i = ex->i;
-//         if (ex->i == -1) throw "n";
-//     }
-//     ~A() {
-//         delete this->l;
-//         this->l = nullptr;
-//     };
-// };
+class A : public B {
+public:
+    A():B(){};
+    A(const B* ex){
+        this->l = new char(*(ex->l));
+        this->i = ex->i;
+        if (ex->i == -1) throw "n";
+    }
+    ~A() {
+        delete this->l;
+        this->l = nullptr;
+    };
+};
 
 // template <typename T>
 // std::vector<int> insert_test_3(std::vector<T> vector) {
@@ -69,26 +69,49 @@
 // }
 void ft_tester()
 {
-    
+    std::vector<int> v;
+    ft::vector<int> vector;
+    ft::vector<int> tmp;
+    tmp.assign(2600 * 10000, 1);
+    vector.assign(4200 * 10000, 1);
+    // g_start1 = timer();
+    vector.insert(vector.end() - 1000 * 10000, tmp.begin(), tmp.end());
+    // g_end1 = timer();
+    // v.push_back(vector[3]);
+    // v.push_back(vector.size());
+    // v.push_back(vector.capacity());
+
+    std::unique_ptr<B> k2(new B(3));
+    std::unique_ptr<B> k3(new B(4));
+    std::unique_ptr<B> k4(new B(-1));
+    ft::vector<A> vv;
+    ft::vector<B*> v1;
+
+    v1.push_back(&(*k2));
+    v1.push_back(&(*k3));
+    v1.push_back(&(*k4));
+    // return;
+    puts("ff");
+    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    catch (...) {
+        // v.push_back(vv.size());
+        // v.push_back(vv.capacity());
+        //std::cout<<"bitchs = "<<vv.capacity()<<std::endl;
+        // for (size_t i = 0; i < v.size(); i++)
+        // {
+        //     std::cout<<v[i]<<std::endl;
+        // }
+        
+    }
+    // for (size_t i = 0; i < v.size(); i++)
+    // {
+    //     std::cout<<v[i]<<std::endl;
+    // }
 }
 int main ()
 {
-   std::vector<int> v;
-   ft::vector<int>vector;
-    for (int i = 0; i < 9900 * 1000; ++i)
-        vector.push_back(i);
-    // g_start2 = timer();
-    v.push_back(*(vector.erase(vector.begin() + 8 * 1000, vector.end() - 1500 * 1000)));
-    // g_end2 = timer();
-    v.push_back(*(vector.begin() + 82 * 1000));
-    v.push_back(vector.size());
-    v.push_back(vector.capacity());
-    for (size_t i = 0; i < v.size(); i++)
-    {
-        std::cout<<v[i]<<std::endl;
-    }
-    
-    return 0;
+   ft_tester();
+   system("leaks containers");
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/10 21:38:27 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/11 19:08:14 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,7 @@
 
 namespace ft
 {
-template<typename T>
-void swap(T &a,T&b)
-{
-    T c;
-    c = a;
-    a = b;
-    b = c;
-}
+
 template < class T, class Alloc = std::allocator<T> >
 class vector
 {
@@ -95,8 +88,10 @@ class vector
     //destructor
     ~vector()
     {
-        // if(m_capacity != 0)
-        _alloc.deallocate(arr,m_capacity);
+        // if(m_capacity == 0)
+        //     m_capacity++;
+        // if(m_capacity >= 0)
+            _alloc.deallocate(arr,m_capacity);
         // clear();
     }
     //parametres constructor
@@ -501,13 +496,12 @@ class vector
         {
             _alloc.construct(tmp+i,arr[i-1]);
         }
-        _alloc.deallocate(arr,m_size);
+        _alloc.deallocate(arr,m_capacity);
         arr = tmp;
         return (iterator(&arr[z]));
     }
     void insert (iterator position, size_type n, const value_type & val)
     {
-        // puts("ddd");
         iterator it = this->begin();
         size_t i = 0;
         for (; it != position; it++)
@@ -558,7 +552,7 @@ class vector
        
         // puts("hello you");
        
-        difference_type n = last - first;
+        difference_type n = std::distance(first, last);
 
         iterator it = this->begin();
         size_t i = 0;
@@ -568,43 +562,75 @@ class vector
         }
         value_type *tmp;
         // puts("i see you");
-        if(m_capacity == 0)
-            m_capacity++;
-        else if(m_size + n >= m_capacity)
+        if(m_size + n >= m_capacity)
         {
+            // puts("*2");
             m_capacity *= 2;
         }
+        else if(m_capacity == 0)
+        {
+            m_capacity++;
+        }
+        if(m_capacity)
+            tmp = _alloc.allocate(m_capacity);
+        else
+            tmp = _alloc.allocate(n);
+
+        // else
+        // {
+        //     // return;
+        //     // puts("///////////////////////////////");
+        //     tmp = _alloc.allocate(n);
+        // }
+        // std::cout<<"capacity = "<<m_capacity<<std::endl;
+        // std::cout<<"n = "<<n<<std::endl;
+        // std::cout<<"size = "<<m_size<<std::endl;
         // puts("not interested");
-        tmp = _alloc.allocate(m_capacity);
         size_t j = 0;
         for(;j != i;j++)
         {
-            _alloc.construct(tmp+j,arr[j]);
+             _alloc.construct(tmp+j,arr[j]);
+            //tmp[j] = arr[i];
+
         }
-        // puts("noo i am not");
+        // std::cout<<"j = "<<j<<std::endl;
+        //  puts("noo i am not");
         size_type k = n;
         // printf("\t n = %d ",n);
         // exit (0);
         while(n)
         {
-            _alloc.construct(tmp+j,*first);
-            j++;
-            n--;
-            first++;
+            // if(!m_capacity)
+              //   puts("\ntime");
+            //_alloc.construct(tmp+j,*first);
+             tmp[j]= *first;
+            // j++;
+            // n--;
+            // first++;
+               ++j;
+                --n;
+                ++first;
+            if(n -1 == 0 && m_capacity == 0)
+            {
+                // puts("here");
+                    _alloc.deallocate(tmp, k);
+            }
         }
+        //std::cout<<"\nj = "<<j<<std::endl;
         // puts("not my circus not my momkeys");
         while(i+k < m_size+k)
         {
             _alloc.construct(tmp+j,arr[i]);
-            j++;
-            i++;
+            // tmp[j] = arr[i];
+            ++j;
+            ++i;
         }
-        // puts("i found you and i will kill you");
-        m_size += k;
+        //   puts("i found you and i will kill you");
+            _alloc.deallocate(arr, m_capacity);
         // _alloc.destroy(arr);
-        _alloc.deallocate(arr, m_size);
+        m_size += k;
 
-        arr =tmp;
+        arr = tmp;
     }
 
 
