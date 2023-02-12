@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/10 15:59:59 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/12 21:14:18 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,57 +26,7 @@ template<class node>
         return(nd == nd->parent->left);
 }
 
-// template<typename _Key, typename _Val, typename _KeyOfValue,
-// 	   typename _Compare, typename _Alloc>
-//     typename _Rb_tree<_Key, _Val, _KeyOfValue,
-// 		      _Compare, _Alloc>::iterator
-//     _Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::
-//     _M_lower_bound(_Link_type __x, _Base_ptr __y,
-// 		   const _Key& __k)
-//     {
-//       while (__x != 0)
-// 	if (!_M_impl._M_key_compare(_S_key(__x), __k))
-// 	  __y = __x,
-//        __x = _S_left(__x);
-// 	else
-// 	  __x = _S_right(__x);
-//       return iterator(__y);
-//     }
-// template <class node>
-//   inline node   min(node nd) throw()
-//         {
-//             while (nd->left != NULL)
-//                 nd = nd->left;
-//             return nd;
-//         }
-// template <class node>
-// node max(node nd) throw()
-// {
-//     while (nd->right != TNULL)
-//         nd = nd->right;
-//     return nd;
-// }
 
-// template <class T> 
-//     inline T next(T nd)
-//     {
-//         if (nd->right != NULL)
-//             return (min(nd->right));
-//         while (!tree_is_left_child(nd))
-//             nd = nd->parent;
-//         return (nd->parent);
-//     }
-// template <class node>
-// node prev(node nd)
-// {
-    
-//     if (nd->left != NULL)
-//         return (max(nd->left));
-//     node ndt = nd;
-//     while (tree_is_left_child(ndt))
-//         ndt = ndt->parent;
-//     return (ndt->parent);
-// }
 
 template<class T>
 struct Node
@@ -492,41 +442,51 @@ void tree_balance_after_insert(node& N)
                 return endn;
             return (x);
         }
-        node suc(node nd)
+        node suc(node x)
         {
-            // return(next(nd));
-            // puts("ff");
-            if (nd->right->left!= NULL&& nd->right != TNULL)
-            {
-                // puts("lol2");
-                return (min(nd->right));
+            if (x->right != TNULL) {
+            return min(x->right);
             }
-                //   puts("sssssss");  
-            while (nd && nd != endn && nd != TNULL && !tree_is_left_child(nd))
-            {
-                //  puts("here");
-                //  if(nd != endn && nd != TNULL && nd->right != NULL)
-                //     puts("hhhhhhhhh");
-                nd = nd->parent;
-                if(nd->right == NULL)
-                    return (nd);
-                // std::cout<<"wast : "<<nd->parent->data.first<<std::endl;
-                // if(nd->parent == endn)
-                // {
-                //      puts("hhh");
-                //     break;
-                // }
+
+            node y = x->parent;
+            while (y != TNULL && x == y->right) {
+            x = y;
+            y = y->parent;
             }
-            // puts("lol");
-             if (nd == NULL)
-            {
-                // puts("szzz");
-                // endn->left = nullptr;
-                // endn->right = nullptr;
-                return endn;
-            }
-            // puts("kh");
-            return (nd->parent);
+            return y;
+            // // return(next(nd));
+            // // puts("ff");
+            // if (nd->right->left!= NULL&& nd->right != TNULL)
+            // {
+            //     // puts("lol2");
+            //     return (min(nd->right));
+            // }
+            //     //   puts("sssssss");  
+            // while (nd && nd != endn && nd != TNULL && !tree_is_left_child(nd))
+            // {
+            //     //  puts("here");
+            //     //  if(nd != endn && nd != TNULL && nd->right != NULL)
+            //     //     puts("hhhhhhhhh");
+            //     nd = nd->parent;
+            //     if(nd->right == NULL)
+            //         return (nd);
+            //     // std::cout<<"wast : "<<nd->parent->data.first<<std::endl;
+            //     // if(nd->parent == endn)
+            //     // {
+            //     //      puts("hhh");
+            //     //     break;
+            //     // }
+            // }
+            // // puts("lol");
+            //  if (nd == NULL)
+            // {
+            //     // puts("szzz");
+            //     // endn->left = nullptr;
+            //     // endn->right = nullptr;
+            //     return endn;
+            // }
+            // // puts("kh");
+            // return (nd->parent);
         }
         bool empty()const
         {
@@ -539,7 +499,7 @@ void tree_balance_after_insert(node& N)
       
         node max(node nd)
         {
-             while (nd->right->right != NULL)
+            while (nd->right->right != NULL)
                 nd = nd->right;
             return nd;
         }
@@ -548,27 +508,21 @@ void tree_balance_after_insert(node& N)
              
             if (n->left->right != NULL && n->left != TNULL)
             {
-                //if(n == endn)
-            //    std::cout<<n->left->right->data.first<<std::endl;
                 return max(n->left);
             }
             node tmp = n->parent;
             
             if(!tmp)
-               return n;
-            // std::cout<<tmp->data.first<<std::endl;
-                
+            {
+                    return max(root);
+            }
             while (tmp && tmp != endn &&tmp->left && n == tmp->left )//&& tmp->data.second != 0)
             {
                 n = tmp;
                 tmp = tmp->parent;
             }
-                // puts("sssssss");
             if (tmp == endn)
             {
-                // puts("ssss");
-                // endn->left = nullptr;
-                // endn->right = nullptr;
                 return endn;
             }
             return (tmp);
@@ -641,15 +595,15 @@ void tree_balance_after_insert(node& N)
             // puts("end map");
             return(const_iterator(endn,*this));///////////
         }
-        reverse_iterator rbegin()
-        {
-            // puts("rbegin tree");
-            return reverse_iterator((this->end()));
-        }
-        const_reverse_iterator rbegin() const
-        {
-            return const_reverse_iterator(this->end());
-        }
+        // reverse_iterator rbegin()
+        // {
+        //     // puts("rbegin tree");
+        //     return reverse_iterator((this->end()));
+        // }
+        // const_reverse_iterator rbegin() const
+        // {
+        //     return const_reverse_iterator(this->end());
+        // }
         //////////////////////////////////////////////
         size_type count(const key_type &k) const
         {

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/10 16:00:46 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/12 21:21:04 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ namespace ft
             //*  Create a %map consisting of copies of the elements from [first,last).
             // *  This is linear in N if the range is already sorted, and NlogN
             // *  otherwise (where N is distance(first,last)).
-            template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree(first,last)
+            template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree()
             {
                 // std::cout<<"taniii\n";
                 //this->insert(first,last);
-                // for (; first != last; ++first)
-                // {
-                //     // std::cout<<first->first<<std::endl;
-                //     this->m_tree.add(*first);
-                // }
+                for (; first != last; ++first)
+                {
+                    // std::cout<<first->first<<std::endl;
+                    this->m_tree.add(*first);
+                }
                 // puts("dd");
                 
             }
@@ -99,8 +99,10 @@ namespace ft
             ~map(){
                 // // std::cout<<"here\n";
                  //this->erase(this->begin(),this->end());
-                // clear();
-                //  m_tree.dea();
+                //m_tree.dea();
+                // puts("hhh");
+                //clear();
+                // puts("ggg");
                 // // while (1);
                 // // // {
                 // // //     /* code */
@@ -115,11 +117,11 @@ namespace ft
             {
                 if (*this != x)
 			    {
-                    this->clear();
-                    m_tree.dea();
+                    //this->clear();
+                    //m_tree.dea();
                     m_tree = x.m_tree;
 			    	// this->m_size = x.m_size;
-                    // insert(x.begin(),x.end());
+                    insert(x.begin(),x.end());
                     //return *this;
 			    	// this->_tree.clear();
 			    	// this->_tree.~RBT();	
@@ -185,20 +187,21 @@ namespace ft
             reverse_iterator rbegin()
             {
                 //puts("rebegin map");
-                return m_tree.rbegin();
+                return reverse_iterator(end());
             }
             const_reverse_iterator rbegin() const
             {
-                return m_tree.rbegin();
+                return const_reverse_iterator(end());
+
             }
             // ///////////////////////////////////////////////////////////////////////////////////
             reverse_iterator rend()
             {
-                return reverse_iterator(begin());
+                return reverse_iterator(begin()++);
             }
             const_reverse_iterator rend() const
             {
-                return const_reverse_iterator(begin());
+                return const_reverse_iterator(begin()++);
             }
             // ///////////////////////////////////////////////////////////////////////////////////////
             bool empty() const
@@ -233,7 +236,9 @@ namespace ft
             /////////////////////////////////////////
             void swap (map& x)
             {
-                m_tree.swap(x.m_tree);
+                map tmp(x);
+                x = *this;
+                *this = tmp;
             }
             /////////////////////////////////////////
             size_type max_size() const
