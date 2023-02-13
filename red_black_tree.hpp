@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/12 21:14:18 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/13 22:34:06 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,27 +90,12 @@ class RedBlackTree {
         // }
         void dea()
         {
-            int i = -1;
-            if (endn->right == endn )
-                return;
-            if (TNULL->right != endn)
+            if(TNULL && endn)
             {
-                if (size() > 0 && i == -1)
-                {
-                    clear_alltree(this->root);
-                    i = 1;
-                }
-                alloc.destroy(TNULL);
+                //alloc.destroy(TNULL);
                 alloc.deallocate(TNULL, 1);
-                TNULL->right = endn;
-            }
-            if (endn->right != endn)
-            {
-                if ( size() > 0 && i == -1)
-                    clear_alltree(this->root);
-                alloc.destroy(endn);
+               // alloc.destroy(endn);
                 alloc.deallocate(endn, 1);
-                endn->right = endn;
             }
         }
          RedBlackTree(){
@@ -130,6 +115,7 @@ class RedBlackTree {
              endn->left = root;   
             endn->parent = NULL;
             endn->color = 0;
+            comp = Compare();
             // while(1);
         }
         RedBlackTree(iterator first,iterator last){
@@ -148,6 +134,7 @@ class RedBlackTree {
              endn->left = root;   
             endn->parent = nullptr;
             endn->color = 0;
+            comp = Compare();
             // std::cout<<first.data.first<<std::endl;
             while (first != last)
             {
@@ -155,12 +142,27 @@ class RedBlackTree {
             }
             
         }
+        // ~RedBlackTree()
+        // {
+        //     // iterator it = begin();
+        //     // iterator tmp = it;
+        //     // while(it != end())
+        //     // {
+        //     //     puts("hello");
+        //     //     tmp++;
+        //     //     deleteNode(it->first);
+        //     //     it = tmp;
+        //     // }
+        //     clear();
+        //     //puts("ok");
+        // }
         ////////////////////////////////
         void clear_alltree(node n)
         {
-            if (n != endn &&  n  != TNULL)
+           // puts("f");
+            if (n  != TNULL && n != endn)
             {
-                if (n->left != endn || n->right != endn)
+                if (n->left != NULL || n->right != NULL)
                 {
                     clear_alltree(n->left);
                     clear_alltree(n->right);
@@ -215,28 +217,26 @@ class RedBlackTree {
             }
             else
             {
-                node y = nullptr;
+                node y = NULL;
                 node x = root;
 
                 while (x != TNULL)
                 {
                     y = x;
-                    if (n->data < x->data)
+                    // !value_comp()(y->data,x->data)
+                    if (!comp(n->data.first, x->data.first) && !comp(x->data.first,n->data.first))
+                        return ft::make_pair(iterator(x, *this), false);
+                        
+                    if (comp(n->data.first, x->data.first))
                     {
                         x = x->left;
                     }
-                    else if (n->data > x->data)
+                    else
                     {
                         x = x->right;
                     }
-                    else
-                    {
-                        alloc.deallocate(n,1);
-                        // puts("22");
-                        return ft::make_pair(iterator(x, *this), false);
-                    }
                 }
-
+                //std::cout<<"data is "<<y->data.second<<std::endl;
                 n->parent = y;
                 if (n->data.first < y->data.first)
                 {
@@ -442,41 +442,42 @@ void tree_balance_after_insert(node& N)
                 return endn;
             return (x);
         }
-        node suc(node x)
+        node suc(node nd)
         {
-            if (x->right != TNULL) {
-            return min(x->right);
-            }
+            //puts("gg");
+            // if (x->right != TNULL) {
+            // return min(x->right);
+            // }
 
-            node y = x->parent;
-            while (y != TNULL && x == y->right) {
-            x = y;
-            y = y->parent;
-            }
-            return y;
+            // node y = x->parent;
+            // while (y != TNULL && x == y->right) {
+            // x = y;
+            // y = y->parent;
+            // }
+            // return y;
             // // return(next(nd));
             // // puts("ff");
-            // if (nd->right->left!= NULL&& nd->right != TNULL)
-            // {
-            //     // puts("lol2");
-            //     return (min(nd->right));
-            // }
-            //     //   puts("sssssss");  
-            // while (nd && nd != endn && nd != TNULL && !tree_is_left_child(nd))
-            // {
-            //     //  puts("here");
-            //     //  if(nd != endn && nd != TNULL && nd->right != NULL)
-            //     //     puts("hhhhhhhhh");
-            //     nd = nd->parent;
-            //     if(nd->right == NULL)
-            //         return (nd);
-            //     // std::cout<<"wast : "<<nd->parent->data.first<<std::endl;
-            //     // if(nd->parent == endn)
-            //     // {
-            //     //      puts("hhh");
-            //     //     break;
-            //     // }
-            // }
+            if (nd->right->left!= NULL && nd->right != TNULL)
+            {
+                // puts("lol2");
+                return (min(nd->right));
+            }
+                //   puts("sssssss");  
+            while (nd && nd != endn && nd != TNULL && !tree_is_left_child(nd))
+            {
+                //  puts("here");
+                //  if(nd != endn && nd != TNULL && nd->right != NULL)
+                //     puts("hhhhhhhhh");
+                nd = nd->parent;
+                if(nd->right == NULL)
+                    return (nd);
+                // std::cout<<"wast : "<<nd->parent->data.first<<std::endl;
+                // if(nd->parent == endn)
+                // {
+                //      puts("hhh");
+                //     break;
+                // }
+            }
             // // puts("lol");
             //  if (nd == NULL)
             // {
@@ -486,7 +487,7 @@ void tree_balance_after_insert(node& N)
             //     return endn;
             // }
             // // puts("kh");
-            // return (nd->parent);
+            return (nd->parent);
         }
         bool empty()const
         {
@@ -505,16 +506,22 @@ void tree_balance_after_insert(node& N)
         }
         node prev(node n)
         {
-             
+             //puts("g");
             if (n->left->right != NULL && n->left != TNULL)
             {
                 return max(n->left);
             }
             node tmp = n->parent;
             
-            if(!tmp)
+            if(!tmp && root->right)
             {
+                   // puts("hna");
                     return max(root);
+            }
+            else if(!tmp)
+            {
+                //puts("what");
+                return endn;
             }
             while (tmp && tmp != endn &&tmp->left && n == tmp->left )//&& tmp->data.second != 0)
             {
@@ -523,6 +530,7 @@ void tree_balance_after_insert(node& N)
             }
             if (tmp == endn)
             {
+            //    puts("ok");
                 return endn;
             }
             return (tmp);
@@ -775,6 +783,7 @@ void rbTransplant(node u, node v)
           y->right->parent = y;
           y->color = z->color;
     }
+    alloc.deallocate(z,1);
     if (y_original_color == 0) {
       delete_fix(x);
     }

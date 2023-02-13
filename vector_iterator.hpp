@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:41:06 by mfagri            #+#    #+#             */
-/*   Updated: 2023/01/06 20:32:15 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/13 22:20:32 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ namespace ft
                 {
                     ptr =s;
                 }
-                
-                iterator(const iterator &x):ptr(x.ptr)
+                template<typename B>
+                iterator(const iterator<B> &x):ptr(x.ptr)
                 {}
+                // iterator(const iterator &x):ptr(x.ptr)
+                // {}
                 iterator &operator = (const iterator &x) 
                 {
                     ptr = x.ptr;

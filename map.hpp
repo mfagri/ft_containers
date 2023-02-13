@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/12 21:21:04 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/13 22:34:21 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,9 @@ namespace ft
             }
             ~map(){
                 // // std::cout<<"here\n";
-                 //this->erase(this->begin(),this->end());
-                //m_tree.dea();
                 // puts("hhh");
-                //clear();
+                //m_tree()
+                // m_tree.dea();
                 // puts("ggg");
                 // // while (1);
                 // // // {
@@ -117,9 +116,11 @@ namespace ft
             {
                 if (*this != x)
 			    {
-                    //this->clear();
-                    //m_tree.dea();
+                   // m_tree.clear();
                     m_tree = x.m_tree;
+
+
+                     
 			    	// this->m_size = x.m_size;
                     insert(x.begin(),x.end());
                     //return *this;
@@ -187,21 +188,21 @@ namespace ft
             reverse_iterator rbegin()
             {
                 //puts("rebegin map");
-                return reverse_iterator(end());
+                return reverse_iterator(m_tree.end());
             }
             const_reverse_iterator rbegin() const
             {
-                return const_reverse_iterator(end());
+                return const_reverse_iterator(m_tree.end());
 
             }
             // ///////////////////////////////////////////////////////////////////////////////////
             reverse_iterator rend()
             {
-                return reverse_iterator(begin()++);
+                return reverse_iterator(m_tree.begin());
             }
             const_reverse_iterator rend() const
             {
-                return const_reverse_iterator(begin()++);
+                return const_reverse_iterator(m_tree.begin());
             }
             // ///////////////////////////////////////////////////////////////////////////////////////
             bool empty() const
@@ -221,7 +222,8 @@ namespace ft
             //////////////////////////////////////////////
             void clear()
             {
-                m_tree.clear();
+                erase(begin(),end());
+                // m_tree.clear();
             }
             void delet(const key_type &k)
             {
@@ -287,6 +289,7 @@ namespace ft
             // ///////////////////////////////////////////////////////////////////////////////
             mapped_type& operator[] (const key_type& k)
             {
+                //mapped_type b = this->insert(value_type(k, mapped_type()));
                 return (this->insert(value_type(k, mapped_type())).first->second);
             }
             ///////////////////////////////////////////////////////////////////
@@ -297,8 +300,13 @@ namespace ft
             ///////////////////////////////////////////////////////////////////
             size_type erase (const key_type& k)
             {
+                size_type i;
+                if(m_tree.searchTree(k) == m_tree.TNULL)
+                    i = 0;
+                else
+                    i = 1;
                 m_tree.deleteNode(k);
-                return (1);
+                return (i);
             }
             ///////////////////////////////////////////////////////////////////
             void erase (iterator first, iterator last)
