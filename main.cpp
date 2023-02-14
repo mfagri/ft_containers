@@ -21,40 +21,31 @@ void fillMap(ft::map<T, V, C> &mp) {
 }
 void ft_test()
 {
+    std::vector<int> v;
+
+    // g_start2 = g_end2 = timer();
     ft::map<int,int>mp;
-  std::vector<int> v;
-    for (int i = 0, j = 0; i < 30 * 100; ++i, ++j)
-        mp.insert(ft::make_pair(i, j));
-    typename ft::map<int, int>::iterator it = mp.begin();
-    v.push_back(it->first);
-    mp.erase(it);
-    v.push_back(mp.size());
-    it = mp.begin();
-    mp.erase(++it);
-    v.push_back(mp.size());
-    it = mp.begin();
-    v.push_back(it->first);
-    typename ft::map<int, int>::iterator it4 = mp.begin();
-    // g_start2 = timer();
-    for (; it4 != mp.end(); it4 = mp.begin())
-        mp.erase(it4);
-    // g_end2 = timer();
-    v.push_back(mp.size());
-    ft::map<int, int> mp2;
-    for (int i = 0, j = 0; i < 10 ; ++i, ++j)
-        mp2.insert(ft::make_pair(i, j));
-    typename ft::map<int, int>::iterator ittest = mp2.begin();
-    for (int i = 0; i < 2; ++i) ittest++;
-    mp2.erase(ittest);
-    ittest = mp2.begin();
-    for (int i = 0; i < 5; ++i) ittest++;
-    mp2.erase(ittest);
-    typename ft::map<int, int>::iterator it3 = mp2.begin();
-    for (; it3 != mp2.end(); ++it3) {
-        v.push_back(it3->first);
-        v.push_back(it3->second);
-    }
-    puts("ff");
+    mp.insert(ft::make_pair(5, 5));
+    mp.insert(ft::make_pair(3, 3));
+    mp.insert(ft::make_pair(7, 7));
+    typename ft::map<int, int>::reverse_iterator rit = mp.rbegin();
+    typename ft::map<int, int>::reverse_iterator rit2 = mp.rend();
+    v.push_back(rit->first);
+     rit++;
+    // rit2--;
+    // v.push_back(rit->first);
+    // v.push_back(rit2->first);
+    // rit++;
+    // v.push_back(*rit == *rit2);
+    // rit2--;
+    // v.push_back(rit->first);
+    // v.push_back(rit2->first);
+    // v.push_back(*rit2 > *rit);
+    // v.push_back(*rit2 < *rit);
+    // v.push_back((--rit)->first);
+    // v.push_back((++rit2)->first);
+    // v.push_back((rit--)->first);
+    // v.push_back((rit2++)->first);
     return ;
 }
 // int main()
@@ -78,7 +69,7 @@ int main ()
   // it.base() 
 
 
-    // ft_test();
+    ft_test();
 
    
     // g_end2 = timer();
@@ -92,6 +83,6 @@ int main ()
   // ft::map<char,int>::reverse_iterator rit;
   // for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
   //   std::cout << rit->first << " => " << rit->second << '\n';
-  // system("leaks containers");
+    system("leaks containers");
   return 0;
 }

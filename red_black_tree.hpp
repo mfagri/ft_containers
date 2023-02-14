@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/13 22:34:06 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/14 23:33:44 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,14 @@ class RedBlackTree {
         // }
         void dea()
         {
-            if(TNULL && endn)
+            if(TNULL && endn && m_size == 0)
             {
                 //alloc.destroy(TNULL);
                 alloc.deallocate(TNULL, 1);
-               // alloc.destroy(endn);
+               //alloc.destroy(endn);
                 alloc.deallocate(endn, 1);
             }
+          
         }
          RedBlackTree(){
             // puts("ddd");
@@ -121,52 +122,63 @@ class RedBlackTree {
         RedBlackTree(iterator first,iterator last){
              m_size = 0;
             TNULL = alloc.allocate(1);
-            //  alloc.construct(TNULL,T(0,0));
-            // TNULL->data = (T(0,0));
             TNULL->right = nullptr;
             TNULL->left = nullptr;
             TNULL->parent = nullptr;
             TNULL->color = 0;
             root = TNULL;
             endn = alloc.allocate(1);
-        //    endn->data = (T(1,1));
             endn->right = nullptr;
              endn->left = root;   
             endn->parent = nullptr;
             endn->color = 0;
             comp = Compare();
-            // std::cout<<first.data.first<<std::endl;
             while (first != last)
             {
                 add(*first++);
             }
             
         }
-        // ~RedBlackTree()
+        // RedBlackTree& operator= (const RedBlackTree& x)
         // {
-        //     // iterator it = begin();
-        //     // iterator tmp = it;
-        //     // while(it != end())
-        //     // {
-        //     //     puts("hello");
-        //     //     tmp++;
-        //     //     deleteNode(it->first);
-        //     //     it = tmp;
-        //     // }
-        //     clear();
-        //     //puts("ok");
+        //    this->root = alloc.allocate(1);
+        //    alloc.construct(root,x.root->data);
+        //    this->TNULL = x.TNULL;
+        //    this->endn = x.endn;
+        //    puts("fof");
+        //    return (*this);
         // }
+        ~RedBlackTree()
+        {
+            // std::cout<<root->data.first<<std::endl;
+            //clear();
+            // puts("ff");
+            // iterator tmp = begin();
+            // iterator first = begin();
+            //     while(first != end())
+            //     {
+            //         std::cout<<first->first<<std::endl;
+            //         tmp++;
+            //         deleteNode(first->first);
+            //         //erase(first);
+            //         first = tmp;
+                    
+            //         // if(first == end());
+            //         // std::cout << "hey 2\n";
+            //         // first = tmp;
+            //     }
+            // puts("gg");
+        }
         ////////////////////////////////
         void clear_alltree(node n)
         {
-           // puts("f");
-            if (n  != TNULL && n != endn)
+            if (n && n != TNULL && n != endn)
             {
-                if (n->left != NULL || n->right != NULL)
+                if (n->left != TNULL || n->right != TNULL)
                 {
                     clear_alltree(n->left);
                     clear_alltree(n->right);
-                    alloc.destroy(n);
+                    // alloc.destroy(n);
                     alloc.deallocate(n, 1);
                 }
                 n->left = NULL;
@@ -225,7 +237,10 @@ class RedBlackTree {
                     y = x;
                     // !value_comp()(y->data,x->data)
                     if (!comp(n->data.first, x->data.first) && !comp(x->data.first,n->data.first))
+                    {
+                        alloc.deallocate(n,1);
                         return ft::make_pair(iterator(x, *this), false);
+                    }
                         
                     if (comp(n->data.first, x->data.first))
                     {
@@ -603,15 +618,24 @@ void tree_balance_after_insert(node& N)
             // puts("end map");
             return(const_iterator(endn,*this));///////////
         }
-        // reverse_iterator rbegin()
-        // {
-        //     // puts("rbegin tree");
-        //     return reverse_iterator((this->end()));
-        // }
-        // const_reverse_iterator rbegin() const
-        // {
-        //     return const_reverse_iterator(this->end());
-        // }
+        reverse_iterator rbegin()
+        {
+            // puts("rbegin tree");
+            return reverse_iterator((this->end()));
+        }
+        const_reverse_iterator rbegin() const
+        {
+            return const_reverse_iterator(this->end());
+        }
+        reverse_iterator rend()
+        {
+            // puts("rend tree");
+            return reverse_iterator((this->begin()));
+        }
+        const_reverse_iterator rend() const
+        {
+            return const_reverse_iterator(this->begin());
+        }
         //////////////////////////////////////////////
         size_type count(const key_type &k) const
         {
@@ -783,6 +807,11 @@ void rbTransplant(node u, node v)
           y->right->parent = y;
           y->color = z->color;
     }
+    // puts("////////////////////");
+    // std::cout<<z->data.first<<std::endl;
+    // puts("////////////////////");
+
+    alloc.destroy(z);
     alloc.deallocate(z,1);
     if (y_original_color == 0) {
       delete_fix(x);

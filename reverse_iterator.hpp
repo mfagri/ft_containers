@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:03:13 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/13 16:42:28 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/14 23:11:54 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,27 @@ template< class Iterator >
             typedef typename iterator_traits<Iterator>::reference reference;
 
             reverse_iterator(){};
-            explicit reverse_iterator (iterator_type it)
-            {
-                m_it = it;
-            }
-            template <class iter>
-            reverse_iterator (const reverse_iterator<iter>& rev_it)
+            reverse_iterator (iterator_type it) : m_it(it){}// take for examlpe begin()    
+             
+            reverse_iterator (const reverse_iterator & rev_it) // The copy constructor is normal.
             {
                 this->m_it = rev_it.m_it;
             }
+                
+
+            template <class Iter>  
+            reverse_iterator (const reverse_iterator<Iter>& rev_it) : m_it(rev_it.base()) // ?
+            {
+            } 
+            // explicit reverse_iterator (iterator_type it)
+            // {
+            //     m_it = it;
+            // }
+            // template <class iter>
+            // reverse_iterator (const reverse_iterator<iter>& rev_it)
+            // {
+            //     this->m_it = rev_it.m_it;
+            // }
             iterator_type base() const
             {
                 return m_it;

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/13 22:34:21 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/14 23:33:11 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ namespace ft
             typedef typename Rep_type::const_reverse_iterator const_reverse_iterator;
             //////////////////////////////////////////////////////////////////////////
             
-            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree()
+            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc)
             {
                 // puts("what");
                 // while (1);
@@ -80,7 +80,7 @@ namespace ft
             //*  Create a %map consisting of copies of the elements from [first,last).
             // *  This is linear in N if the range is already sorted, and NlogN
             // *  otherwise (where N is distance(first,last)).
-            template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc),m_tree()
+            template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc)
             {
                 // std::cout<<"taniii\n";
                 //this->insert(first,last);
@@ -92,15 +92,19 @@ namespace ft
                 // puts("dd");
                 
             }
-            map (const map& x):_alloc(x._alloc),m_tree(x.m_tree),_comp(x._comp)
+            map (const map& x):_alloc(x._alloc),_comp(x._comp)
             {
-                ////////
+                if (x.size() > 0)
+                    insert(x.begin(),x.end());
             }
             ~map(){
-                // // std::cout<<"here\n";
-                // puts("hhh");
+                // std::cout<<"here\n";
                 //m_tree()
-                // m_tree.dea();
+                erase(begin(),end());
+                
+             //   m_tree.clear();
+             //  puts("hhh");
+               m_tree.dea();
                 // puts("ggg");
                 // // while (1);
                 // // // {
@@ -116,13 +120,17 @@ namespace ft
             {
                 if (*this != x)
 			    {
-                   // m_tree.clear();
-                    m_tree = x.m_tree;
-
+                    _comp = x._comp;
+                    _alloc = x._alloc;
+                    //clear();
+                    erase(begin(),end());
+                    //m_tree = x.m_tree;
 
                      
 			    	// this->m_size = x.m_size;
+                    //std::cout<<size()<<std::endl;
                     insert(x.begin(),x.end());
+                   // puts("ffo");
                     //return *this;
 			    	// this->_tree.clear();
 			    	// this->_tree.~RBT();	
@@ -188,21 +196,21 @@ namespace ft
             reverse_iterator rbegin()
             {
                 //puts("rebegin map");
-                return reverse_iterator(m_tree.end());
+                return reverse_iterator(end());
             }
             const_reverse_iterator rbegin() const
             {
-                return const_reverse_iterator(m_tree.end());
+                return const_reverse_iterator(end());
 
             }
             // ///////////////////////////////////////////////////////////////////////////////////
             reverse_iterator rend()
             {
-                return reverse_iterator(m_tree.begin());
+                return reverse_iterator(begin());
             }
             const_reverse_iterator rend() const
             {
-                return const_reverse_iterator(m_tree.begin());
+                return const_reverse_iterator(begin());
             }
             // ///////////////////////////////////////////////////////////////////////////////////////
             bool empty() const
@@ -223,7 +231,7 @@ namespace ft
             void clear()
             {
                 erase(begin(),end());
-                // m_tree.clear();
+                //m_tree.clear();
             }
             void delet(const key_type &k)
             {
@@ -314,10 +322,10 @@ namespace ft
                 iterator tmp = first;
                 while(first != last)
                 {
+                    //std::cout<<first->first<<std::endl;
                     tmp++;
-                    // m_tree.deleteNode(first->first);
-                    erase(first);
-                    // std::cout<<tmp->first<<std::endl;
+                    m_tree.deleteNode(first->first);
+                    //erase(first);
                     first = tmp;
                     
                     // if(first == end());
