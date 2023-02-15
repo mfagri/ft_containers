@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/14 23:33:11 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:16:32 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,14 @@ namespace ft
             ~map(){
                 // std::cout<<"here\n";
                 //m_tree()
-                erase(begin(),end());
+             erase(begin(),end());
                 
-             //   m_tree.clear();
+               // m_tree.clear();
              //  puts("hhh");
                m_tree.dea();
+               //m_tree.dea();
+                //m_tree.printTree();
+
                 // puts("ggg");
                 // // while (1);
                 // // // {

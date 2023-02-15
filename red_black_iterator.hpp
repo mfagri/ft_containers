@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/14 23:26:46 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/15 21:00:20 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,27 @@ namespace ft
             public:
                 explicit red_black_iterator()
                 {
+                    
                 }
-             
+                // ~red_black_iterator()
+                // {
+                //     //m_tree.clear();
+                //    // std::cout << m_tree.size() << std::endl;
+                // }
                 red_black_iterator(iterator_type x,REDB ntree):ptr(x),m_tree(ntree)
                 {
-                    // std::cout << ptr->data.first << std::endl;
+                    //puts("0");
+                    //m_tree.clear();
+                   // m_tree = ntree;
+                    //std::cout << m_tree.size() << std::endl;
+
                 }
                 red_black_iterator &operator= (const red_black_iterator &x) 
                 {
                     this->ptr = x.ptr;
-                    
+                    m_tree.dea();
+                   this->m_tree = x.get_mytree();
+                  // puts("hr");
                     return *this;
                 }
                 bool operator==(const red_black_iterator& rhs) const 
@@ -75,6 +86,7 @@ namespace ft
                 red_black_iterator& operator++() 
                 {
                     // m_tree->printTree();
+                    // puts("dd");
                     ptr = m_tree.suc(ptr);
                     return *this;
                 }
@@ -87,6 +99,7 @@ namespace ft
                 }
                 red_black_iterator operator--() //preve
                 {
+                    //puts("3");
                    /// std::cout<<"work of aaaaaaaaart hahahahahahahhaa fuck it\n";
                     this->ptr = m_tree.prev(ptr);
                    // puts("dd");
@@ -109,9 +122,13 @@ namespace ft
 
                     return (this->ptr - x.ptr);
                 }
-                private:
-                    template <class, class, class,class>
-                    friend class RedBlackTree;
+                REDB get_mytree() const
+                {
+                    return m_tree;
+                }
+                // private:
+                //     template <class, class, class,class>
+                //     friend class RedBlackTree;
                     // template <class, class, class, class>
                     // friend class map;
 
@@ -232,8 +249,10 @@ namespace ft
                 }
                 const_red_black_iterator &operator = (const const_red_black_iterator &x) 
                 {
-                    ptr = x.ptr;
-                    
+                    this->ptr = x.ptr;
+                    m_tree.dea();
+                   this->m_tree = x.get_mytree();
+                  // puts("hr");
                     return *this;
                 }
                 bool operator==(const const_red_black_iterator& rhs) const 

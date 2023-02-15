@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:03:13 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/14 23:11:54 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/15 19:11:14 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,30 @@ template< class Iterator >
             typedef typename iterator_traits<Iterator>::reference reference;
 
             reverse_iterator(){};
-            reverse_iterator (iterator_type it) : m_it(it){}// take for examlpe begin()    
+            reverse_iterator (iterator_type it) : m_it(it){
+               // puts("1");
+                //while(1);
+            }// take for examlpe begin()    
              
             reverse_iterator (const reverse_iterator & rev_it) // The copy constructor is normal.
             {
+            //    puts("hi");
                 this->m_it = rev_it.m_it;
+            //    while(1);
             }
                 
 
             template <class Iter>  
             reverse_iterator (const reverse_iterator<Iter>& rev_it) : m_it(rev_it.base()) // ?
             {
-            } 
+            }
+           // template <class Iter>
+            reverse_iterator &operator=(const reverse_iterator &rev_it) {
+
+             //   puts("assigment");
+                m_it = rev_it.m_it;
+            }
+
             // explicit reverse_iterator (iterator_type it)
             // {
             //     m_it = it;
@@ -61,7 +73,6 @@ template< class Iterator >
             }
             reference operator*() const
             {
-                //puts("revers iterator");
                 Iterator tmp = m_it;
                 return *(--tmp);
             }
@@ -77,14 +88,20 @@ template< class Iterator >
             }
             reverse_iterator operator++(int)
             {
-                reverse_iterator temp = *this;
+              //  puts("revers iterator");
+                reverse_iterator temp(*this);
+              //  puts("hello");
+              //  while (1);
                 ++(*this);
                 return temp;
             }
 
             reverse_iterator& operator++()
             {
+             //   puts("2");
+             //   while(1);
                 m_it--;
+              //  puts("3");
                 return (*this);
             }
             reverse_iterator operator--(int)

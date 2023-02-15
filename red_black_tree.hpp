@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/14 23:33:44 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/15 20:40:38 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,11 @@ class RedBlackTree {
             if(TNULL && endn && m_size == 0)
             {
                 //alloc.destroy(TNULL);
+                // if(root->parent)
+                //     puts("ff");
                 alloc.deallocate(TNULL, 1);
                //alloc.destroy(endn);
-                alloc.deallocate(endn, 1);
+                alloc.deallocate(endn, 1);       
             }
           
         }
@@ -103,7 +105,7 @@ class RedBlackTree {
             // puts("ddd");
              m_size = 0;
             TNULL = alloc.allocate(1);
-            //  alloc.construct(TNULL,T(0,0));
+            //alloc.construct(TNULL,T());
             // TNULL->data = (T(0,0));
             TNULL->right = NULL;
             TNULL->left = NULL;
@@ -111,7 +113,7 @@ class RedBlackTree {
             TNULL->color = 0;
             root = TNULL;
             endn = alloc.allocate(1);
-        //    endn->data = (T(1,1));
+             //alloc.construct(endn,T());
             endn->right = NULL;
              endn->left = root;   
             endn->parent = NULL;
@@ -128,6 +130,7 @@ class RedBlackTree {
             TNULL->color = 0;
             root = TNULL;
             endn = alloc.allocate(1);
+            //  alloc.construct(endn,T());
             endn->right = nullptr;
              endn->left = root;   
             endn->parent = nullptr;
@@ -141,48 +144,53 @@ class RedBlackTree {
         }
         // RedBlackTree& operator= (const RedBlackTree& x)
         // {
-        //    this->root = alloc.allocate(1);
-        //    alloc.construct(root,x.root->data);
+        //     this->m_size = x.m_size;
+        //    this->root = root;
         //    this->TNULL = x.TNULL;
         //    this->endn = x.endn;
-        //    puts("fof");
+        //    //puts("fof");
         //    return (*this);
         // }
         ~RedBlackTree()
         {
-            // std::cout<<root->data.first<<std::endl;
-            //clear();
-            // puts("ff");
-            // iterator tmp = begin();
-            // iterator first = begin();
-            //     while(first != end())
+            // int i = -1;
+            // if (endn->right == endn )
+            //     return;
+            // if (TNULL->right != endn)
+            // {
+            //     if (size() > 0 && i == -1)
             //     {
-            //         std::cout<<first->first<<std::endl;
-            //         tmp++;
-            //         deleteNode(first->first);
-            //         //erase(first);
-            //         first = tmp;
-                    
-            //         // if(first == end());
-            //         // std::cout << "hey 2\n";
-            //         // first = tmp;
+            //         clear_alltree(this->root);
+            //         i = 1;
             //     }
-            // puts("gg");
+            //     alloc.destroy(TNULL);
+            //     alloc.deallocate(TNULL, 1);
+            //     TNULL->right = endn;
+            // }
+            // if (endn->right != endn)
+            // {
+            //     if ( size() > 0 && i == -1)
+            //         clear_alltree(this->root);
+            //     alloc.destroy(endn);
+            //     alloc.deallocate(endn, 1);
+            //     endn->right = endn;
+            // }  
         }
         ////////////////////////////////
         void clear_alltree(node n)
         {
             if (n && n != TNULL && n != endn)
             {
-                if (n->left != TNULL || n->right != TNULL)
+                if (n->left != TNULL || n->right!= TNULL)
                 {
+                // puts("llllf");
                     clear_alltree(n->left);
                     clear_alltree(n->right);
-                    // alloc.destroy(n);
+                     alloc.destroy(n);
                     alloc.deallocate(n, 1);
                 }
-                n->left = NULL;
-                n->right = NULL;
+                n->left = endn;
+                n->right = endn;
             }
             else
                 return;
@@ -521,7 +529,6 @@ void tree_balance_after_insert(node& N)
         }
         node prev(node n)
         {
-             //puts("g");
             if (n->left->right != NULL && n->left != TNULL)
             {
                 return max(n->left);
@@ -530,12 +537,12 @@ void tree_balance_after_insert(node& N)
             
             if(!tmp && root->right)
             {
-                   // puts("hna");
+                //puts("hna");
                     return max(root);
             }
             else if(!tmp)
             {
-                //puts("what");
+                // puts("what");
                 return endn;
             }
             while (tmp && tmp != endn &&tmp->left && n == tmp->left )//&& tmp->data.second != 0)
@@ -581,16 +588,16 @@ void tree_balance_after_insert(node& N)
 
         iterator begin()
         {
-            node x = min(root);
+            //node x = min(root);
             // puts("ff");
-            return(iterator(x,*this));
+            return(iterator(min(root),*this));
         }
 
         const_iterator begin() const
         {
-            node x = min(root);
+            // node x = min(root);
             // puts("ff");
-            return(const_iterator(x,*this));
+            return(const_iterator(min(root),*this));
         }
         // const_iterator begin()
         // {
@@ -604,7 +611,7 @@ void tree_balance_after_insert(node& N)
         // }
         iterator end()
         {
-            if (root)
+           // if (root)
                 root->parent = endn;
             endn->left = root;
             // puts("end map");      
@@ -612,7 +619,7 @@ void tree_balance_after_insert(node& N)
         }
         const_iterator end() const
         {
-            if (root)
+           // if (root)
                 root->parent = endn;
             endn->left = root;
             // puts("end map");
