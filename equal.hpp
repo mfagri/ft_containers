@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/08 20:22:28 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/17 19:09:15 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ namespace ft
     
         return (first1 == last1) && (first2 != last2);
     }
-    /// @brief /////////////////////////////////////
-    /// @tparam T1 
-    /// @tparam T2 
+    ///////////////////////////////////////////
+
     template <typename T1, typename T2>
         class pair
     {

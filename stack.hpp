@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 03:09:48 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/03 20:35:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/15 22:46:58 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ namespace ft
             typedef T const * const_pointer;
             typedef T& reference;
             typedef T const & const_reference;
-        protected:
             container_type c;
+        protected:
         public:
             explicit stack (const container_type& ctnr = container_type()):c(ctnr)
             {
@@ -63,15 +63,16 @@ template <class T, class Container>  bool operator== (const stack<T,Container>& 
 }	
 template <class T, class Container>  bool operator!= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
 {
-    return (lhs.container != rhs.container);
+    return (lhs.c != rhs.c);
 }
-template <class T, class Container>  bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+template <class T, class Container>  
+bool operator<  (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
 {
     return (lhs.c < rhs.c);
 }
 template <class T, class Container>  bool operator<= (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
 {
-    return (lhs.container <= rhs.container);
+    return (lhs.c <= rhs.c);
 }
 template <class T, class Container>  bool operator>  (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
 {

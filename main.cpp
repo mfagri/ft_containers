@@ -6,6 +6,7 @@
 #include "vector.hpp"
 #include "red_black_tree.hpp"
 #include <map>
+#include <stack>
 
 template <class T, class V, class C>
 void fillMap(ft::map<T, V, C> &mp) {
@@ -68,41 +69,41 @@ void std_test()
     //return v;
     return ;
 }
-void ft_test()
-{
-    std::vector<int> v;
-    ft::map<int,int>mp;
-    mp.insert(ft::make_pair(10, 10));
-    mp.insert(ft::make_pair(20, 20));
-    mp.insert(ft::make_pair(30, 30));
-    mp.insert(ft::make_pair(40, 40));
-    mp.insert(ft::make_pair(50, 50));
-    mp.insert(ft::make_pair(60, 60));
-    // g_start2 = timer();
-    const ft::pair<ft::map<int, int>::const_iterator , ft::map<int, int>::const_iterator>& pair = mp.equal_range(10);
-    const ft::pair<ft::map<int, int>::const_iterator , ft::map<int, int>::const_iterator>& pair2 = mp.equal_range(11);
-    const ft::pair<ft::map<int, int>::const_iterator , ft::map<int, int>::const_iterator>& pair3 = mp.equal_range(1);
-    // g_end2 = timer();
-    v.push_back(pair.first->first);
-    v.push_back(pair.first->second);
-    v.push_back(pair.second->first);
-    v.push_back(pair.second->second);
-    v.push_back(pair2.first->first);
-    v.push_back(pair2.first->second);
-    v.push_back(pair2.second->first);
-    v.push_back(pair2.second->second);
-    v.push_back(pair3.first->first);
-    v.push_back(pair3.first->second);
-    v.push_back(pair3.second->first);
-    v.push_back(pair3.second->second);
-    for (size_t i = 0; i < v.size(); i++)
-    {
-      std::cout<<v[i]<<std::endl;
-    }
+// void ft_test()
+// {
+//     std::vector<int> v;
+//     ft::map<int,int>mp;
+//     mp.insert(ft::make_pair(10, 10));
+//     mp.insert(ft::make_pair(20, 20));
+//     mp.insert(ft::make_pair(30, 30));
+//     mp.insert(ft::make_pair(40, 40));
+//     mp.insert(ft::make_pair(50, 50)); 
+//     mp.insert(ft::make_pair(60, 60));
+//     // g_start2 = timer();
+//     const ft::pair<ft::map<int, int>::const_iterator , ft::map<int, int>::const_iterator>& pair = mp.equal_range(10);
+//     const ft::pair<ft::map<int, int>::const_iterator , ft::map<int, int>::const_iterator>& pair2 = mp.equal_range(11);
+//     const ft::pair<ft::map<int, int>::const_iterator , ft::map<int, int>::const_iterator>& pair3 = mp.equal_range(1);
+//     // g_end2 = timer();
+//     v.push_back(pair.first->first);
+//     v.push_back(pair.first->second);
+//     v.push_back(pair.second->first);
+//     v.push_back(pair.second->second);
+//     v.push_back(pair2.first->first);
+//     v.push_back(pair2.first->second);
+//     v.push_back(pair2.second->first);
+//     v.push_back(pair2.second->second);
+//     v.push_back(pair3.first->first);
+//     v.push_back(pair3.first->second);
+//     v.push_back(pair3.second->first);
+//     v.push_back(pair3.second->second);
+//     for (size_t i = 0; i < v.size(); i++)
+//     {
+//       std::cout<<v[i]<<std::endl;
+//     }
     
-    //return v;
-    return ;
-}
+//     //return v;
+//     return ;
+// }
 // int main()
 // {
 //    system("leaks containers");
@@ -110,13 +111,15 @@ void ft_test()
 // }
 
 int main ()
-{ 
-  
+{
+  // ft_test();
+
+  ft::map<int,int> m;
 
 
-ft_test();
-puts("///////////////////////////////////");
-std_test();
+  ft::map<int,int>::const_iterator it = m.begin();
+
+
   // ft::map<char,int> mymap;
   // ft::map<char,int>::iterator itlow,itup;
 
@@ -134,8 +137,6 @@ std_test();
   // // print content:
   // for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
   //   std::cout << it->first << " => " << it->second << '\n';
-
-
-    //system("leaks containers");
+ 
   return 0;
 }

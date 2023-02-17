@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/15 21:00:20 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/17 19:19:12 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ namespace ft
                 typedef std::bidirectional_iterator_tag     iterator_category;
              private:
                 //explicit red_black_iterator( iterator_type _rhs) : ptr(_rhs) {}
-            private:
+            public:
                 // template <class, class, class,class>
                 // friend class RedBlackTree;
                 // template <class, class, class, class>
@@ -42,7 +42,6 @@ namespace ft
             public:
                 explicit red_black_iterator()
                 {
-                    
                 }
                 // ~red_black_iterator()
                 // {
@@ -231,18 +230,20 @@ namespace ft
                 typedef std::bidirectional_iterator_tag     iterator_category;
              private:
                 //explicit const_red_black_iterator( iterator_type _rhs) : ptr(_rhs) {}
-            private:
+            public:
+                iterator_type  ptr;
                 // template <class, class, class,class>
                 // friend class RedBlackTree;
                 // template <class, class, class, class>
                 // friend class map;
-                iterator_type  ptr;
                 REDB m_tree;
             public:
                 explicit const_red_black_iterator()
                 {
                 }
-             
+                template <typename Iterator>
+                const_red_black_iterator(const red_black_iterator<tree,Iterator,Itr>& it) :
+                    ptr(it.ptr), m_tree(it.m_tree) {}
                 const_red_black_iterator(iterator_type x,REDB ntree):ptr(x),m_tree(ntree)
                 {
                     // std::cout << ptr->data.first << std::endl;

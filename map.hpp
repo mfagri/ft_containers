@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/15 18:16:32 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/17 19:11:53 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,29 +263,37 @@ namespace ft
             ////////////////////////////////////////////////////////////////////////////////
             iterator upper_bound(const key_type& k)
             {
-                return m_tree.upper_bound(k);
+                return iterator(m_tree.upper_bound(k),m_tree);
             }
-            const_iterator upper_bound(const key_type& k) const
-            {
-                return m_tree.upper_bound(k);
-            }
+            // const_iterator upper_bound(const key_type& k) const
+            // {
+            //     return m_tree.upper_bound(k);
+            // }
             ///////////////////////////////////////////////////////////////////
             iterator lower_bound(const key_type& k)
             {
-                return m_tree.lower_bound(k);
+                return  iterator(m_tree.lower_bound(k),m_tree);
             }
-            const_iterator lower_bound (const key_type& k) const
-            {
-                return m_tree.lower_bound(k);
-            }
+            // const_iterator lower_bound (const key_type& k) const
+            // {
+            //     return m_tree.lower_bound(k);
+            // }
             ///////////////////////////////////////////////////////
-            pair<iterator,iterator>             equal_range (const key_type& k)
-            {
-                return m_tree.equal_range(k);
+            ft::pair<iterator,iterator>  equal_range (const key_type& k)
+            { 
+                iterator i = lower_bound(k);
+                iterator j = i;
+                if (i != end() && !(_comp(k, (*i).first)))
+                    ++j;
+                return ft::make_pair(i, j);
             }
-            pair<const_iterator,const_iterator> equal_range (const key_type& k) const
-            {
-                return m_tree.equal_range(k);
+            ft::pair<const_iterator,const_iterator>  equal_range (const key_type& k) const
+            { 
+                const_iterator i = lower_bound(k);
+                const_iterator j = i;
+                if (i != end() && !(_comp(k, (*i).first)))
+                    ++j;
+                return ft::make_pair(i, j);
             }
             //////////////////////////////////////////////////
             value_compare value_comp() const

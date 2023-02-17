@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/15 20:40:38 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/17 19:29:35 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -558,14 +558,14 @@ void tree_balance_after_insert(node& N)
             return (tmp);
            
         }
-        pair<iterator,iterator>             equal_range (const key_type& k)
-        {
-            return ft::make_pair(lower_bound(k),upper_bound(k));
-        }
-        pair<const_iterator,const_iterator> equal_range (const key_type& k) const
-        {
-            return ft::make_pair(lower_bound(k),upper_bound(k));
-        }
+        // pair<iterator,iterator>             equal_range (const key_type& k)
+        // {
+        //     return ft::make_pair(lower_bound(k),upper_bound(k));
+        // }
+        // pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+        // {
+        //     return ft::make_pair(lower_bound(k),upper_bound(k));
+        // }
         node next(node nd)
         {
             if (nd->right != NULL)
@@ -651,47 +651,73 @@ void tree_balance_after_insert(node& N)
                 return 0;
             return 1;   
         }
+
+
+
+        ///////////////////////////////////////////
+    node	lower_bound(const key_type & k)
+    {
+        iterator it(min(root),*this);
+      node i;
+    
+      i = min(root);
+      while(comp(i->data.first, k) && i != endn)
+        i = suc(i);
+      return (i);
+    }
+
+    node upper_bound(const key_type& key)
+    {
+        node i;
+
+        i = min(root);
+        while(comp(i->data.first, key) && i != endn)
+          i = suc(i);
+        if (!comp(key, i->data.first) && i != endn)
+          i = suc(i);
+        return (i);
+    }
         /////////////////////////////////////////////
-         iterator lower_bound(const key_type &k)
-        {
-            iterator from = this->begin();
-            iterator to = this->end();
+        //  iterator lower_bound(const key_type &k)
+        // {
+        //     iterator from = this->begin();
+        //     iterator to = this->end();
 
-            while (from != to)
-            {
-                if (!comp((*from).first, k))
-                    return from;
-                from++;
-            }
-            return from;
-        }
-        const_iterator lower_bound(const key_type &k) const
-        {
-            const_iterator from = this->begin();
-            const_iterator to = this->end();
+        //     while (from != to)
+        //     {
+        //         if (!comp((*from).first, k))
+        //             return from;
+        //         from++;
+        //     }
+        //     return from;
+        // }
+        // const_iterator lower_bound(const key_type &k) const
+        // {
+        //     const_iterator from = this->begin();
+        //     const_iterator to = this->end();
 
-            while (from != to)
-            {
-                if (!comp((*from).first, k))
-                    return from;
-                from++;
-            }
-            return from;
-        }
-        ////////////////////////////////////////////
-        iterator upper_bound(const key_type &k)
-        {
-            iterator from = this->begin();
-            iterator to = this->end();
+        //     while (from != to)
+        //     {
+        //         if (!comp((*from).first, k))
+        //             return from;
+        //         from++;
+        //     }
+        //     return from;
+        // }
+        // ////////////////////////////////////////////
+        // iterator upper_bound(const key_type &k)
+        // {
+        //     iterator from = this->begin();
+        //     iterator to = this->end();
 
-            while (from != to)
-            {
-                if (comp(k,(*from).first))
-                    return from;
-                from++;
-            }
-            return from;
-        }
+        //     while (from != to)
+        //     {
+        //         if (comp(k,(*from).first))
+        //             return from;
+        //         from++;
+        //     }
+        //     return from;
+        // }
         size_type size() const
         {
             return m_size;
