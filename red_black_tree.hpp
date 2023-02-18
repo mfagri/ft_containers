@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/17 19:29:35 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/18 23:54:38 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,52 @@
 #include "map.hpp"
 #include "reverse_iterator.hpp"
 
+
+
 class red_black_iterator;
 template<class node>
  inline bool tree_is_left_child(node nd)
 {
         return(nd == nd->parent->left);
 }
-
-
+template<class node>
+  node max(node nd)
+        {
+            node current = nd;
+	
+            while (current->right->right != NULL) 
+                current = current->right;
+            return (current);
+        }
+        template<class node>
+        node prevs(node n)
+        {
+              if(n->left->left != NULL)
+        return max(n->left);
+            while (tree_is_left_child(n))
+                n = n->parent;
+            return n->parent;
+           
+        }
+template<class node>
+node    min(node x)
+{
+    // puts("ff");
+    node current = x;
+    while (current->left->left != NULL) 
+        current = current->left;
+    return (current);
+}
+template<class node>
+inline node suc(node nd)
+        {
+           if(nd->right->right != NULL)
+		        return min(nd->right);
+            while (!tree_is_left_child(nd))
+                nd = nd->parent;
+            
+            return nd->parent;
+        }
 
 template<class T>
 struct Node
@@ -54,13 +92,14 @@ class RedBlackTree {
     public:
         typedef T mapped_type;
         typedef Node<mapped_type>* node;
-        typedef Compare value_compare;
+        // typedef Compare value_compare;
         typedef Key key_type;
         typedef RedBlackTree self;
+        typedef Compare comp;
         // typedef ft::pair<key_type,mapped_type> value_type;
         typedef mapped_type value_type;
-        typedef ft::red_black_iterator <self,value_type,node>  iterator;
-        typedef ft::const_red_black_iterator <self,const value_type,node> const_iterator;
+        typedef ft::red_black_iterator <value_type,node>  iterator;
+        typedef ft::const_red_black_iterator <const value_type,node> const_iterator;
         typedef ft::reverse_iterator<iterator> reverse_iterator;
         typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
         typedef typename Alloc::size_type       size_type;
@@ -71,7 +110,7 @@ class RedBlackTree {
         
    
     public:
-        Compare comp;
+        comp _comp;
         node root;
         node TNULL;
         node endn;
@@ -118,7 +157,7 @@ class RedBlackTree {
              endn->left = root;   
             endn->parent = NULL;
             endn->color = 0;
-            comp = Compare();
+            //comp = Compare();
             // while(1);
         }
         RedBlackTree(iterator first,iterator last){
@@ -135,7 +174,7 @@ class RedBlackTree {
              endn->left = root;   
             endn->parent = nullptr;
             endn->color = 0;
-            comp = Compare();
+            //comp = Compare();
             while (first != last)
             {
                 add(*first++);
@@ -233,7 +272,9 @@ class RedBlackTree {
                 root->right = TNULL;
                 root->left = TNULL;
                 m_size = 1;
-                return ft::make_pair(iterator(n, *this), true);
+                root->parent = endn;
+                endn->left = root;
+                return ft::make_pair(iterator(n), true);
             }
             else
             {
@@ -244,13 +285,13 @@ class RedBlackTree {
                 {
                     y = x;
                     // !value_comp()(y->data,x->data)
-                    if (!comp(n->data.first, x->data.first) && !comp(x->data.first,n->data.first))
+                    if (!_comp(n->data, x->data) && !_comp(x->data,n->data))
                     {
                         alloc.deallocate(n,1);
-                        return ft::make_pair(iterator(x, *this), false);
+                        return ft::make_pair(iterator(x), false);
                     }
                         
-                    if (comp(n->data.first, x->data.first))
+                    if (_comp(n->data, x->data))
                     {
                         x = x->left;
                     }
@@ -259,9 +300,10 @@ class RedBlackTree {
                         x = x->right;
                     }
                 }
+                
                 //std::cout<<"data is "<<y->data.second<<std::endl;
                 n->parent = y;
-                if (n->data.first < y->data.first)
+                if (_comp(n->data, y->data))
                 {
                     y->left = n;
                 }
@@ -269,12 +311,17 @@ class RedBlackTree {
                 {
                     y->right = n;
                 }
+                // if(n->parent->parent == endn)
+                // {
+                //     return ft::make_pair(iterator(n), true);
+                // }
             }
 
             m_size++;
             tree_balance_after_insert(n);
-            endn->left = root;
-            return ft::make_pair(iterator(n, *this), true);
+            root->parent = endn;
+                endn->left = root;
+            return ft::make_pair(iterator(n), true);
         }
         //  pair<iterator,bool> add(const T& data)
         // {
@@ -347,6 +394,7 @@ class RedBlackTree {
         // }
 void tree_balance_after_insert(node& N)
         {
+            // root->parent = NULL;
             node u;
             while (N->parent->color == 1) {
                 if (N->parent == N->parent->parent->right) {
@@ -389,19 +437,19 @@ void tree_balance_after_insert(node& N)
             }
             root->color = 0;
         }
-       node searchTreeHelper(node n, key_type key) const {
+       node searchTreeHelper(node n, value_type key) const {
         
-            if (n == TNULL || key == n->data.first)
+            if (n == TNULL || (!_comp(n->data, key) && !_comp(key,n->data)))
             {
                 return n;
             }
-            if (key < n->data.first)
+            if (!_comp(n->data, key))
             {
                 return searchTreeHelper(n->left, key);
             }
             return searchTreeHelper(n->right, key);
         }
-        node searchTree(key_type k) const
+        node searchTree(value_type k) const
         {
             return searchTreeHelper(this->root, k);
         }
@@ -527,7 +575,7 @@ void tree_balance_after_insert(node& N)
                 nd = nd->right;
             return nd;
         }
-        node prev(node n)
+        node prevs(node n)
         {
             if (n->left->right != NULL && n->left != TNULL)
             {
@@ -590,14 +638,14 @@ void tree_balance_after_insert(node& N)
         {
             //node x = min(root);
             // puts("ff");
-            return(iterator(min(root),*this));
+            return(iterator(min(root)));
         }
 
         const_iterator begin() const
         {
             // node x = min(root);
             // puts("ff");
-            return(const_iterator(min(root),*this));
+            return(const_iterator(min(root)));
         }
         // const_iterator begin()
         // {
@@ -612,18 +660,16 @@ void tree_balance_after_insert(node& N)
         iterator end()
         {
            // if (root)
-                root->parent = endn;
-            endn->left = root;
+                
             // puts("end map");      
-            return(iterator(endn,*this));///////////
+            return(iterator(endn));///////////
         }
         const_iterator end() const
         {
            // if (root)
-                root->parent = endn;
-            endn->left = root;
+             
             // puts("end map");
-            return(const_iterator(endn,*this));///////////
+            return(const_iterator(endn));///////////
         }
         reverse_iterator rbegin()
         {
@@ -644,7 +690,7 @@ void tree_balance_after_insert(node& N)
             return const_reverse_iterator(this->begin());
         }
         //////////////////////////////////////////////
-        size_type count(const key_type &k) const
+        size_type count(const value_type &k) const
         {
             // node n = ;
             if(searchTree(k) == TNULL)
@@ -655,28 +701,28 @@ void tree_balance_after_insert(node& N)
 
 
         ///////////////////////////////////////////
-    node	lower_bound(const key_type & k)
-    {
-        iterator it(min(root),*this);
-      node i;
+    // node	lower_bound(const key_type & k)
+    // {
+    //     iterator it(min(root),*this);
+    //   node i;
     
-      i = min(root);
-      while(comp(i->data.first, k) && i != endn)
-        i = suc(i);
-      return (i);
-    }
+    //   i = min(root);
+    //   while(!_comp(i->data, k) && i != endn)
+    //     i = suc(i);
+    //   return (i);
+    // }
 
-    node upper_bound(const key_type& key)
-    {
-        node i;
+    // node upper_bound(const key_type& key)
+    // {
+    //     node i;
 
-        i = min(root);
-        while(comp(i->data.first, key) && i != endn)
-          i = suc(i);
-        if (!comp(key, i->data.first) && i != endn)
-          i = suc(i);
-        return (i);
-    }
+    //     i = min(root);
+    //     while(_comp(i->data.first, key) && i != endn)
+    //       i = suc(i);
+    //     if (!_comp(key, i->data.first) && i != endn)
+    //       i = suc(i);
+    //     return (i);
+    // }
         /////////////////////////////////////////////
         //  iterator lower_bound(const key_type &k)
         // {
@@ -805,7 +851,7 @@ void rbTransplant(node u, node v)
     }
     v->parent = u->parent;
 }
-    void deleteNodeHelper(const key_type &k)
+    void deleteNodeHelper(const value_type &k)
     {
         node z = TNULL;
         node x, y;
@@ -850,25 +896,25 @@ void rbTransplant(node u, node v)
       delete_fix(x);
     }
   }
-   void deleteNode(const key_type &data) {
+   void deleteNode(const value_type&data) {
     deleteNodeHelper(data);
     root->parent = endn;
     endn->left = root;
   }
         ///////////////////////////////////////////////////////////////////
-        const_iterator upper_bound(const key_type &k) const
-        {
-            const_iterator from = this->begin();
-            const_iterator to = this->end();
+        // const_iterator upper_bound(const key_type &k) const
+        // {
+        //     const_iterator from = this->begin();
+        //     const_iterator to = this->end();
 
-            while (from != to)
-            {
-                if (comp(k,(*from).first))
-                    return from;
-                from++;
-            }
-            return from;
-        }
+        //     while (from != to)
+        //     {
+        //         if (comp(k,(*from).first))
+        //             return from;
+        //         from++;
+        //     }
+        //     return from;
+        // }
          void printHelper(node root, std::string indent, bool last) {
             if (root != TNULL) {
             std::cout << indent;

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/17 19:11:53 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/18 23:54:57 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ namespace ft
             typedef Key key_type;
             typedef T mapped_type;
             typedef ft::pair<const Key,mapped_type> value_type;
-            // typedef Compare key_compare;
+            typedef Compare key_compare;
             typedef Alloc                               allocator_type;
             // typedef value_compare (Compare c) : comp(c) {}
             typedef typename allocator_type::size_type       size_type;//A type that counts the number of elements in a vector.
@@ -37,29 +37,19 @@ namespace ft
             typedef typename allocator_type::reference       reference;//A type that provides a reference to an element stored in a vector.
             typedef typename allocator_type::const_reference const_reference;
             ////////////////////////////////////////////////////////////////////////////////////////
-            typedef Compare key_compare;
-            class value_compare
-            {
+              class value_compare : std::binary_function<value_type,value_type,bool>{
                 friend class map;
-
-            protected:
-                Compare _comp;
-                allocator_type _alloc;
-                
-                value_compare(Compare _c) : _comp(_c) {}
-
-            public:
-                typedef bool result_type;
-                typedef value_type first_type;
-                typedef value_type second_type;
-                result_type operator()(const value_type &_x, const value_type &_y) const
-                {
-                    return (_comp(_x.first, _y.first));
-                }
+                protected:
+                    Compare comp;
+                public:
+                    value_compare() {}
+                    size_t operator() (const value_type& x, const value_type& y) const {
+                        return comp(x.first, y.first);
+                    }
             };
         public:
-            typedef ft::RedBlackTree <key_type, value_type, key_compare, Alloc> Rep_type;
             key_compare _comp;
+            typedef ft::RedBlackTree <key_type, value_type, value_compare, Alloc> Rep_type;
             allocator_type _alloc;
             Rep_type m_tree;
         public:
@@ -69,8 +59,9 @@ namespace ft
             typedef typename Rep_type::const_reverse_iterator const_reverse_iterator;
             //////////////////////////////////////////////////////////////////////////
             
-            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc)
+            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_alloc(alloc)
             {
+                _comp = comp;
                 // puts("what");
                 // while (1);
                 
@@ -171,11 +162,11 @@ namespace ft
 
             iterator find (const key_type& k)
             {
-                return(iterator(m_tree.searchTree(k),m_tree));
+                return(iterator(m_tree.searchTree(value_type(k, mapped_type()))));
             }
             const_iterator find (const key_type& k) const
             {
-                return(const_iterator(m_tree.searchTree(k),m_tree));
+                return(const_iterator(m_tree.searchTree(value_type(k, mapped_type()))),m_tree);
             }
             // /////////////////////////////////////////////////////////////////////////////////////////
             iterator begin()
@@ -228,7 +219,7 @@ namespace ft
             //////////////////////////////////////////////////
             size_type count (const key_type& k) const
             {
-                return m_tree.count(k);
+                return m_tree.count(value_type(k,mapped_type()));
             }
             //////////////////////////////////////////////
             void clear()
@@ -238,7 +229,7 @@ namespace ft
             }
             void delet(const key_type &k)
             {
-                    m_tree.deleteNode(k);
+                    m_tree.deleteNode(value_type(k ,mapped_type()));
                     
             }
             ////////////////////////////////////////
@@ -263,7 +254,9 @@ namespace ft
             ////////////////////////////////////////////////////////////////////////////////
             iterator upper_bound(const key_type& k)
             {
-                return iterator(m_tree.upper_bound(k),m_tree);
+                iterator it = begin();
+                while(it != end() && _comp(it->first,k))it++;
+                return  it;
             }
             // const_iterator upper_bound(const key_type& k) const
             // {
@@ -272,7 +265,9 @@ namespace ft
             ///////////////////////////////////////////////////////////////////
             iterator lower_bound(const key_type& k)
             {
-                return  iterator(m_tree.lower_bound(k),m_tree);
+                iterator it = begin();
+                while(it != end() && _comp(it->first,k))it++;
+                return  it;
             }
             // const_iterator lower_bound (const key_type& k) const
             // {
@@ -314,17 +309,17 @@ namespace ft
             ///////////////////////////////////////////////////////////////////
             void erase (iterator position)
             {
-                m_tree.deleteNode(position->first);
+                m_tree.deleteNode(value_type(position->first, mapped_type()));
             }
             ///////////////////////////////////////////////////////////////////
             size_type erase (const key_type& k)
             {
                 size_type i;
-                if(m_tree.searchTree(k) == m_tree.TNULL)
+                if(m_tree.searchTree(value_type(k ,mapped_type())) == m_tree.TNULL)
                     i = 0;
                 else
                     i = 1;
-                m_tree.deleteNode(k);
+                m_tree.deleteNode(value_type(k ,mapped_type()));
                 return (i);
             }
             ///////////////////////////////////////////////////////////////////
@@ -335,7 +330,7 @@ namespace ft
                 {
                     //std::cout<<first->first<<std::endl;
                     tmp++;
-                    m_tree.deleteNode(first->first);
+                    m_tree.deleteNode(value_type(first->first, mapped_type()));
                     //erase(first);
                     first = tmp;
                     

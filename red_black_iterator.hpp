@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/17 19:19:12 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/18 18:12:45 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 #include "map.hpp"
 namespace ft
 {
-    template <class tree, class T,class Itr>
+    template <class T,class Itr>
     class red_black_iterator : public std::iterator<std::bidirectional_iterator_tag , T>
     {
             public:
                 typedef Itr                                iterator_type;
                 typedef T                                  value_type;
-                typedef tree REDB;
+                // typedef RedBlackTree REDB;
                 typedef ptrdiff_t                           difference_type;
                 typedef T*                                 pointer;
                 typedef T&                                 reference;
@@ -38,7 +38,7 @@ namespace ft
                 // template <class, class, class, class>
                 // friend class map;
                 iterator_type  ptr;
-                REDB m_tree;
+                //REDB m_tree;
             public:
                 explicit red_black_iterator()
                 {
@@ -48,7 +48,7 @@ namespace ft
                 //     //m_tree.clear();
                 //    // std::cout << m_tree.size() << std::endl;
                 // }
-                red_black_iterator(iterator_type x,REDB ntree):ptr(x),m_tree(ntree)
+                red_black_iterator(iterator_type x):ptr(x)
                 {
                     //puts("0");
                     //m_tree.clear();
@@ -59,9 +59,9 @@ namespace ft
                 red_black_iterator &operator= (const red_black_iterator &x) 
                 {
                     this->ptr = x.ptr;
-                    m_tree.dea();
-                   this->m_tree = x.get_mytree();
-                  // puts("hr");
+                    // m_tree.dea();
+                //    this->m_tree = x.get_mytree();
+                //   puts("hr");
                     return *this;
                 }
                 bool operator==(const red_black_iterator& rhs) const 
@@ -86,7 +86,7 @@ namespace ft
                 {
                     // m_tree->printTree();
                     // puts("dd");
-                    ptr = m_tree.suc(ptr);
+                    ptr = suc(ptr);
                     return *this;
                 }
                 red_black_iterator operator++(int) ///next
@@ -100,7 +100,7 @@ namespace ft
                 {
                     //puts("3");
                    /// std::cout<<"work of aaaaaaaaart hahahahahahahhaa fuck it\n";
-                    this->ptr = m_tree.prev(ptr);
+                    this->ptr = prevs(ptr);
                    // puts("dd");
                   //  puts("kamira wawaw");
                     return (*this);
@@ -121,109 +121,25 @@ namespace ft
 
                     return (this->ptr - x.ptr);
                 }
-                REDB get_mytree() const
-                {
-                    return m_tree;
-                }
-                // private:
-                //     template <class, class, class,class>
-                //     friend class RedBlackTree;
-                    // template <class, class, class, class>
-                    // friend class map;
+                // REDB get_mytree() const
+                // {
+                //     return m_tree;
+                // }
+                private:
+                    template <class, class, class,class>
+                    friend class RedBlackTree;
+                    template <class, class, class, class>
+                    friend class map;
 
     };
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //const_red_black_iterator
-    // template <class tree, class T,class Itr>
-    // class const_red_black_iterator : public std::iterator<std::bidirectional_iterator_tag , T>
-    // {
-    //         public:
-    //             typedef Itr                                iterator_type;
-    //             typedef T                                  value_type;
-    //             typedef ptrdiff_t                           difference_type;
-    //             typedef const T*                                 pointer;
-    //             typedef const T&                                 reference;
-    //             typedef std::bidirectional_iterator_tag     iterator_category;
-    //          private:
-    //             explicit const_red_black_iterator(iterator_type _rhs) : ptr(_rhs) {}
-    //         private:
-    //             // template <class, class, class,class>
-    //             // friend class RedBlackTree;
-    //             // template <class, class, class, class>
-    //             // friend class map;
-    //             iterator_type ptr;
-    //         public:
-    //             const_red_black_iterator()
-    //             {
-    //             }
-    //             const_red_black_iterator base() const 
-    //             {
-    //                 return (ptr);
-    //             }
-    //             const_red_black_iterator(const iterator_type &x):ptr(x.ptr)
-    //             {}
-    //             const_red_black_iterator &operator = (const iterator_type &x) 
-    //             {
-    //                 ptr = x.ptr;
-                    
-    //                 return *this;
-    //             }
-    //             bool operator==(const const_red_black_iterator& rhs) const 
-    //             {
-    //                 return ptr==rhs.ptr;
-    //             }
-                
-    //             bool operator!=(const const_red_black_iterator& rhs) const 
-    //             {
-    //                 return ptr!=rhs.ptr;
-    //             }
-
-    //             reference operator*() const
-    //             {
-    //                 return (ptr->data);
-    //             }
-
-    //             pointer operator->() const 
-    //             {
-    //                 return (&ptr->data);
-    //             }
-
-    //             const_red_black_iterator& operator++() 
-    //             {
-    //                 ptr = next(ptr);
-    //                 return *this;
-    //             }
-    //             const_red_black_iterator operator++(int) ///next
-    //             {
-    //                 const_red_black_iterator tmp(*this); 
-    //                 ++(*this); 
-    //                 return tmp;
-    //             }
-    //             const_red_black_iterator operator--() //preve
-    //             {
-    //                 ptr = prev(ptr);
-    //                 return (*this);
-    //             }
-    //             const_red_black_iterator operator--(int)
-    //             {
-    //                 const_red_black_iterator temp(*this);
-    //                 --(*this);
-    //                 return temp;
-    //             }
-    //             private:
-    //                 template <class, class, class,class>
-    //                 friend class RedBlackTree;
-    //                 template <class, class, class, class>
-    //                 friend class map;
-
-    // };  
-    template <class tree, class T,class Itr>
+   
+    template <class T,class Itr>
     class const_red_black_iterator : public std::iterator<std::bidirectional_iterator_tag , T>
     {
             public:
                 typedef Itr                                iterator_type;
                 typedef T                                  value_type;
-                typedef tree REDB;
+                // typedef RedBlackTree REDB;
                 typedef ptrdiff_t                           difference_type;
                 typedef const T*                                 pointer;
                 typedef const T&                                 reference;;
@@ -232,27 +148,27 @@ namespace ft
                 //explicit const_red_black_iterator( iterator_type _rhs) : ptr(_rhs) {}
             public:
                 iterator_type  ptr;
-                // template <class, class, class,class>
-                // friend class RedBlackTree;
-                // template <class, class, class, class>
-                // friend class map;
-                REDB m_tree;
+                template <class, class, class,class>
+                friend class RedBlackTree;
+                template <class, class, class, class>
+                friend class map;
+                //REDB m_tree;
             public:
                 explicit const_red_black_iterator()
                 {
                 }
                 template <typename Iterator>
-                const_red_black_iterator(const red_black_iterator<tree,Iterator,Itr>& it) :
-                    ptr(it.ptr), m_tree(it.m_tree) {}
-                const_red_black_iterator(iterator_type x,REDB ntree):ptr(x),m_tree(ntree)
+                const_red_black_iterator(const red_black_iterator<Iterator,Itr>& it) :
+                    ptr(it.ptr){}
+                const_red_black_iterator(iterator_type x):ptr(x)
                 {
                     // std::cout << ptr->data.first << std::endl;
                 }
                 const_red_black_iterator &operator = (const const_red_black_iterator &x) 
                 {
                     this->ptr = x.ptr;
-                    m_tree.dea();
-                   this->m_tree = x.get_mytree();
+                //     m_tree.dea();
+                //    this->m_tree = x.get_mytree();
                   // puts("hr");
                     return *this;
                 }
@@ -278,7 +194,7 @@ namespace ft
                 {
                     //std::cout<<"work of aaaaaaaaart hahahahahahahhaa fuck it\n";
                     // m_tree->printTree();
-                    ptr = m_tree.suc(ptr);
+                    ptr = suc(ptr);
                     return *this;
                 }
                 const_red_black_iterator operator++(int) ///next
@@ -290,7 +206,7 @@ namespace ft
                 }
                 const_red_black_iterator operator--() //preve
                 {
-                    ptr = m_tree.prev(ptr);
+                    ptr = prevs(ptr);
                     return (*this);
                 }
                 const_red_black_iterator operator--(int)
@@ -312,8 +228,8 @@ namespace ft
                 private:
                     template <class, class, class,class>
                     friend class RedBlackTree;
-                    // template <class, class, class, class>
-                    // friend class map;
+                    template <class, class, class, class>
+                    friend class map;
 
     };
 }
