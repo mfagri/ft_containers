@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/18 23:54:57 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/20 00:11:37 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ namespace ft
             typedef typename Rep_type::const_reverse_iterator const_reverse_iterator;
             //////////////////////////////////////////////////////////////////////////
             
-            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_alloc(alloc)
+            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_alloc(alloc),m_tree()
             {
                 _comp = comp;
                 // puts("what");
@@ -73,7 +73,7 @@ namespace ft
             // *  otherwise (where N is distance(first,last)).
             template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc)
             {
-                // std::cout<<"taniii\n";
+                 //std::cout<<"taniii\n";
                 //this->insert(first,last);
                 for (; first != last; ++first)
                 {
@@ -89,14 +89,13 @@ namespace ft
                     insert(x.begin(),x.end());
             }
             ~map(){
-                // std::cout<<"here\n";
+                 
                 //m_tree()
-             erase(begin(),end());
+           erase(begin(),end());
                 
-               // m_tree.clear();
-             //  puts("hhh");
-               m_tree.dea();
-               //m_tree.dea();
+            //   m_tree.dea();
+              // m_tree.~RedBlackTree();
+              // m_tree.dea();
                 //m_tree.printTree();
 
                 // puts("ggg");
@@ -137,6 +136,7 @@ namespace ft
             // pair<iterator,bool> insert (const value_type& val);
              pair<iterator,bool> insert ( const value_type & val)
             {
+                //puts("ff");
                 return m_tree.add(val); 
             }
             template <class InputIterator>  void 
@@ -328,10 +328,10 @@ namespace ft
                 iterator tmp = first;
                 while(first != last)
                 {
-                    //std::cout<<first->first<<std::endl;
+                    // std::cout<<first->first<<std::endl;
                     tmp++;
-                    m_tree.deleteNode(value_type(first->first, mapped_type()));
-                    //erase(first);
+                     m_tree.deleteNode(value_type(first->first, mapped_type()));
+                   // erase(first);
                     first = tmp;
                     
                     // if(first == end());

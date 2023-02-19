@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/18 18:12:45 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/19 21:15:51 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ namespace ft
                 }
                 red_black_iterator &operator= (const red_black_iterator &x) 
                 {
-                    this->ptr = x.ptr;
+                    if(this != &x)
+                        this->ptr = x.ptr;
                     // m_tree.dea();
                 //    this->m_tree = x.get_mytree();
                 //   puts("hr");
@@ -125,11 +126,6 @@ namespace ft
                 // {
                 //     return m_tree;
                 // }
-                private:
-                    template <class, class, class,class>
-                    friend class RedBlackTree;
-                    template <class, class, class, class>
-                    friend class map;
 
     };
    
@@ -225,11 +221,6 @@ namespace ft
 
                     return (this->ptr - x.ptr);
                 }
-                private:
-                    template <class, class, class,class>
-                    friend class RedBlackTree;
-                    template <class, class, class, class>
-                    friend class map;
 
     };
 }

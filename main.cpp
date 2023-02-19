@@ -13,12 +13,15 @@ void fillMap(std::map<T, V, C> &mp) {
 	mp.insert(std::make_pair(16, 3));
 	mp.insert(std::make_pair(8, 3));
 	mp.insert(std::make_pair(23, 3));
-	mp.insert(std::make_pair(7, 3));
-	mp.insert(std::make_pair(19, 3));
-	mp.insert(std::make_pair(29, 3));
-	mp.insert(std::make_pair(41, 3));
-	mp.insert(std::make_pair(4, 3));
-	mp.insert(std::make_pair(11, 3));
+	// mp.insert(std::make_pair(7, 3));
+	// mp.insert(std::make_pair(19, 3));
+	// mp.insert(std::make_pair(29, 3));
+	// mp.insert(std::make_pair(41, 3));
+	// mp.insert(std::make_pair(4, 3));
+	// mp.insert(std::make_pair(11, 3));
+  // mp.insert(std::make_pair(96, 3));
+  // mp.insert(std::make_pair(96, 3));
+
 }
 
 // // template <class T, class V, class C>
@@ -36,9 +39,9 @@ void fillMap(std::map<T, V, C> &mp) {
 template <class T, class V, class C>
 void fillMap(ft::map<T, V, C> &mp) {
 	mp.insert(ft::make_pair(16, 3));
-	mp.insert(ft::make_pair(8, 3));
-	mp.insert(ft::make_pair(23, 3));
-	mp.insert(ft::make_pair(7, 3));
+	  mp.insert(ft::make_pair(8, 3));
+	  mp.insert(ft::make_pair(23, 3));
+	 mp.insert(ft::make_pair(7, 3));
 	mp.insert(ft::make_pair(19, 3));
 	mp.insert(ft::make_pair(29, 3));
 	mp.insert(ft::make_pair(41, 3));
@@ -115,33 +118,33 @@ void ft_test()
     mp2.erase(3);
     if (mp2.begin() == mp2.end())
         v.push_back(1);
-    ft::map<int, int, std::plus<int> > mp3;
+   ft::map<int, int, std::plus<int> > mp3;
     fillMap(mp3);
-    // for (typename ft::map<int,int, std::plus<int> >::iterator it = mp3.begin(); it != mp3.end(); it++) { v.push_back(it->first); }
-    // for (typename ft::map<int,int, std::plus<int> >::iterator it = --mp3.end(); it != mp3.begin(); it--) { v.push_back(it->first); }
-    // ft::map<int, int, std::minus<int> > mp4;
-    // fillMap(mp4);
-    // for (typename ft::map<int,int, std::minus<int> >::iterator it = mp4.begin(); it != mp4.end(); it++) { v.push_back(it->first); }
-    // for (typename ft::map<int,int, std::minus<int> >::iterator it = --mp4.end(); it != mp4.begin(); it--) { v.push_back(it->first); }
-    // ft::map<int, int, std::greater_equal<int> > mp5;
-    // fillMap(mp5);
-    // for (typename ft::map<int,int, std::greater_equal<int> >::iterator it = mp5.begin(); it != mp5.end(); it++) { v.push_back(it->first); }
-    // for (typename ft::map<int,int, std::greater_equal<int> >::iterator it = --mp5.end(); it != mp5.begin(); it--) { v.push_back(it->first); }
-    // ft::map<int, int, std::multiplies<int> > mp6;
-    // fillMap(mp6);
-    // for (typename ft::map<int,int, std::multiplies<int> >::iterator it = mp6.begin(); it != mp6.end(); it++) { v.push_back(it->first); }
-    // for (typename ft::map<int,int, std::multiplies<int> >::iterator it = --mp6.end(); it != mp6.begin(); it--) { v.push_back(it->first); }
-    // ft::map<int, int, std::bit_xor<int> > mp7;
-    // fillMap(mp7);
-    // for (typename ft::map<int,int, std::bit_xor<int> >::iterator it = mp7.begin(); it != mp7.end(); it++) { v.push_back(it->first); }
-    // for (typename ft::map<int,int, std::bit_xor<int> >::iterator it = --mp7.end(); it != mp7.begin(); it--) { v.push_back(it->first); }
-    // std::map<int, int, std::logical_and<int> > mp8;
-    // fillMap(mp8);
-    // for (typename std::map<int,int, std::logical_and<int> >::iterator it = mp8.begin(); it != mp8.end(); it++) { v.push_back(it->first); }
-    // for (typename std::map<int,int, std::logical_and<int> >::iterator it = --mp8.end(); it != mp8.begin(); it--) { v.push_back(it->first); }
+    for (typename ft::map<int,int, std::plus<int> >::iterator it = mp3.begin(); it != mp3.end(); it++) { v.push_back(it->first); }
+    for (typename ft::map<int,int, std::plus<int> >::iterator it = --mp3.end(); it != mp3.begin(); it--) { v.push_back(it->first); }
+    ft::map<int, int, std::minus<int> > mp4;
+    fillMap(mp4);
+    for (typename ft::map<int,int, std::minus<int> >::iterator it = mp4.begin(); it != mp4.end(); it++) { v.push_back(it->first); }
+    for (typename ft::map<int,int, std::minus<int> >::iterator it = --mp4.end(); it != mp4.begin(); it--) { v.push_back(it->first); }
+    ft::map<int, int, std::greater_equal<int> > mp5;
+    fillMap(mp5);
+    for (typename ft::map<int,int, std::greater_equal<int> >::iterator it = mp5.begin(); it != mp5.end(); it++) { v.push_back(it->first); }
+    for (typename ft::map<int,int, std::greater_equal<int> >::iterator it = --mp5.end(); it != mp5.begin(); it--) { v.push_back(it->first); }
+    ft::map<int, int, std::multiplies<int> > mp6;
+    fillMap(mp6);
+    for (typename ft::map<int,int, std::multiplies<int> >::iterator it = mp6.begin(); it != mp6.end(); it++) { v.push_back(it->first); }
+    for (typename ft::map<int,int, std::multiplies<int> >::iterator it = --mp6.end(); it != mp6.begin(); it--) { v.push_back(it->first); }
+    ft::map<int, int, std::bit_xor<int> > mp7;
+    fillMap(mp7);
+    for (typename ft::map<int,int, std::bit_xor<int> >::iterator it = mp7.begin(); it != mp7.end(); it++) { v.push_back(it->first); }
+    for (typename ft::map<int,int, std::bit_xor<int> >::iterator it = --mp7.end(); it != mp7.begin(); it--) { v.push_back(it->first); }
+    std::map<int, int, std::logical_and<int> > mp8;
+    fillMap(mp8);
+    for (typename std::map<int,int, std::logical_and<int> >::iterator it = mp8.begin(); it != mp8.end(); it++) { v.push_back(it->first); }
+    for (typename std::map<int,int, std::logical_and<int> >::iterator it = --mp8.end(); it != mp8.begin(); it--) { v.push_back(it->first); }
     // // g_start1 = timer();
     // // g_end1 = timer();
-    // v.push_back(mp1.size());
+    v.push_back(mp1.size());
     // g_end2 = timer();/
     // return v;
     return ;
