@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/20 00:11:37 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/20 19:00:03 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ namespace ft
                         return comp(x.first, y.first);
                     }
             };
+            ////////////////////////////////////////////////////////////////////////////////////////
         public:
             key_compare _comp;
             typedef ft::RedBlackTree <key_type, value_type, value_compare, Alloc> Rep_type;
@@ -63,14 +64,8 @@ namespace ft
             {
                 _comp = comp;
                 // puts("what");
-                // while (1);
-                
-                // this->allocator_type = allocator_type;
             }
             
-            //*  Create a %map consisting of copies of the elements from [first,last).
-            // *  This is linear in N if the range is already sorted, and NlogN
-            // *  otherwise (where N is distance(first,last)).
             template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc)
             {
                  //std::cout<<"taniii\n";
@@ -89,25 +84,6 @@ namespace ft
                     insert(x.begin(),x.end());
             }
             ~map(){
-                 
-                //m_tree()
-           erase(begin(),end());
-                
-            //   m_tree.dea();
-              // m_tree.~RedBlackTree();
-              // m_tree.dea();
-                //m_tree.printTree();
-
-                // puts("ggg");
-                // // while (1);
-                // // // {
-                // // //     /* code */
-                // // // }
-                
-                // // erase()
-                // // this->m_tree.~RedBlackTree();
-                // //this->clear();
-                // // _alloc.deallocate()
             }
             map& operator= (const map& x)
             {
@@ -115,37 +91,18 @@ namespace ft
 			    {
                     _comp = x._comp;
                     _alloc = x._alloc;
-                    //clear();
                     erase(begin(),end());
-                    //m_tree = x.m_tree;
-
-                     
-			    	// this->m_size = x.m_size;
-                    //std::cout<<size()<<std::endl;
                     insert(x.begin(),x.end());
-                   // puts("ffo");
-                    //return *this;
-			    	// this->_tree.clear();
-			    	// this->_tree.~RBT();	
-			    	// _alloc.deallocate(this->_tree.get_node_end(), 1);
-			    	// // _alloc.deal
-			    	// this->_tree = _m._tree;
 			    }
 			    return *this;
             }
-            // pair<iterator,bool> insert (const value_type& val);
              pair<iterator,bool> insert ( const value_type & val)
             {
-                //puts("ff");
                 return m_tree.add(val); 
             }
             template <class InputIterator>  void 
             insert (InputIterator first, InputIterator last)
             {
-               // difference_type n = last-first;
-                // (void)n;
-                
-                // std::cout<<first->first<<std::endl;
                 while(first != last)
                 {
                     // puts("f");
@@ -189,7 +146,6 @@ namespace ft
             // ///////////////////////////////////////////////////////////////////////////////////////
             reverse_iterator rbegin()
             {
-                //puts("rebegin map");
                 return reverse_iterator(end());
             }
             const_reverse_iterator rbegin() const
@@ -225,7 +181,6 @@ namespace ft
             void clear()
             {
                 erase(begin(),end());
-                //m_tree.clear();
             }
             void delet(const key_type &k)
             {
@@ -258,10 +213,12 @@ namespace ft
                 while(it != end() && _comp(it->first,k))it++;
                 return  it;
             }
-            // const_iterator upper_bound(const key_type& k) const
-            // {
-            //     return m_tree.upper_bound(k);
-            // }
+            const_iterator upper_bound(const key_type& k) const
+            {
+                const_iterator it = begin();
+                while(it != end() && _comp(it->first,k))it++;
+                return  it;
+            }
             ///////////////////////////////////////////////////////////////////
             iterator lower_bound(const key_type& k)
             {
@@ -269,10 +226,12 @@ namespace ft
                 while(it != end() && _comp(it->first,k))it++;
                 return  it;
             }
-            // const_iterator lower_bound (const key_type& k) const
-            // {
-            //     return m_tree.lower_bound(k);
-            // }
+            const_iterator lower_bound (const key_type& k) const
+            {
+                const_iterator it = begin();
+                while(it != end() && _comp(it->first,k))it++;
+                return  it;
+            }
             ///////////////////////////////////////////////////////
             ft::pair<iterator,iterator>  equal_range (const key_type& k)
             { 
@@ -303,7 +262,6 @@ namespace ft
             // ///////////////////////////////////////////////////////////////////////////////
             mapped_type& operator[] (const key_type& k)
             {
-                //mapped_type b = this->insert(value_type(k, mapped_type()));
                 return (this->insert(value_type(k, mapped_type())).first->second);
             }
             ///////////////////////////////////////////////////////////////////
@@ -315,11 +273,13 @@ namespace ft
             size_type erase (const key_type& k)
             {
                 size_type i;
-                if(m_tree.searchTree(value_type(k ,mapped_type())) == m_tree.TNULL)
+                if(m_tree.searchTree(value_type(k ,mapped_type())) == m_tree.endn)
                     i = 0;
                 else
+                {
                     i = 1;
-                m_tree.deleteNode(value_type(k ,mapped_type()));
+                    m_tree.deleteNode(value_type(k ,mapped_type()));
+                }
                 return (i);
             }
             ///////////////////////////////////////////////////////////////////
@@ -331,19 +291,14 @@ namespace ft
                     // std::cout<<first->first<<std::endl;
                     tmp++;
                      m_tree.deleteNode(value_type(first->first, mapped_type()));
-                   // erase(first);
                     first = tmp;
-                    
-                    // if(first == end());
-                    // std::cout << "hey 2\n";
-                    // first = tmp;
                 }
             }
             ///////////////////////////////////////////////////////////////////
             // mapped_type& at (const key_type& k);
             // const mapped_type& at (const key_type& k) const;
-            ///////////////////////////////////////////////////////////////////////////////////////////
-             ///////////////////////////no member functions ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////no member functions ////////////////////////////////////////////
         
     };
     template <class Key, class T, class Compare, class Alloc>  void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y)

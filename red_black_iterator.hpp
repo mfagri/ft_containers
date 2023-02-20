@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/19 21:15:51 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/20 17:17:18 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <iostream>
 #include <cstddef>
 #include "red_black_tree.hpp"
-#include "map.hpp"
+// #include "map.hpp"
 namespace ft
 {
     template <class T,class Itr>
@@ -144,10 +144,6 @@ namespace ft
                 //explicit const_red_black_iterator( iterator_type _rhs) : ptr(_rhs) {}
             public:
                 iterator_type  ptr;
-                template <class, class, class,class>
-                friend class RedBlackTree;
-                template <class, class, class, class>
-                friend class map;
                 //REDB m_tree;
             public:
                 explicit const_red_black_iterator()

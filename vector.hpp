@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/12 18:45:37 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/20 18:27:23 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ class vector
     void push_back (const value_type& val)
     {
         // puts("here");
-            size_t firstc = m_capacity;
+            // size_t firstc = m_capacity;
             if (m_capacity == m_size) {
                 value_type *tmp = _alloc.allocate(m_capacity);
                 for (size_t i = 0; i < m_capacity; i++)
@@ -505,6 +505,7 @@ class vector
     }
     void insert (iterator position, size_type n, const value_type & val)
     {
+    
         iterator it = this->begin();
         size_t i = 0;
         for (; it != position; it++)
@@ -553,7 +554,7 @@ class vector
     template <class InputIterator> 
     void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
        
-        // puts("hello you");
+        //puts("hello you");
        
         difference_type n = std::distance(first, last);
 

@@ -6,13 +6,14 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/17 19:09:15 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/20 19:18:26 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EQUAL_HPP
 #define EQUAL_HPP
-
+#include "enable_if.hpp"
+#include "vector_iterator.hpp"
 
 namespace ft
 {

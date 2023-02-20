@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/20 00:27:07 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/20 18:58:08 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <iostream>
 #include "equal.hpp"
 #include "red_black_iterator.hpp"
-#include "map.hpp"
+// #include "map.hpp"
 #include "reverse_iterator.hpp"
 
 
@@ -488,9 +488,10 @@ void tree_balance_after_insert(node& N)
             root->color = 0;
         }
        node searchTreeHelper(node n, value_type key) const {
-            if (n == TNULL || (!_comp(n->data, key) && !_comp(key,n->data)))
+            if (n == endn || n == TNULL || (!_comp(n->data, key) && !_comp(key,n->data)))
             {
-                // puts("ggg");
+                if(n == TNULL)
+                    return endn;
                 return n;
             }
             if (!_comp(n->data, key))
@@ -743,7 +744,7 @@ void tree_balance_after_insert(node& N)
         size_type count(const value_type &k) const
         {
             // node n = ;
-            if(searchTree(k) == TNULL)
+            if(searchTree(k) == endn)
                 return 0;
             return 1;   
         }
@@ -751,28 +752,28 @@ void tree_balance_after_insert(node& N)
 
 
         ///////////////////////////////////////////
-    // node	lower_bound(const key_type & k)
-    // {
-    //     iterator it(min(root),*this);
-    //   node i;
+    iterator	lower_bound(const value_type & k) const
+    {
+        iterator it(min(root));
+       node i;
     
-    //   i = min(root);
-    //   while(!_comp(i->data, k) && i != endn)
-    //     i = suc(i);
-    //   return (i);
-    // }
+      i = min(root);
+      while(_comp(i->data, k) && i != endn)
+        i = suc(i);
+      return (i);
+    }
 
-    // node upper_bound(const key_type& key)
-    // {
-    //     node i;
+    iterator upper_bound(const value_type & k) const
+    {
+        node i;
 
-    //     i = min(root);
-    //     while(_comp(i->data.first, key) && i != endn)
-    //       i = suc(i);
-    //     if (!_comp(key, i->data.first) && i != endn)
-    //       i = suc(i);
-    //     return (i);
-    // }
+        i = min(root);
+        while(_comp(i->data, k) && i != endn)
+          i = suc(i);
+        if (!_comp(k, i->data) && i != endn)
+          i = suc(i);
+        return (i);
+    }
         /////////////////////////////////////////////
         //  iterator lower_bound(const key_type &k)
         // {
