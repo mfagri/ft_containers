@@ -43,24 +43,32 @@ public:
 #define _ratio 10000
 int main ()
 {
-    ft::set<int>st;
-    std::vector<int> v;
-    for (int i = -75 * _ratio; i < 75 * _ratio; ++i) {
-        st.insert(i);
-    }
+ft::vector<int> v1;
+ft::vector<int> v2;
 
-    typename ft::set<int>::iterator it = st.find(34 * _ratio);
-    v.push_back(*it);
+for (size_t i = 0; i < 999*10; i++)
+{
+    v1.push_back(i);
+}
 
-    it = st.find(-34 * _ratio);
-    v.push_back(*it);
+v2.insert(v2.begin(),v1.begin(),v1.end());
 
-    it = st.find(-987654321);
-    if (it == st.end())
-        v.push_back(1);
-    for (size_t i = 0; i < v.size(); i++)
-    {
-        std::cout<<v[i]<<std::endl;
-    }
-    
+std::cout<<v2.size()<<std::endl;
+std::cout<<v2.capacity()<<std::endl;
+puts("////////////////////////////////");
+ft::vector<int> v3;
+ft::vector<int> v5;
+
+for (size_t i = 0; i < 999*10; i++)
+{
+    v3.push_back(i);
+}
+
+v5.insert(v5.begin(),v3.begin(),v3.end());
+
+
+std::cout<<v5.size()<<std::endl;
+std::cout<<v5.capacity()<<std::endl;
+// puts("here");
+
 }

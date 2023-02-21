@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/20 19:00:03 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:58:32 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ namespace ft
             typedef ft::pair<const Key,mapped_type> value_type;
             typedef Compare key_compare;
             typedef Alloc                               allocator_type;
-            // typedef value_compare (Compare c) : comp(c) {}
             typedef typename allocator_type::size_type       size_type;//A type that counts the number of elements in a vector.
             typedef typename allocator_type::difference_type difference_type;//A type that provides the difference between the addresses of two elements in a vector.
             typedef typename allocator_type::pointer         pointer;//A type that provides a pointer to a component of a vector.
@@ -63,20 +62,14 @@ namespace ft
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):_alloc(alloc),m_tree()
             {
                 _comp = comp;
-                // puts("what");
             }
             
             template <class InputIterator>  map (InputIterator first, InputIterator last,       const key_compare& comp = key_compare(),       const allocator_type& alloc = allocator_type()):_comp(comp),_alloc(alloc)
             {
-                 //std::cout<<"taniii\n";
-                //this->insert(first,last);
                 for (; first != last; ++first)
                 {
-                    // std::cout<<first->first<<std::endl;
                     this->m_tree.add(*first);
-                }
-                // puts("dd");
-                
+                }               
             }
             map (const map& x):_alloc(x._alloc),_comp(x._comp)
             {
@@ -105,8 +98,6 @@ namespace ft
             {
                 while(first != last)
                 {
-                    // puts("f");
-                    // std::cout<<(first)->first<<std::endl;
                     m_tree.add(*first++);
                 }
             }
@@ -294,9 +285,7 @@ namespace ft
                     first = tmp;
                 }
             }
-            ///////////////////////////////////////////////////////////////////
-            // mapped_type& at (const key_type& k);
-            // const mapped_type& at (const key_type& k) const;
+    ///////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////no member functions ////////////////////////////////////////////
         

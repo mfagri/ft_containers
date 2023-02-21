@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:51:17 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/20 19:18:26 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:58:58 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ namespace ft
             pair(first_type const &a, second_type const &b)
             :first(a),second(b)
             {
-                // first  = a;
-                // second = b;
             }
             
             pair& operator = (const pair& __p)
@@ -101,11 +99,6 @@ namespace ft
                 second = __p.second;
                 return *this;
             }
-
-            // ~pair()
-            // {
-
-            // }
     };
     template <class T1, class T2>
     bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
