@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:40:56 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/21 16:57:36 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/23 21:06:38 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ namespace ft
                 typedef T*                                 pointer;
                 typedef T&                                 reference;
                 typedef std::bidirectional_iterator_tag     iterator_category;
-            public:
                 iterator_type  ptr;
+            public:
             public:
                 explicit red_black_iterator()
                 {

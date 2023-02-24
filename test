@@ -1,0 +1,100 @@
+[33mft vector[0m
+[32m(constructor)[0m
+The contents of fifth are: 16 2 77 29
+[32moperator=[0m
+Size of foo: 0
+Size of bar: 3
+[32miterator[0m
+myvector contains: 1 2 3 4 5
+[32mreverse iterator[0m
+myvector1 contains: 5 4 3 2 1
+[32msize[0m
+0. size: 0
+1. size: 10
+2. size: 20
+3. size: 19
+[32mmax_size[0m
+size: 100
+capacity: 128
+max_size: 4611686018427387903
+[32mresize[0m
+myvresize contains: 1 2 3 4 5 100 100 100 0 0 0 0
+[32mcapacity[0m
+size: 100
+capacity: 128
+max_size: -1
+[32mempty[0m
+total: 55
+[32merase[0m
+myvector contains: 4 5 7 8 9 10
+[32reserve[0m
+making foo grow:
+capacity changed: 1
+capacity changed: 2
+capacity changed: 4
+capacity changed: 8
+capacity changed: 16
+capacity changed: 32
+capacity changed: 64
+capacity changed: 128
+making bar grow:
+capacity changed: 100
+[32moperator[][0m
+myvector contains: 9 8 7 6 5 4 3 2 1 0
+[32mat[0m
+myvector contains: 0 1 2 3 4 5 6 7 8 9
+[32m front && back[0m
+myvector.front() is now 62
+
+////////////////////////////////////
+[34mstd vector[0m
+[32m(constructor)[0m
+The contents of fifth are: 16 2 77 29
+[32moperator=[0m
+Size of foo: 0
+Size of bar: 3
+[32miterator[0m
+myvector contains: 1 2 3 4 5
+[32mreverse iterator[0m
+myvector1 contains: 5 4 3 2 1
+[32msize[0m
+0. size: 0
+1. size: 10
+2. size: 20
+3. size: 19
+[32mmax_size[0m
+size: 100
+capacity: 128
+max_size: 4611686018427387903
+[32mresize[0m
+myvresize contains: 1 2 3 4 5 100 100 100 0 0 0 0
+[32mcapacity[0m
+size: 100
+capacity: 128
+max_size: -1
+[32mempty[0m
+total: 55
+[32merase[0m
+myvector contains: 4 5 7 8 9 10
+[32reserve[0m
+making foo grow:
+capacity changed: 1
+capacity changed: 2
+capacity changed: 4
+capacity changed: 8
+capacity changed: 16
+capacity changed: 32
+capacity changed: 64
+capacity changed: 128
+making bar grow:
+capacity changed: 100
+[32moperator[][0m
+myvector contains: 9 8 7 6 5 4 3 2 1 0
+[32mat[0m
+myvector contains: 0 1 2 3 4 5 6 7 8 9
+[32m front && back[0m
+myvector.front() is now 62
+[32m assing [0m
+Size of first: 7
+Size of second: 5
+Size of third: 3

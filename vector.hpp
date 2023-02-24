@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/21 16:45:54 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/24 19:32:04 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ class vector
         this->m_size = 0;
         this->m_capacity = 0;
         this->arr = NULL;
+        // puts("1");
+        //   exit(0);
     }
     template< class InputIt >
     vector( InputIt first, InputIt last,const allocator_type& alloc = allocator_type(),typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
@@ -85,7 +87,7 @@ class vector
     ~vector()
     {
         clear();
-        _alloc.deallocate(arr,m_capacity);
+            _alloc.deallocate(arr,m_capacity);
     }
     //parametres constructor
     explicit vector (size_type n, const value_type& val = value_type(),const allocator_type& alloc = allocator_type())
@@ -96,8 +98,11 @@ class vector
         this->arr = _alloc.allocate(n);
         for(size_t i = 0;i < m_size;i++)
         {
+            // this->arr[i] = val;
             _alloc.construct(arr+i,val);
         }
+        // puts("3");
+        //   exit(0);
     }
     
     class throw_out_of_range : public std::exception
@@ -122,13 +127,16 @@ class vector
     {
         if(this != &x)
         {
+            // puts("fff");
             clear();
             _alloc.deallocate(arr,m_capacity);
             this->m_capacity = x.m_capacity;
             this->m_size = x.m_size;
             this->arr = _alloc.allocate(x.m_size);
+            /////
             for(size_t i = 0;i < x.m_size;i++)
             {
+                //this->arr[i] = x.arr[i];
                 _alloc.construct(arr+i,x.arr[i]);
             }
         }
@@ -162,6 +170,20 @@ class vector
     {
         return (this->m_size == 0);
     }
+
+    // void shrink_to_fit()
+    // {
+    //     if(m_capacity > m_size)
+    //     {
+    //         value_type *tmp = _alloc.allocate(m_size);
+    //         for (size_t i = 0; i < m_size; i++)
+    //             tmp[i] = arr[i];
+    //         _alloc.deallocate(arr,m_capacity);
+    //         arr = tmp;
+    //         this->m_capacity = this->m_size;
+    //     }
+    // }
+    
     //reserve: Reserves a minimum length of storage for a vector object, allocating space if necessary.
     void reserve (size_type n)
     {
@@ -268,10 +290,13 @@ class vector
     //clear :Erases the elements of the vector.
     void clear()
     {
-        for (size_t i = 0; i < m_capacity; i++)
-        {
-            _alloc.destroy(arr+i);
-        }
+        // for (size_t i = 0; i < m_capacity; i++)
+        // {
+        //     _alloc.destroy(arr+i);
+        // }
+        // if(m_capacity > 0)
+            // _alloc.deallocate(arr,m_capacity);
+        //m_capacity = 0;
         m_size = 0;
     }
     //get_allocator: Returns a copy of the allocator object used to construct the vector.
@@ -281,37 +306,73 @@ class vector
     }
 
     //swap: Exchanges the elements of two vectors.
+    
     void swap (vector& x)
     {
+        // vector *tmp(x);
+        // x = *this;
+        // *this = tmp;
+        // std::swap(*this,x);////ssds
         if(x != *this)
         {
+            // std::swap(arr,x.arr);
+            // std::swap(m_size,x.m_size);
+            // std::swap(m_capacity,x.m_capacity);
             vector tmp(x);
             x = *this;
             *this = tmp;
-        }   
-    }   
+        }
+
+        
+    }
+    //   void reserve( int newCapacity )
+    // {
+    //     if( newCapacity < theSize )  ➀
+    //         return;
+
+    //     Object *newArray = new Object[ newCapacity ]; ➁
+    //     for( int k = 0; k < theSize; ++k )            ➂
+    //         newArray[ k ] = std::move( objects[ k ] );
+
+    //     theCapacity = newCapacity;
+    //     std::swap( objects, newArray );   ➃
+    //     delete [ ] newArray;              ➄
+    // }
+    // void push_back( const Object & x )
+    // {
+    //     if( theSize == theCapacity ) ➀
+    //         reserve( 2 * theCapacity + 1 ); ➁
+    //     objects[ theSize++ ] = x;
+    // }
+
+    
     //push_back: Adds an element to the end of the vector.
     void push_back (const value_type& val)
     {
+        // puts("here");
+            // size_t firstc = m_capacity;
             if (m_capacity == m_size) {
                 value_type *tmp = _alloc.allocate(m_capacity);
                 for (size_t i = 0; i < m_capacity; i++)
                 {
                     _alloc.construct(tmp+i,arr[i]);
                 }
-                _alloc.destroy(arr);
                 _alloc.deallocate(arr,m_capacity);
+               // _alloc.destroy(arr);
+                // puts("hna");
                 m_capacity *= 2;
                 if(m_capacity == 0)
                     m_capacity++;
                 arr = _alloc.allocate(m_capacity);
                 for (size_t i = 0; i < m_size; i++)
                 {
+                    // arr[i] = tmp[i];
                     _alloc.construct(arr+i,tmp[i]);
                 }
                 _alloc.construct(arr+m_size,val);
-                _alloc.destroy(tmp);
+                //arr[m_size] = val;
                 _alloc.deallocate(tmp,m_capacity);
+                // _alloc.destroy(tmp);
             }
             else
                 arr[m_size] = val;
@@ -330,6 +391,7 @@ class vector
     //end: Returns a past-the-end iterator that points to the element following the last element of the vector.
     iterator end()
     {
+        // puts("end");
         return iterator(&arr[m_size]);
     }
 
@@ -349,11 +411,11 @@ class vector
     //rend: Returns a past-the-end reverse iterator that points to the element following the last element of the reversed vector.
     reverse_iterator                  rend()
     {
-        return reverse_iterator(begin() +1);
+        return reverse_iterator(begin());
     }
     const_reverse_iterator rend() const
     {
-        return reverse_iterator(begin() +1);
+        return reverse_iterator(begin());
     }
 
     //assing: Erases a vector and copies the specified elements to the empty vector.
@@ -368,6 +430,7 @@ class vector
         value_type *tmp = _alloc.allocate(m_capacity);
         for (size_t i = 0; i < (size_t)n; i++)
         {
+            //tmp[i] = *first;
             _alloc.construct(tmp+i,*first);
             first++;
         }
@@ -409,7 +472,7 @@ class vector
         size_t l = position - begin();
         iterator it = begin();
         size_t z = 0;
-        while(it != position)
+        while(it != position)///need to fix hhhhhhh
         {
             it++;
             z++;
@@ -437,6 +500,7 @@ class vector
     }
     void insert (iterator position, size_type n, const value_type & val)
     {
+    
         iterator it = this->begin();
         size_t i = 0;
         for (; it != position; it++)
@@ -452,10 +516,13 @@ class vector
             m_n = m_size + n;
             m_capacity = m_n;
         }
+        // printf("m : %d\n",m_capacity);
         tmp = _alloc.allocate(m_capacity);
         size_t j = 0;
         for(;j != i;j++)
+        {
             _alloc.construct(tmp+j,arr[j]);
+        }
         size_type k = n;
         while(n)
         {
@@ -463,6 +530,8 @@ class vector
             j++;
             n--;
         }
+        // std::cout << "hey\n";
+        // printf("i : %d\tk : %d\tj : %d\tm_size : %d\n", i, k, j, m_size);
         while(i + k < m_size+k)
         {
             _alloc.construct(tmp+j,arr[i]);
@@ -470,6 +539,7 @@ class vector
             i++;
         }
         m_size += k;
+        // _alloc.destroy(arr);
         _alloc.deallocate(arr, m_size);
         arr =tmp;
         
@@ -479,39 +549,51 @@ class vector
     template <class InputIterator> 
     void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
     {
-    
+       
+        vector tmpv;
+        InputIterator tm;
+        tm = first;
+        while (tm != last)
+        {
+            tmpv.push_back(*tm);
+            tm++;
+        }
+        
+
         difference_type n = std::distance(first, last);
 
         iterator it = this->begin();
         size_t i = 0;
         for (; it != position; it++)
+        {
             i++;
-            
+        }
         value_type *tmp;
-        
         if(m_size + n >= m_capacity)
+        {
             m_capacity *= 2;
+        }
         else if(m_capacity == 0)
+        {
             m_capacity++;
+        }
         if(m_capacity)
             tmp = _alloc.allocate(m_capacity);
         else
             tmp = _alloc.allocate(n);
-
         size_t j = 0;
         for(;j != i;j++)
         {
              _alloc.construct(tmp+j,arr[j]);
         }
-        size_type k = n;;
+        size_type k = n;
         while(n)
         {
-            _alloc.construct(tmp+j,*first);
+            tmp[j]= *first;
             ++j;
             --n;
             ++first;
         }
-        try{
         while(i+k < m_size+k)
         {
             _alloc.construct(tmp+j,arr[i]);
@@ -522,13 +604,8 @@ class vector
         m_size += k;
         if(m_capacity == 0)
             m_capacity = m_size;
+        arr = tmp;  
 
-        arr = tmp;
-        }
-        catch(...)
-        {
-             _alloc.deallocate(arr, m_capacity);
-        }
     }
 
 
@@ -536,33 +613,39 @@ class vector
 
     
 };
-template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-{
-    return lhs.size() == rhs.size() && ft::equal(lhs.begin(),lhs.end(),rhs.begin());
-}
-template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-{
-    return !(lhs == rhs);
-}
-template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-{
-    return ft::lexicographical_compare(lhs.begin(),lhs.end(),rhs.begin(),rhs.end());
-}
-template <class T, class Alloc>  bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-{
-    return !(lhs > rhs);
-}
-template <class T, class Alloc>  bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-{
-    return (rhs < lhs);
-}
-template <class T, class Alloc>  bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
-{
-    return !(rhs > lhs);
-}
-template <class T, class Alloc>  void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
-{
-    x.swap(y);
-}
+    template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return lhs.size() == rhs.size() && ft::equal(lhs.begin(),lhs.end(),rhs.begin());
+    }
+
+    template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return ft::lexicographical_compare(lhs.begin(),lhs.end(),rhs.begin(),rhs.end());
+    }
+
+    template <class T, class Alloc>  bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return !(lhs > rhs);
+    }
+
+    template <class T, class Alloc>  bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return (rhs < lhs);
+    }
+
+    template <class T, class Alloc>  bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+    {
+        return !(rhs > lhs);
+    }
+
+    template <class T, class Alloc>  void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+    {
+        x.swap(y);
+    }
 }
 #endif

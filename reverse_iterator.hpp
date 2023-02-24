@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:03:13 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/21 16:47:58 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/24 17:06:34 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ template< class Iterator >
             }
             reverse_iterator &operator=(const reverse_iterator &rev_it) {
                 m_it = rev_it.m_it;
+                return (*this);
             }
             iterator_type base() const
             {
@@ -60,15 +61,13 @@ template< class Iterator >
                 Iterator tmp = m_it;
                 return *(--tmp);
             }
-            reverse_iterator operator+ (difference_type n) const
+            reverse_iterator  operator- (difference_type n) const 
             {
-                this->m_it - n;
-                return (*this);
+                return reverse_iterator(m_it + n);
             }
-            reverse_iterator operator- (difference_type n) const
+            reverse_iterator  operator+ (difference_type n) const 
             {
-                this->m_it - n;
-                return (*this);
+                return reverse_iterator(m_it - n);
             }
             reverse_iterator operator++(int)
             {

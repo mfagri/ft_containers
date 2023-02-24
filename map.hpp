@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/21 16:58:32 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/24 23:11:50 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,11 @@ namespace ft
 
             iterator find (const key_type& k)
             {
-                return(iterator(m_tree.searchTree(value_type(k, mapped_type()))));
+                return(iterator(m_tree.find(value_type(k, mapped_type()))));
             }
             const_iterator find (const key_type& k) const
             {
-                return(const_iterator(m_tree.searchTree(value_type(k, mapped_type()))),m_tree);
+                return(const_iterator(m_tree.find(value_type(k, mapped_type()))),m_tree);
             }
             // /////////////////////////////////////////////////////////////////////////////////////////
             iterator begin()
@@ -175,7 +175,7 @@ namespace ft
             }
             void delet(const key_type &k)
             {
-                    m_tree.deleteNode(value_type(k ,mapped_type()));
+                    m_tree.ft_delete(value_type(k ,mapped_type()));
                     
             }
             ////////////////////////////////////////
@@ -258,18 +258,18 @@ namespace ft
             ///////////////////////////////////////////////////////////////////
             void erase (iterator position)
             {
-                m_tree.deleteNode(value_type(position->first, mapped_type()));
+                m_tree.ft_delete(value_type(position->first, mapped_type()));
             }
             ///////////////////////////////////////////////////////////////////
             size_type erase (const key_type& k)
             {
                 size_type i;
-                if(m_tree.searchTree(value_type(k ,mapped_type())) == m_tree.endn)
+                if(m_tree.find(value_type(k ,mapped_type())) == m_tree.endn)
                     i = 0;
                 else
                 {
                     i = 1;
-                    m_tree.deleteNode(value_type(k ,mapped_type()));
+                    m_tree.ft_delete(value_type(k ,mapped_type()));
                 }
                 return (i);
             }
@@ -281,7 +281,7 @@ namespace ft
                 {
                     // std::cout<<first->first<<std::endl;
                     tmp++;
-                     m_tree.deleteNode(value_type(first->first, mapped_type()));
+                     m_tree.ft_delete(value_type(first->first, mapped_type()));
                     first = tmp;
                 }
             }

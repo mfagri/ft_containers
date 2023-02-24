@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:55:52 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/20 19:14:34 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/24 23:12:07 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,9 @@ namespace ft
             }
             set (const set& x)
             {
-                // if (*this != x)
-			    // {
-                    _comp = x._comp;
-                    _alloc = x._alloc;
-                   // erase(begin(),end());
-                    insert(x.begin(),x.end());
-			    // }
-			    // return *this;
+                _comp = x._comp;
+                _alloc = x._alloc;
+                insert(x.begin(),x.end());
             }
             set& operator= (const set& x)
             {
@@ -116,17 +111,17 @@ namespace ft
             //////////////////////////////////////////////////////////////
             void erase (iterator position)
             {
-                 m_tree.deleteNode(*position);
+                 m_tree.ft_delete(*position);
             }
             size_type erase (const value_type& val)
             {
                 size_type i;
-                if(m_tree.searchTree(val) == m_tree.endn)
+                if(m_tree.find(val) == m_tree.endn)
                     i = 0;
                 else
                 {
                     i = 1;
-                    m_tree.deleteNode(val);
+                    m_tree.ft_delete(val);
                 }
                 return (i);
             }
@@ -143,7 +138,7 @@ namespace ft
             /////////////////////////////////////////////////////////////
             iterator find (const value_type& val) const
             {
-                return(iterator(m_tree.searchTree(val)));
+                return(iterator(m_tree.find(val)));
             }
             //////////////////////////////////////////////////////////////
             //////////////////
@@ -236,12 +231,7 @@ namespace ft
             pair<iterator,iterator> equal_range (const value_type& val) const
             {
                 return(ft::make_pair(lower_bound(val),upper_bound(val)));
-            }
-
-
-
-
-            
+            }        
     };
     template <class T, class Compare, class Alloc>  void swap (const set<T,Compare,Alloc>& x, const set<T,Compare,Alloc>& y)
     {

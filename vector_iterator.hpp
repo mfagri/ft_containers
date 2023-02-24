@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:41:06 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/21 16:46:28 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/24 17:02:15 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ namespace ft
                 typedef T& reference;
                 typedef std::ptrdiff_t difference_type;
                 typedef std::random_access_iterator_tag iterator_category;
+                // typedef T iterator_type;
                 
                 iterator(T *s = NULL)
                 {
@@ -43,7 +44,8 @@ namespace ft
                 }
                 iterator& operator++() 
                 {
-                    ++ptr;return *this;
+                    ++ptr;
+                    return *this;
                 }
 
                 iterator operator++(int) 
@@ -64,7 +66,7 @@ namespace ft
                     return temp;
                 }
 
-                iterator operator+(const difference_type& m)
+                iterator operator+(const difference_type& m) const
                 {
                      iterator temp(*this);
                     temp.ptr += m;

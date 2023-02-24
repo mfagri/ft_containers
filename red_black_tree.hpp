@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/21 16:55:39 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/24 23:11:31 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ template<class node>
         template<class node>
         node prevs(node n)
         {
-              if(n->left->left != NULL)
-        return max(n->left);
+            if(n->left->left != NULL)
+                return max(n->left);
             while (tree_is_left_child(n))
                 n = n->parent;
             return n->parent;
@@ -103,7 +103,7 @@ class RedBlackTree {
         node TNULL;
         node endn;
         size_type m_size;
-        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;   ////rebin node   
+        typedef typename Alloc::template rebind<Node<T> >::other node_allocator;   ////rebind node   
         node_allocator alloc;
         void dea()
         {
@@ -116,7 +116,7 @@ class RedBlackTree {
             }
           
         }
-         RedBlackTree(){
+        RedBlackTree(){
              m_size = 0;
             TNULL = alloc.allocate(1);
             TNULL->right = NULL;
@@ -130,25 +130,6 @@ class RedBlackTree {
             endn->parent = NULL;
             endn->color = 0;
         }
-        RedBlackTree(iterator first,iterator last){
-             m_size = 0;
-            TNULL = alloc.allocate(1);
-            TNULL->right = nullptr;
-            TNULL->left = nullptr;
-            TNULL->parent = nullptr;
-            TNULL->color = 0;
-            root = TNULL;
-            endn = alloc.allocate(1);
-            endn->right = nullptr;
-            endn->left = root;   
-            endn->parent = nullptr;
-            endn->color = 0;
-            while (first != last)
-            {
-                add(*first++);
-            }
-            
-        }
         ~RedBlackTree()
         {
             clear();
@@ -157,20 +138,13 @@ class RedBlackTree {
                 dea();
             }   
         }
-        ////////////////////////////////
-        void    clear()
-        {
-          if (this->root != this->TNULL)
-            destroyTree(this->root);
-        }
-    
-    
-        void destroyTree(node n)///////name
+        ////////////////////////////////    
+        void destroy_allmy_tree(node n)///////name
         {
           if (n->left != this->TNULL )
-            destroyTree(n->left);
+            destroy_allmy_tree(n->left);
           if (n->right != this->TNULL  )
-            destroyTree(n->right);
+            destroy_allmy_tree(n->right);
           if (n != this->TNULL)
           {
             if (n != this->root && n == n->parent->right)
@@ -183,7 +157,12 @@ class RedBlackTree {
             this->alloc.deallocate(n, 1);
           }
         }
-        ///////////////////
+        void    clear()
+        {
+          if (this->root != this->TNULL)
+            destroy_allmy_tree(this->root);
+        }
+        ///////////////////////////////////////
         pair<iterator, bool> add(const T& data)
         {
             node n = alloc.allocate(1);
@@ -216,8 +195,7 @@ class RedBlackTree {
                     {
                         alloc.deallocate(n,1);
                         return ft::make_pair(iterator(x), false);
-                    }
-                        
+                    }                       
                     if (_comp(n->data, x->data))
                     {
                         x = x->left;
@@ -239,56 +217,68 @@ class RedBlackTree {
             }
 
             m_size++;
-            tree_balance_after_insert(n);
+            tree_balance(n);
             root->parent = endn;
                 endn->left = root;
             return ft::make_pair(iterator(n), true);
         }
-        void tree_balance_after_insert(node& N)
+        void tree_balance(node& newn)
         {
             node u;
-            while (N->parent->color == 1) {
-                if (N->parent == N->parent->parent->right) {
-                    u = N->parent->parent->left;
-                    if (u->color == 1) {
-                    u->color = 0;
-                    N->parent->color = 0;
-                    N->parent->parent->color = 1;
-                    N = N->parent->parent;
-                    } else {
-                    if (N == N->parent->left) {
-                        N = N->parent;
-                        rightRotate(N);
-                    }
-                    N->parent->color = 0;
-                    N->parent->parent->color = 1;
-                    leftRotate(N->parent->parent);
-                    }
-                } else {
-                    u = N->parent->parent->right;
-
-                    if (u->color == 1) {
-                    u->color = 0;
-                    N->parent->color = 0;
-                    N->parent->parent->color = 1;
-                    N = N->parent->parent;
-                    } else {
-                    if (N == N->parent->right) {
-                        N = N->parent;
-                        leftRotate(N);
-                    }
-                    N->parent->color = 0;
-                    N->parent->parent->color = 1;
-                    rightRotate(N->parent->parent);
+            while (newn->parent->color == 1)
+            {
+                if (newn->parent == newn->parent->parent->right)
+                {
+                    u = newn->parent->parent->left;
+                    if (u->color == 1)
+                    {
+                        u->color = 0;
+                        newn->parent->color = 0;
+                        newn->parent->parent->color = 1;
+                        newn = newn->parent->parent;
+                    } 
+                    else
+                    {
+                        if (newn == newn->parent->left)
+                        {
+                            newn = newn->parent;
+                            right_rotate(newn);
+                        }
+                        newn->parent->color = 0;
+                        newn->parent->parent->color = 1;
+                        left_rotate(newn->parent->parent);
                     }
                 }
-                if (N == root) {
+                else
+                {
+                    u = newn->parent->parent->right;
+
+                    if (u->color == 1)
+                    {
+                        u->color = 0;
+                        newn->parent->color = 0;
+                        newn->parent->parent->color = 1;
+                        newn = newn->parent->parent;
+                    }
+                    else
+                    {
+                        if(newn == newn->parent->right)
+                        {
+                            newn = newn->parent;
+                            left_rotate(newn);
+                        }
+                        newn->parent->color = 0;
+                        newn->parent->parent->color = 1;
+                        right_rotate(newn->parent->parent);
+                    }
+                }
+                if (newn == root) {
                     break;
                 }
             }
             root->color = 0;
         }
-        node searchTreeHelper(node n, value_type key) const {
+        node search_in_tree(node n, value_type key) const {
             if (n == endn || n == TNULL || (!_comp(n->data, key) && !_comp(key,n->data)))
             {
                 if(n == TNULL)
@@ -297,25 +287,28 @@ class RedBlackTree {
             }
             if (!_comp(n->data, key))
             {
-                return searchTreeHelper(n->left, key);
+                return search_in_tree(n->left, key);
             }
-            return searchTreeHelper(n->right, key);
+            return search_in_tree(n->right, key);
         }
-        node searchTree(value_type k) const
+        node find(value_type k) const
         {
-            return searchTreeHelper(this->root, k);
+            return search_in_tree(this->root, k);
         }
-        void leftRotate(node x)
+        void left_rotate(node x)
         {
             node y = x->right;
             x->right = y->left;
-            if (y->left != TNULL) {
-            y->left->parent = x;
+            if (y->left != TNULL)
+            {
+                y->left->parent = x;
             }
             y->parent = x->parent;
-            if (x->parent == endn) {
-            this->root = y;
-            } else if (x == x->parent->left) {
+            if (x->parent == endn)
+            {
+                this->root = y;
+            } else if (x == x->parent->left)
+            {
             x->parent->left = y;
             } else {
             x->parent->right = y;
@@ -324,7 +317,7 @@ class RedBlackTree {
             x->parent = y;
         }
 
-        void rightRotate(node x)
+        void right_rotate(node x)
         {
             node y = x->left;
             x->left = y->right;
@@ -403,7 +396,7 @@ class RedBlackTree {
         //////////////////////////////////////////////
         size_type count(const value_type &k) const
         {
-            if(searchTree(k) == endn)
+            if(find(k) == endn)
                 return 0;
             return 1;   
         }
@@ -455,7 +448,7 @@ class RedBlackTree {
         if (s->color == 1) {
           s->color = 0;
           x->parent->color = 1;
-          leftRotate(x->parent);
+          left_rotate(x->parent);
           s = x->parent->right;
         }
 
@@ -466,14 +459,14 @@ class RedBlackTree {
           if (s->right->color == 0) {
             s->left->color = 0;
             s->color = 1;
-            rightRotate(s);
+            right_rotate(s);
             s = x->parent->right;
           }
 
           s->color = x->parent->color;
           x->parent->color = 0;
           s->right->color = 0;
-          leftRotate(x->parent);
+          left_rotate(x->parent);
           x = root;
         }
       } else {
@@ -481,7 +474,7 @@ class RedBlackTree {
         if (s->color == 1) {
           s->color = 0;
           x->parent->color = 1;
-          rightRotate(x->parent);
+          right_rotate(x->parent);
           s = x->parent->left;
         }
 
@@ -492,21 +485,21 @@ class RedBlackTree {
           if (s->left->color == 0) {
             s->right->color = 0;
             s->color = 1;
-            leftRotate(s);
+            left_rotate(s);
             s = x->parent->left;
           }
 
           s->color = x->parent->color;
           x->parent->color = 0;
           s->left->color = 0;
-          rightRotate(x->parent);
+          right_rotate(x->parent);
           x = root;
         }
       }
     }
     x->color = 0;
     }
-    void rbTransplant(node u, node v)
+    void ft_transplant(node u, node v)
     {
         if (u->parent == endn) {
         root = v;
@@ -517,51 +510,59 @@ class RedBlackTree {
         }
         v->parent = u->parent;
     }
-    void deleteNodeHelper(const value_type &k)
+    void delete_my_node(const value_type &k)
     {
         node z = TNULL;
         node x, y;
-        z = searchTree(k);
-        if (z == TNULL) {
+        z = find(k);
+        if (z == TNULL)
+        {
           return;
         }
         m_size--;
         y = z;
         int y_original_color = y->color;
-        if (z->left == TNULL) {
+        if (z->left == TNULL)
+        {
           x = z->right;
-          rbTransplant(z, z->right);
-        } else if (z->right == TNULL) {
+          ft_transplant(z, z->right);
+        }
+        else if (z->right == TNULL)
+        {
           x = z->left;
-          rbTransplant(z, z->left);
-        } else {
+          ft_transplant(z, z->left);
+        }
+        else
+        {
           y = max(z->left);
           y_original_color = y->color;
           x = y->left;
-          if (y->parent == z) {
+          if (y->parent == z)
+          {
             x->parent = y;
-          } else {
-            rbTransplant(y, y->left);
+          }
+          else
+          {
+            ft_transplant(y, y->left);
             y->left = z->left;
             y->left->parent = y;
           }
     
-          rbTransplant(z, y);
+          ft_transplant(z, y);
           y->right = z->right;
           y->right->parent = y;
           y->color = z->color;
-    }
-    alloc.destroy(z);
-    alloc.deallocate(z,1);
-    if (y_original_color == 0) {
-      delete_fix(x);
-    }
+        }   
+        alloc.destroy(z);
+        alloc.deallocate(z,1);
+        if (y_original_color == 0)
+            delete_fix(x);
     }
 
     
-    void deleteNode(const value_type&data)
+    void ft_delete(const value_type&data)
     {
-      deleteNodeHelper(data);
+      delete_my_node(data);
       root->parent = endn;
       endn->left = root;
     }
