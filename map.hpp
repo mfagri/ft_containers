@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/24 23:11:50 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/26 21:46:17 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ namespace ft
                     this->m_tree.add(*first);
                 }               
             }
-            map (const map& x):_alloc(x._alloc),_comp(x._comp)
+            map (const map& x):_comp(x._comp),_alloc(x._alloc)
             {
                 if (x.size() > 0)
                     insert(x.begin(),x.end());
@@ -258,14 +258,17 @@ namespace ft
             ///////////////////////////////////////////////////////////////////
             void erase (iterator position)
             {
-                m_tree.ft_delete(value_type(position->first, mapped_type()));
+                // m_tree.ft_delete(value_type(position->first, mapped_type()));
+                erase(position->first);
             }
             ///////////////////////////////////////////////////////////////////
             size_type erase (const key_type& k)
             {
                 size_type i;
                 if(m_tree.find(value_type(k ,mapped_type())) == m_tree.endn)
+                {
                     i = 0;
+                }
                 else
                 {
                     i = 1;
@@ -279,9 +282,9 @@ namespace ft
                 iterator tmp = first;
                 while(first != last)
                 {
-                    // std::cout<<first->first<<std::endl;
                     tmp++;
-                     m_tree.ft_delete(value_type(first->first, mapped_type()));
+                    // m_tree.ft_delete(value_type(first->first, mapped_type()));
+                    erase(first);
                     first = tmp;
                 }
             }

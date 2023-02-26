@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/24 23:11:31 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/26 21:44:42 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,54 +222,57 @@ class RedBlackTree {
                 endn->left = root;
             return ft::make_pair(iterator(n), true);
         }
+        void swap_colors(node &a , node&b)
+        {
+            int ca = a->color;
+            int cb = b->color;
+            a->color = cb;
+            b->color = ca;
+        }
         void tree_balance(node& newn)
         {
             node u;
             while (newn->parent->color == 1)
             {
-                if (newn->parent == newn->parent->parent->right)
-                {
-                    u = newn->parent->parent->left;
-                    if (u->color == 1)
-                    {
-                        u->color = 0;
-                        newn->parent->color = 0;
-                        newn->parent->parent->color = 1;
-                        newn = newn->parent->parent;
-                    } 
-                    else
-                    {
-                        if (newn == newn->parent->left)
-                        {
-                            newn = newn->parent;
-                            right_rotate(newn);
-                        }
-                        newn->parent->color = 0;
-                        newn->parent->parent->color = 1;
-                        left_rotate(newn->parent->parent);
-                    }
-                }
-                else
+                if (newn->parent == newn->parent->parent->left)//case if parent is left child of grand parent
                 {
                     u = newn->parent->parent->right;
 
-                    if (u->color == 1)
+                    if (u->color == 1) // if uncle color is red
                     {
                         u->color = 0;
-                        newn->parent->color = 0;
-                        newn->parent->parent->color = 1;
+                        swap_colors(newn->parent,newn->parent->parent);
                         newn = newn->parent->parent;
                     }
                     else
                     {
-                        if(newn == newn->parent->right)
+                        if(newn == newn->parent->right)//if new child is right child of parent , case 2
                         {
                             newn = newn->parent;
                             left_rotate(newn);
                         }
-                        newn->parent->color = 0;
-                        newn->parent->parent->color = 1;
+                        swap_colors(newn->parent,newn->parent->parent);
                         right_rotate(newn->parent->parent);
+                    }
+                }
+                else//case if parent is right child of grand parent
+                {
+                    u = newn->parent->parent->left;
+                    if (u->color == 1)// if uncle color is red
+                    {
+                        u->color = 0;
+                        swap_colors(newn->parent,newn->parent->parent);
+                        newn = newn->parent->parent;
+                    } 
+                    else
+                    {
+                        if (newn == newn->parent->left)//if new child is left child of parent , case 4
+                        {
+                            newn = newn->parent;
+                            right_rotate(newn);
+                        }
+                        swap_colors(newn->parent,newn->parent->parent);
+                        left_rotate(newn->parent->parent);
                     }
                 }
                 if (newn == root) {
@@ -282,7 +285,9 @@ class RedBlackTree {
             if (n == endn || n == TNULL || (!_comp(n->data, key) && !_comp(key,n->data)))
             {
                 if(n == TNULL)
+                {
                     return endn;
+                }
                 return n;
             }
             if (!_comp(n->data, key))
@@ -442,21 +447,28 @@ class RedBlackTree {
     //////////////////////////////
     void delete_fix(node x) {
     node s;
-    while (x != root && x->color == 0) {
-      if (x == x->parent->left) {
+    while (x != root && x->color == 0)
+    {
+      if (x == x->parent->left)
+      {
         s = x->parent->right;
-        if (s->color == 1) {
+        if (s->color == 1)//color of sibling
+        {
           s->color = 0;
           x->parent->color = 1;
           left_rotate(x->parent);
           s = x->parent->right;
         }
 
-        if (s->left->color == 0 && s->right->color == 0) {
+        if (s->left->color == 0 && s->right->color == 0)
+        {
           s->color = 1;
           x = x->parent;
-        } else {
-          if (s->right->color == 0) {
+        }
+        else
+        {
+          if (s->right->color == 0)
+          {
             s->left->color = 0;
             s->color = 1;
             right_rotate(s);
@@ -469,7 +481,8 @@ class RedBlackTree {
           left_rotate(x->parent);
           x = root;
         }
-      } else {
+      }
+      else {
         s = x->parent->left;
         if (s->color == 1) {
           s->color = 0;
@@ -515,7 +528,7 @@ class RedBlackTree {
         node z = TNULL;
         node x, y;
         z = find(k);
-        if (z == TNULL)
+        if (z == endn)
         {
           return;
         }
@@ -534,7 +547,7 @@ class RedBlackTree {
         }
         else
         {
-          y = max(z->left);
+          y = max(z->left);//in order predecessor
           y_original_color = y->color;
           x = y->left;
           if (y->parent == z)
@@ -555,8 +568,11 @@ class RedBlackTree {
         }   
         alloc.destroy(z);
         alloc.deallocate(z,1);
+        
         if (y_original_color == 0)
+        {
             delete_fix(x);
+        }
     }
 
     
@@ -566,29 +582,29 @@ class RedBlackTree {
       root->parent = endn;
       endn->left = root;
     }
+    ////////////////
+    void printTree() {
+    if (root) {
+      printHelper(this->root, "", true);
+    }
+    }
+    void printHelper(node root, std::string indent, bool last) {
+    if (root != TNULL) {
+      std::cout << indent;
+      if (last) {
+        std::cout << "R----";
+        indent += "   ";
+      } else {
+        std::cout << "L----";
+        indent += "|  ";
+      }
 
-    //      void printHelper(node root, std::string indent, bool last) {
-    //         if (root != TNULL) {
-    //         std::cout << indent;
-    //         if (last) {
-    //             std::cout << "R----";
-    //             indent += "   ";
-    //         } else {
-    //             std::cout << "L----";
-    //             indent += "|  ";
-    //         }
-
-    //         std::string sColor = root->color ? "RED" : "BLACK";
-    //         std::cout << root->data.second<< "(" << sColor << ")" << std::endl;
-    //         printHelper(root->left, indent, false);
-    //         printHelper(root->right, indent, true);
-    //         }
-    //     }
-    //      void printTree() {
-    //         if (root) {
-    //             printHelper(this->root, "", true);
-    //     }
-    // }
+      std::string sColor = root->color ? "RED" : "BLACK";
+      std::cout << root->data.first << "(" << sColor << ")" << std::endl;
+      printHelper(root->left, indent, false);
+      printHelper(root->right, indent, true);
+    }
+  }
 };
 }
 #endif
