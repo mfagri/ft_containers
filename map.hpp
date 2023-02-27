@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/26 21:46:17 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:50:31 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,13 +201,13 @@ namespace ft
             iterator upper_bound(const key_type& k)
             {
                 iterator it = begin();
-                while(it != end() && _comp(it->first,k))it++;
+                while(it != end() && !_comp(k,it->first))it++;
                 return  it;
             }
             const_iterator upper_bound(const key_type& k) const
             {
                 const_iterator it = begin();
-                while(it != end() && _comp(it->first,k))it++;
+                while(it != end() && !_comp(k,it->first))it++;
                 return  it;
             }
             ///////////////////////////////////////////////////////////////////

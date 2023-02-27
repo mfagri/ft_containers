@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/26 21:44:42 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:43:41 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 
 template<class node>
- inline bool tree_is_left_child(node nd)
+bool tree_is_left_child(node nd)
 {
         return(nd == nd->parent->left);
 }
@@ -53,7 +53,7 @@ node    min(node x)
     return (current);
 }
 template<class node>
-inline node suc(node nd)
+node suc(node nd)
         {
            if(nd->right->right != NULL)
 		        return min(nd->right);
@@ -449,10 +449,10 @@ class RedBlackTree {
     node s;
     while (x != root && x->color == 0)
     {
-      if (x == x->parent->left)
+      if (x == x->parent->left) //for left side 
       {
-        s = x->parent->right;
-        if (s->color == 1)//color of sibling
+        s = x->parent->right;//s is brother of x is the sibling
+        if (s->color == 1)//case 1 if sibling is red
         {
           s->color = 0;
           x->parent->color = 1;
@@ -460,21 +460,21 @@ class RedBlackTree {
           s = x->parent->right;
         }
 
-        if (s->left->color == 0 && s->right->color == 0)
+        if (s->left->color == 0 && s->right->color == 0)//case 2 if sibling left is black and sibling rigt is black
         {
           s->color = 1;
           x = x->parent;
         }
         else
         {
-          if (s->right->color == 0)
+          if (s->right->color == 0)//case 3 if sibling right is black
           {
             s->left->color = 0;
             s->color = 1;
             right_rotate(s);
             s = x->parent->right;
           }
-
+          //case 4 sibling black && sibling right is red
           s->color = x->parent->color;
           x->parent->color = 0;
           s->right->color = 0;
@@ -482,9 +482,11 @@ class RedBlackTree {
           x = root;
         }
       }
-      else {
+      else//right side
+      {
         s = x->parent->left;
-        if (s->color == 1) {
+        if (s->color == 1)
+        {
           s->color = 0;
           x->parent->color = 1;
           right_rotate(x->parent);
@@ -494,8 +496,11 @@ class RedBlackTree {
         if (s->right->color == 0 && s->right->color == 0) {
           s->color = 1;
           x = x->parent;
-        } else {
-          if (s->left->color == 0) {
+        }
+        else
+        {
+          if (s->left->color == 0)
+          {
             s->right->color = 0;
             s->color = 1;
             left_rotate(s);
@@ -514,13 +519,12 @@ class RedBlackTree {
     }
     void ft_transplant(node u, node v)
     {
-        if (u->parent == endn) {
-        root = v;
-        } else if (u == u->parent->left) {
-        u->parent->left = v;
-        } else {
-        u->parent->right = v;
-        }
+        if (u->parent == endn)//if u is the root
+            root = v;
+        else if (u == u->parent->left)// if u is left child of parent
+            u->parent->left = v;
+        else //if u is right child of parent 
+            u->parent->right = v;
         v->parent = u->parent;
     }
     void delete_my_node(const value_type &k)
@@ -535,12 +539,12 @@ class RedBlackTree {
         m_size--;
         y = z;
         int y_original_color = y->color;
-        if (z->left == TNULL)
+        if (z->left == TNULL)//left child is nil
         {
           x = z->right;
           ft_transplant(z, z->right);
         }
-        else if (z->right == TNULL)
+        else if (z->right == TNULL)//right child is nil
         {
           x = z->left;
           ft_transplant(z, z->left);
@@ -568,7 +572,6 @@ class RedBlackTree {
         }   
         alloc.destroy(z);
         alloc.deallocate(z,1);
-        
         if (y_original_color == 0)
         {
             delete_fix(x);

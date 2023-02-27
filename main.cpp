@@ -64,7 +64,6 @@ void ft_vector()
         test1.clear();
         test2.clear();
 
-
         ////////////////////////////////
         sleep(2);
         std::cout << "\x1B[2J\x1B[H";
@@ -873,8 +872,11 @@ void ft_vector()
 }
 void ft_map()
 {
+    std::cout<<"\033[33m map\033[0m"<<std::endl;
+
     std::vector<int>t1;
     std::vector<int>t2;
+    std::cout<<"\033[32m(constructor)\033[0m"<<std::endl;
     {
         std::map<char,int> first;
 
@@ -915,6 +917,8 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+    sleep(2);
+    std::cout<<"\033[32m operator = \033[0m"<<std::endl;
     /////////////////////////////////////////////////////////
     {
         std::map<char,int> first;
@@ -954,6 +958,9 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
+    std::cout<<"\033[32m iterator \033[0m"<<std::endl;
     //////////////////////////////////////////////////////
     {
         std::map<char,int> mymap;
@@ -989,7 +996,11 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ////////////////////////////////////////////////////
+    std::cout<<"\033[32m reverse iterator \033[0m"<<std::endl;
+
     {
         std::map<char,int> mymap;
 
@@ -1026,7 +1037,11 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m empty \033[0m"<<std::endl;
+    
     {
         std::map<char,int> mymap;
 
@@ -1065,7 +1080,11 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m size \033[0m"<<std::endl;
+
     {
         std::map<char,int> mymap;
         mymap['a']=101;
@@ -1088,7 +1107,11 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m max size \033[0m"<<std::endl;
+
     {
         int i;
         std::map<int,int> mymap;
@@ -1117,7 +1140,11 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m operator [] \033[0m"<<std::endl;
+
     {
         std::map<char,std::string> mymap;
 
@@ -1148,7 +1175,11 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m insert \033[0m"<<std::endl;
+
     {
         std::map<char,int> mymap;
 
@@ -1217,44 +1248,129 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m erase \033[0m"<<std::endl;
+
     {
-         
-            std::map<int,int>mp;
-            mp.insert(std::make_pair(3, 3));
-            std::map<int, int>::iterator it = mp.begin();
+        std::map<char,char> mymap;
+        std::map<char,char>::iterator it;
+
+        // insert some values:
+        mymap.insert(std::make_pair<char,char>('a','a'));
+        mymap.insert(std::make_pair<char,char>('b','b'));
+        mymap.insert(std::make_pair<char,char>('c','c'));
+        mymap.insert(std::make_pair<char,char>('d','d'));
+        mymap.insert(std::make_pair<char,char>('e','e'));
+        mymap.insert(std::make_pair<char,char>('f','f'));
+
+        it=mymap.find('b');
+        mymap.erase (it);                   // erasing by iterator
+
+        mymap.erase ('c');                  // erasing by key
+
+        it=mymap.find ('e');
+        mymap.erase ( it, mymap.end() );    // erasing by range
+
+        // show content:
+        for (it=mymap.begin(); it!=mymap.end(); ++it)
+        {
             t1.push_back(it->first);
             t1.push_back(it->second);
-            mp[3] = 10;
-            t1.push_back(it->first);
-            t1.push_back(it->second);
-            mp[2] = 9;
-            it = mp.begin();
-            t1.push_back(it->first);
-            t1.push_back(it->second);
-            it++;
-            t1.push_back(it->first);
-            t1.push_back(it->second);
-            t1.push_back(mp.size());
-        
+        }
+
     }
     {
-            ft::map<int,int>mp;
-            mp.insert(ft::make_pair(3, 3));
-            ft::map<int, int>::iterator it = mp.begin();
+        ft::map<char,char> mymap;
+        ft::map<char,char>::iterator it;
+
+        // insert some values:
+        mymap.insert(ft::make_pair<char,char>('a','a'));
+        mymap.insert(ft::make_pair<char,char>('b','b'));
+        mymap.insert(ft::make_pair<char,char>('c','c'));
+        mymap.insert(ft::make_pair<char,char>('d','d'));
+        mymap.insert(ft::make_pair<char,char>('e','e'));
+        mymap.insert(ft::make_pair<char,char>('f','f'));
+
+
+        it=mymap.find('b');
+        mymap.erase (it);                   // erasing by iterator
+
+        mymap.erase ('c');                  // erasing by key
+
+        it=mymap.find ('e');
+        mymap.erase ( it, mymap.end() );    // erasing by range
+
+        // show content:
+        for (it=mymap.begin(); it!= mymap.end(); ++it)
+        {
             t2.push_back(it->first);
             t2.push_back(it->second);
-            mp[3] = 10;
+        }
+    }
+    if(t1 == t2)
+    std::cout<<"\033[32mok\033[0m"<<std::endl;
+    else
+        std::cout<<"\033[31mko\033[0m"<<std::endl;
+    t1.clear();
+    t2.clear();
+        sleep(2);
+
+    ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m swap \033[0m"<<std::endl;
+
+    {
+        std::map<char,int> foo,bar;
+
+        foo['x']=100;
+        foo['y']=200;
+
+        bar['a']=11;
+        bar['b']=22;
+        bar['c']=33;
+
+        foo.swap(bar);
+
+       // std::cout << "foo contains:\n";
+        for (std::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+        {
+            t1.push_back(it->first);
+            t1.push_back(it->second);
+        }
+
+       // std::cout << "bar contains:\n";
+        for (std::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+        {
+            t1.push_back(it->first);
+            t1.push_back(it->second);
+        }
+    }
+    {
+        ft::map<char,int> foo,bar;
+
+        foo['x']=100;
+        foo['y']=200;
+
+        bar['a']=11;
+        bar['b']=22;
+        bar['c']=33;
+
+        foo.swap(bar);
+
+        //std::cout << "foo contains:\n";
+        for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+        {
             t2.push_back(it->first);
             t2.push_back(it->second);
-            mp[2] = 9;
-            it = mp.begin();
+        }
+
+       // std::cout << "bar contains:\n";
+        for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+        {
             t2.push_back(it->first);
             t2.push_back(it->second);
-            it++;
-            t2.push_back(it->first);
-            t2.push_back(it->second);
-            t2.push_back(mp.size());
+        }
     }
     if(t1 == t2)
         std::cout<<"\033[32mok\033[0m"<<std::endl;
@@ -1262,22 +1378,299 @@ void ft_map()
         std::cout<<"\033[31mko\033[0m"<<std::endl;
     t1.clear();
     t2.clear();
+        sleep(2);
+
     ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m clear \033[0m"<<std::endl;
+
+    {
+        std::map<char,int> mymap;
+
+        mymap['x']=100;
+        mymap['y']=200;
+        mymap['z']=300;
+
+        //std::cout << "mymap contains:\n";
+        for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        {
+            t1.push_back(it->first);
+            t1.push_back(it->second);
+        }
+
+        mymap.clear();
+        mymap['a']=1101;
+        mymap['b']=2202;
+
+        //std::cout << "mymap contains:\n";
+        for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        {
+            t1.push_back(it->first);
+            t1.push_back(it->second);
+        }
+    }
+    {
+        ft::map<char,int> mymap;
+
+        mymap['x']=100;
+        mymap['y']=200;
+        mymap['z']=300;
+
+        //std::cout << "mymap contains:\n";
+        for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        {
+            t2.push_back(it->first);
+            t2.push_back(it->second);
+        }
+
+        mymap.clear();
+        mymap['a']=1101;
+        mymap['b']=2202;
+
+        //std::cout << "mymap contains:\n";
+        for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        {
+            t2.push_back(it->first);
+            t2.push_back(it->second);
+        }
+    }
+    if(t1 == t2)
+        std::cout<<"\033[32mok\033[0m"<<std::endl;
+    else
+        std::cout<<"\033[31mko\033[0m"<<std::endl;
+    t1.clear();
+    t2.clear();
+        sleep(2);
+
+    /////////////////////////////////
+    std::cout<<"\033[32m find \033[0m"<<std::endl;
+
+    {
+        std::map<char,int> mymap;
+        std::map<char,int>::iterator it;
+
+        mymap.insert(std::make_pair<char,int>('a',50));
+        mymap.insert(std::make_pair<char,int>('b',100));
+        mymap.insert(std::make_pair<char,int>('c',150));
+        mymap.insert(std::make_pair<char,int>('d',200));
+
+        it = mymap.find('b');
+        if (it != mymap.end())
+            mymap.erase (it);
+
+        // print content:
+        // std::cout << "elements in mymap:" << '\n';
+        t1.push_back(mymap.find('a')->second);
+        t1.push_back(mymap.find('c')->second);
+        t1.push_back(mymap.find('d')->second);
+    }
+    {
+        ft::map<char,int> mymap;
+        ft::map<char,int>::iterator it;
+
+        mymap.insert(ft::make_pair<char,int>('a',50));
+        mymap.insert(ft::make_pair<char,int>('b',100));
+        mymap.insert(ft::make_pair<char,int>('c',150));
+        mymap.insert(ft::make_pair<char,int>('d',200));
+
+
+        it = mymap.find('b');
+        if (it != mymap.end())
+            mymap.erase (it);
+
+        // print content:
+        // std::cout << "elements in mymap:" << '\n';
+        t2.push_back(mymap.find('a')->second);
+        t2.push_back(mymap.find('c')->second);
+        t2.push_back(mymap.find('d')->second); 
+    }
+     if(t1 == t2)
+        std::cout<<"\033[32mok\033[0m"<<std::endl;
+    else
+        std::cout<<"\033[31mko\033[0m"<<std::endl;
+    t1.clear();
+    t2.clear();
+        sleep(2);
+
+    std::cout<<"\033[32m count \033[0m"<<std::endl;
+
+    {
+        std::map<char,int> mymap;
+        char c;
+
+        mymap ['a']=101;
+        mymap ['c']=202;
+        mymap ['f']=303;
+
+        for (c='a'; c<'h'; c++)
+        {
+            if (mymap.count(c)>0)
+                t1.push_back(1);
+            else 
+                t1.push_back(0);
+        }
+    }
+    {
+        ft::map<char,int> mymap;
+        char c;
+
+        mymap ['a']=101;
+        mymap ['c']=202;
+        mymap ['f']=303;
+
+        for (c='a'; c<'h'; c++)
+        {
+            if (mymap.count(c)>0)
+                t2.push_back(1);
+            else 
+                t2.push_back(0);
+        }
+    }
+    if(t1 == t2)
+        std::cout<<"\033[32mok\033[0m"<<std::endl;
+    else
+        std::cout<<"\033[31mko\033[0m"<<std::endl;
+    t1.clear();
+    t2.clear();
+        sleep(2);
+    ///////////////////////////////////////////////////////////
+    std::cout<<"\033[32m lower_bound && upper_bound \033[0m"<<std::endl;
+    {
+        std::map<char,int> mymap;
+        std::map<char,int>::iterator itlow,itup;
+        mymap['a']=20;
+        mymap['b']=40;
+        mymap['c']=60;
+        mymap['d']=80;
+        mymap['e']=100;
+        itlow=mymap.lower_bound ('b');  // itlow points to b
+        itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+        mymap.erase(itlow,itup);        // erases [itlow,itup)
+        // print content:
+        for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        {
+            t1.push_back(it->first);
+            t1.push_back(it->second);
+        }
+    }
+    {
+        ft::map<char,int> mymap;
+        ft::map<char,int>::iterator itlow,itup;
+
+        mymap['a']=20;
+        mymap['b']=40;
+        mymap['c']=60;
+        mymap['d']=80;
+        mymap['e']=100;
+
+        itlow=mymap.lower_bound ('b');  // itlow points to b
+        itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+        mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+        // print content:
+        for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        {
+            t2.push_back(it->first);
+            t2.push_back(it->second);
+        }
+    }
+    if(t1 == t2)
+        std::cout<<"\033[32mok\033[0m"<<std::endl;
+    else
+        std::cout<<"\033[31mko\033[0m"<<std::endl;
+    t1.clear();
+    t2.clear();
+        sleep(2);
+    //////////////////////////////////
+    std::cout<<"\033[32m equal_range \033[0m"<<std::endl;
+
+    {
+        std::map<char,int> mymap;
+
+        mymap['a']=10;
+        mymap['b']=20;
+        mymap['c']=30;
+
+        std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+        ret = mymap.equal_range('b');
+
+        // std::cout << "lower bound points to: ";
+        // std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+        // std::cout << "upper bound points to: ";
+        // std::cout << ret.second->first << " => " << ret.second->second << '\n';
+        t1.push_back(ret.first->first);
+        t1.push_back(ret.first->second);
+        t1.push_back(ret.second->first);
+        t1.push_back(ret.second->second);
+    }
+    {
+        std::map<char,int> mymap;
+
+        mymap['a']=10;
+        mymap['b']=20;
+        mymap['c']=30;
+
+        std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+        ret = mymap.equal_range('b');
+
+        // std::cout << "lower bound points to: ";
+        // std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+        // std::cout << "upper bound points to: ";
+        // std::cout << ret.second->first << " => " << ret.second->second << '\n';
+        t2.push_back(ret.first->first);
+        t2.push_back(ret.first->second);
+        t2.push_back(ret.second->first);
+        t2.push_back(ret.second->second);
+    }
+    if(t1 == t2)
+        std::cout<<"\033[32mok\033[0m"<<std::endl;
+    else
+        std::cout<<"\033[31mko\033[0m"<<std::endl;
+    t1.clear();
+    t2.clear();
+        sleep(2);
+    //////////////////////////////////
 
 }
+
 int main ()
 {
-  // ft_vector();
-  ft_map();
-//   ft::map<int,int>mp;
-//   mp.insert(ft::make_pair<int,int>(1,1));
-//   mp.insert(ft::make_pair<int,int>(2,1));
-//   mp.insert(ft::make_pair<int,int>(3,1));
-//   mp.insert(ft::make_pair<int,int>(4,1));
-//   mp.insert(ft::make_pair<int,int>(5,1));
-//   mp.insert(ft::make_pair<int,int>(6,1));
-//     mp.erase(6);
-//   mp.m_tree.printTree();
+//   ft_vector();
+//   ft_map();
+
+
+
+    ft::map<int,int> mymap;
+    mymap.insert(ft::make_pair<int,int>(12,12));
+    mymap.insert(ft::make_pair<int,int>(8,8));
+
+    mymap.insert(ft::make_pair<int,int>(15,15));
+    mymap.insert(ft::make_pair<int,int>(23,23));
+    ft::map<int,int>::iterator it = mymap.begin();
+
+    for (; it != mymap.end(); it++)
+    {
+        std::cout<<it->first<<std::endl;
+    }
+    
+    // mymap.insert(ft::make_pair<int,int>(9,9));
+    // mymap.insert(ft::make_pair<int,int>(1,1));
+    // mymap.insert(ft::make_pair<int,int>(10,10));
+    // mymap.insert(ft::make_pair<int,int>(13,13));
+    // mymap.erase(12);
+    // mymap.erase(15);
+    // mymap.m_tree.printTree();
+    // mymap.erase(8);
+    // mymap.erase(1);
+    // mymap.erase(9);
+    // mymap.erase(13);
+
+
+
+    // mymap.m_tree.printTree();
+
 
 
 }
