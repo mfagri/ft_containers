@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:52:30 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/27 21:11:28 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:37:29 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,15 +313,15 @@ class vector
         // x = *this;
         // *this = tmp;
         // std::swap(*this,x);////ssds
-        if(x != *this)
-        {
-            // std::swap(arr,x.arr);
-            // std::swap(m_size,x.m_size);
-            // std::swap(m_capacity,x.m_capacity);
-            vector tmp(x);
-            x = *this;
-            *this = tmp;
-        }
+        // if(x != *this)
+        // {
+            std::swap(arr,x.arr);
+            std::swap(m_size,x.m_size);
+            std::swap(m_capacity,x.m_capacity);
+            // vector tmp(x);
+            // x = *this;
+            // *this = tmp;
+        // }
 
         
     }

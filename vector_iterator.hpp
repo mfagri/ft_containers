@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:41:06 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/24 17:02:15 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:33:37 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ namespace ft
             public:
                 typedef T value_type;
                 typedef T* pointer;
+                typedef T* iterator_type;
                 typedef T& reference;
                 typedef std::ptrdiff_t difference_type;
                 typedef std::random_access_iterator_tag iterator_category;
-                // typedef T iterator_type;
                 
                 iterator(T *s = NULL)
                 {
@@ -115,14 +115,15 @@ namespace ft
                 {
                     return ptr[n];
                 }
-               bool operator < (const iterator& x) const{ return (ptr < x.ptr); }
+                bool operator < (const iterator& x) const{ return (ptr < x.ptr); }
 
 			    bool operator > (const iterator &x) const { return (ptr > x.ptr); }
 
 			    bool operator <= (const iterator &x) const { return (ptr <= x.ptr); }
 
 			    bool operator >= (const iterator &x) const { return (ptr >= x.ptr); }
-        };
+            } ;
+
          ////////////////////////////////// 
         template <class T>
         class iterator_traits {

@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/27 15:50:31 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:40:08 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <string>
+#include <map>
+#include <vector>
 #include "equal.hpp"
 #include "red_black_tree.hpp"
 
@@ -251,7 +253,7 @@ namespace ft
                 return _comp;
             }
             // ///////////////////////////////////////////////////////////////////////////////
-            mapped_type& operator[] (const key_type& k)
+            mapped_type& operator[] (const key_type& k) // map[10] = 5
             {
                 return (this->insert(value_type(k, mapped_type())).first->second);
             }
