@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:31:26 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/28 18:40:08 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/28 20:42:22 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ namespace ft
             typedef ft::RedBlackTree <key_type, value_type, value_compare, Alloc> Rep_type;
             allocator_type _alloc;
             Rep_type m_tree;
+            mapped_type a;
         public:
             typedef typename Rep_type::iterator iterator;
             typedef typename Rep_type::const_iterator const_iterator;
@@ -91,7 +92,7 @@ namespace ft
 			    }
 			    return *this;
             }
-             pair<iterator,bool> insert ( const value_type & val)
+            pair<iterator,bool> insert ( const value_type & val)
             {
                 return m_tree.add(val); 
             }
@@ -253,9 +254,16 @@ namespace ft
                 return _comp;
             }
             // ///////////////////////////////////////////////////////////////////////////////
-            mapped_type& operator[] (const key_type& k) // map[10] = 5
+            mapped_type& operator[] (const key_type& k) // map[100000]
             {
-                return (this->insert(value_type(k, mapped_type())).first->second);
+                // a = mapped_type();
+                // if(find(k) == end())
+                //     return a;
+                // return (this->insert(value_type(k, mapped_type())).first->second);
+                ft::pair<iterator,bool> b = m_tree.add(ft::make_pair(k,mapped_type()));
+                 
+
+                return b.first->second;
             }
             ///////////////////////////////////////////////////////////////////
             void erase (iterator position)

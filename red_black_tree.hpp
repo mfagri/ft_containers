@@ -6,7 +6,7 @@
 /*   By: mfagri <mfagri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:56:15 by mfagri            #+#    #+#             */
-/*   Updated: 2023/02/27 21:43:41 by mfagri           ###   ########.fr       */
+/*   Updated: 2023/02/28 20:47:48 by mfagri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,9 @@ class RedBlackTree {
         pair<iterator, bool> add(const T& data)
         {
             node n = alloc.allocate(1);
-            alloc.construct(n, data);
+            Node<T> tmp(data);
+            alloc.construct(n, tmp);
+
             n->left = TNULL;
             n->right = TNULL;
             n->parent = endn;
@@ -181,6 +183,7 @@ class RedBlackTree {
                 m_size = 1;
                 root->parent = endn;
                 endn->left = root;
+
                 return ft::make_pair(iterator(n), true);
             }
             else
@@ -217,7 +220,10 @@ class RedBlackTree {
             }
 
             m_size++;
+            // std::cout << "=> " << n->data.second << std::endl;
             tree_balance(n);
+            // std::cout << "============> " << n->data.second << std::endl;
+
             root->parent = endn;
                 endn->left = root;
             return ft::make_pair(iterator(n), true);
@@ -229,7 +235,7 @@ class RedBlackTree {
             a->color = cb;
             b->color = ca;
         }
-        void tree_balance(node& newn)
+        void tree_balance( node newn)
         {
             node u;
             while (newn->parent->color == 1)
